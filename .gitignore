@@ -234,3 +234,6 @@ _Pvt_Extensions
 .fake/
 
 ClientApp/package-lock.json
+
+# Added Docker environment file to ignore list
+.env
