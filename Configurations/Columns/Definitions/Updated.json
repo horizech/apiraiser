@@ -1,0 +1,12 @@
+{
+    "$schema": "../Schema.json",
+    "Name": "Updated",
+    "Columns": [
+        {"Name": "LastUpdatedOn", "Datatype": "DateTime"},
+        {"Name": "LastUpdatedBy", "Datatype": "Integer", "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Users"}
+    ],
+    "Descriptions": [
+        {"Name": "LastUpdatedOn", "Description": "Last Updated On"},
+        {"Name": "LastUpdatedBy", "Description": "Last Updated By"}
+    ]
+}

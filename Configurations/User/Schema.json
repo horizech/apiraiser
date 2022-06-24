@@ -1,0 +1,93 @@
+{
+    "title": "User Schema",
+    "type": "object",
+    "required": [
+        "JWT"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "JWT": {
+            "type": "object",
+            "required": [
+                "JWTExpirationTime", "JWTClaims"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "$schema": {
+                    "type": "string"
+                },
+                "JWTExpirationTime": {
+                    "type": "object",
+                    "description": "?: JWT Expiration Time",
+                    "required": [
+                        "Value", "TimeType"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "Value": {
+                            "type": "number",
+                            "description": "M: Value "
+                        },
+                        "TimeType": {
+                            "type": "string",
+                            "description": "M: Type",
+                            "enum": [
+                                "Seconds",
+                                "Minutes",
+                                "Hours",
+                                "Days",
+                                "Months",
+                                "Years"
+                            ]
+                        }
+                    }
+                },
+                "JWTClaims": {
+                    "type": "array",
+                    "description": "M: Claims to be included",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "Table", "ClaimType", "Column", "IncludeAs"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                            "Table": {
+                                "type": "string",
+                                "description": "M: Table Name"
+                            },
+                            "ClaimType": {
+                                "type": "string",
+                                "description": "M: Claim type",
+                                "enum": [
+                                    "Name",
+                                    "NameIdentifier",
+                                    "SerialNumber",
+                                    "Email",
+                                    "Role",
+                                    "Authentication"
+                                ]
+                            },
+                            "Column": {
+                                "type": "string",
+                                "description": "M: Columns Name"
+                            },
+                            "IncludeAs": {
+                                "type": "string",
+                                "description": "M: Include Each column as",
+                                "enum": [
+                                    "SingleValue",
+                                    "MultipleValues"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+}

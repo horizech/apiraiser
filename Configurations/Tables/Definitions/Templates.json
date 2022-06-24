@@ -1,0 +1,10 @@
+{
+    "$schema": "../Schema.json",
+    "Name": "Templates",
+    "AddAdditionalColumns": true,
+    "Columns": [
+        {"Name": "Name", "Datatype": "ShortText", "IsUnique": true, "IsRequired": true},
+        {"Name": "Description", "Datatype": "ShortText", "IsRequired": true},
+        {"Name": "Content", "Datatype": "LongText", "IsRequired": true}
+    ]
+}

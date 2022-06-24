@@ -1,0 +1,142 @@
+{
+    "title": "Tables Schema",
+    "type": "object",
+    "required": [
+        "Name", "Columns"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "Name": {
+            "type": "string",
+            "description": "M: Name of table"
+        },
+        "AddAdditionalColumns": {
+            "type": "boolean",
+            "description": "?: Include additional columns?"
+        },
+        "AddColumns": {
+            "type": "array",
+            "description": "?: Columns of table",
+            "items": {
+                "type": "string"
+            }
+        },
+        "Columns": {
+            "type": "array",
+            "description": "?: Columns of table",
+            "items": {
+                "type": "object",
+                "required": [
+                    "Name", "Datatype"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                    "Id": {
+                        "type": "number",
+                        "description": "M: Column Id"
+                    },
+                    "Name": {
+                        "type": "string",
+                        "description": "M: Column Name"
+                    },
+                    "Datatype": {
+                        "type": "string",
+                        "description": "M: Column Datatype",
+                        "enum": [
+                            "Integer",
+                            "IntegerArray",
+                            "Decimal",
+                            "Float",
+                            "Boolean",
+                            "BooleanArray",
+                            "DateTime",
+                            "Json",
+                            "JsonArray",
+                            "Money",
+                            "ShortText",
+                            "LongText",
+                            "Image"
+                        ]
+                    },
+                    "IsRequired": {
+                        "type": "boolean",
+                        "description": "?: Is Column value required (not nullable)?"
+                    },
+                    "IsUnique": {
+                        "type": "boolean",
+                        "description": "?: Is Column value unique?"
+                    },
+                    "IsForeignKey": {
+                        "type": "boolean",
+                        "description": "?: Is Column a foreign key?"
+                    },
+                    "ForeignSchema": {
+                        "type": "string",
+                        "description": "?: Schema of Foreign Table"
+                    },
+                    "ForeignTable": {
+                        "type": "string",
+                        "description": "M: Name of Foreign Table"
+                    },
+                    "ForeignName": {
+                        "type": "string",
+                        "description": "M: Column Name of Foreign Table"
+                    }
+
+                }
+            }
+        },
+        "DefaultRows": {
+            "type": "array",
+            "description": "?: Any rows to add while creating table",
+            "items": {
+                "type": "object",
+                "description": "?: Include additional columns?",
+                "additionalProperties": true
+            }
+        },
+        "AddForeignTables": {
+            "type": "array",
+            "description": "?: List of tables to include with the result",
+            "items": {
+                "type": "object",
+                "description": "?: Table",
+                "additionalProperties": false,
+                "required": [
+                    "Name", "ForeignColumns"
+                ],
+                "properties": {
+                    "Name": {
+                        "type": "string",
+                        "description": "M: Column Name"
+                    },
+                    "ForeignColumns": {
+                        "type": "array",
+                        "description": "?: List of tables to include with the result",
+                        "items": {
+                            "type": "object",
+                            "description": "?: Table",
+                            "additionalProperties": false,
+                            "required": [
+                                "ForeignName", "OutputName"
+                            ],
+                            "properties": {
+                                "ForeignName": {
+                                    "type": "string",
+                                    "description": "M: Foreign Column Name"
+                                },
+                                "OutputName": {
+                                    "type": "string",
+                                    "description": "M: Change Foreign Column Name in Output"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

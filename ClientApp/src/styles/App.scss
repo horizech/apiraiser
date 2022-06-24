@@ -1,0 +1,23 @@
+@import "../themes/apiraiser-variables.scss";
+
+.alert-container {
+  position: absolute;
+  z-index: 10000;
+  bottom: 64px;
+  left: 64px;
+}
+
+body {
+  background: $background;
+}
+
+/* @font-face{
+    font-family:captain-icon;
+    src:  local('captain-icon'), url(../assets/fonts/captain-icon/captain-icon.eot);
+    src:  local('captain-icon'), url(../assets/fonts/captain-icon/captain-icon.eot) format("embedded-opentype"),
+    local('captain-icon'), url(../assets/fonts/captain-icon/captain-icon.woff) format("woff"),
+    local('captain-icon'), url(../assets/fonts/captain-icon/captain-icon.ttf) format("truetype");
+    
+    font-weight:normal;
+    font-style:normal
+} */

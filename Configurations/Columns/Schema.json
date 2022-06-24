@@ -1,0 +1,99 @@
+{
+    "title": "Columns Schema",
+    "type": "object",
+    "required": [
+        "Name", "Columns"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "Name": {
+            "type": "string",
+            "description": "M: Name of table"
+        },
+        "Columns": {
+            "type": "array",
+            "description": "?: Columns of table",
+            "items": {
+                "type": "object",
+                "required": [
+                    "Name", "Datatype"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                    "Name": {
+                        "type": "string",
+                        "description": "M: Column Name"
+                    },
+                    "Datatype": {
+                        "type": "string",
+                        "description": "M: Column Datatype",
+                        "enum": [
+                            "Integer",
+                            "IntegerArray",
+                            "Decimal",
+                            "Float",
+                            "Boolean",
+                            "BooleanArray",
+                            "DateTime",
+                            "Json",
+                            "JsonArray",
+                            "Money",
+                            "ShortText",
+                            "LongText",
+                            "Image"
+                        ]
+                    },
+                    "IsRequired": {
+                        "type": "boolean",
+                        "description": "?: Is Column value required (not nullable)?"
+                    },
+                    "IsUnique": {
+                        "type": "boolean",
+                        "description": "?: Is Column value unique?"
+                    },
+                    "IsForeignKey": {
+                        "type": "boolean",
+                        "description": "?: Is Column a foreign key?"
+                    },
+                    "ForeignSchema": {
+                        "type": "string",
+                        "description": "?: Schema of Foreign Table"
+                    },
+                    "ForeignTable": {
+                        "type": "string",
+                        "description": "M: Name of Foreign Table"
+                    },
+                    "ForeignName": {
+                        "type": "string",
+                        "description": "M: Column Name of Foreign Table"
+                    }
+
+                }
+            }
+        },
+        "Descriptions": {
+            "type": "array",
+            "description": "?: Description of columns",
+            "items": {
+                "type": "object",
+                "required": [
+                    "Name", "Description"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                    "Name": {
+                        "type": "string",
+                        "description": "M: Column Name"
+                    },
+                    "Description": {
+                        "type": "string",
+                        "description": "M: Column Description"
+                    }
+                }
+            }
+        }
+    }
+}

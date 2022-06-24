@@ -1,0 +1,43 @@
+{
+    "$schema": "../Schema.json",
+    "Name": "RolePermissionGroupMappings",
+    "AddAdditionalColumns": true,
+    "Columns": [
+        {"Name": "Role", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Roles"},
+        {"Name": "PermissionGroup", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "PermissionGroups"},
+        {"Name": "UserAccessLevel", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "UserAccessLevels"},
+        {"Name": "IsSystem", "Datatype": "Boolean", "IsRequired": true}
+    ],
+    "DefaultRows": [
+        {"Role": 1, "PermissionGroup": 1, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 1, "PermissionGroup": 3, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 1, "PermissionGroup": 5, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 1, "PermissionGroup": 7, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 1, "PermissionGroup": 9, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 1, "PermissionGroup": 11, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 1, "PermissionGroup": 13, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 1, "PermissionGroup": 15, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 1, "PermissionGroup": 17, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 1, "PermissionGroup": 19, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 1, "PermissionGroup": 21, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 1, "PermissionGroup": 23, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 1, "PermissionGroup": 25, "UserAccessLevel": 1, "IsSystem": true},
+        
+        {"Role": 2, "PermissionGroup": 2, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 2, "PermissionGroup": 4, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 2, "PermissionGroup": 6, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 2, "PermissionGroup": 8, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 2, "PermissionGroup": 10, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 2, "PermissionGroup": 12, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 2, "PermissionGroup": 14, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 2, "PermissionGroup": 15, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 2, "PermissionGroup": 17, "UserAccessLevel": 1, "IsSystem": true},        
+        {"Role": 2, "PermissionGroup": 20, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 2, "PermissionGroup": 22, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 2, "PermissionGroup": 24, "UserAccessLevel": 1, "IsSystem": true},
+        {"Role": 2, "PermissionGroup": 26, "UserAccessLevel": 1, "IsSystem": true},
+        
+        {"Role": 3, "PermissionGroup": 16, "UserAccessLevel": 2, "IsSystem": true},
+        {"Role": 3, "PermissionGroup": 17, "UserAccessLevel": 2, "IsSystem": true}
+    ]
+}

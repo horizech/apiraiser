@@ -1,0 +1,23 @@
+{
+    "$schema": "../Schema.json",
+    "Name": "Users",
+    "AddAdditionalColumns": false,
+    "Columns": [
+        {"Name": "Username", "Datatype": "ShortText", "IsUnique": true, "IsRequired": true},
+        {"Name": "Email", "Datatype": "ShortText"},
+        {"Name": "Fullname", "Datatype": "ShortText"},
+        {"Name": "Password", "Datatype": "ShortText"},
+        {"Name": "CreatedOn", "Datatype": "DateTime", "IsRequired": true},
+        {"Name": "LastUpdatedOn", "Datatype": "DateTime"}    
+    ],
+    "IncludeTables":[
+        {
+            "Table": "Roles",
+            "Key": "Id"
+        },
+        {
+            "Table": "Permissions",
+            "Key": "Id"
+        }
+    ]
+}

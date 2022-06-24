@@ -1,0 +1,40 @@
+.configuration-page {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .configuration-button {
+        padding: 32px;
+        cursor: pointer;
+        
+        div {
+            background-color: white !important;
+            width: 160px;
+            height: 160px;
+        }
+        
+        i {
+            color: #7a77b9;
+        }
+        
+        p {
+            margin-top: 24px;
+            color: #7a77b9;
+            font-size: 0.8rem;
+        }
+    }
+    
+    .configuration-button:hover {
+        div {
+            background-color: #7a77b9 !important;
+        }
+    
+        i {
+            color: white;
+        }
+        
+        p {
+            color: white;
+        }
+    }
+}

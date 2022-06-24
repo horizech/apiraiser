@@ -1,0 +1,24 @@
+{
+    "Info":
+    {
+        "Users": "Users",
+        "UserAccessLevels": "UserAccessLevels",
+        "Roles": "Roles",
+        "UserRoles": "UserRoles",
+        "Permissions": "Permissions",
+        "PermissionGroups": "PermissionGroups",
+        "PermissionGroupMappings": "PermissionGroupMappings",
+        "RolePermissionGroupMappings": "RolePermissionGroupMappings",
+        "ForeignData": "ForeignData",
+        "InsertionOverrides": "InsertionOverrides",
+        "Settings": "Settings",
+        "MediaSources": "MediaSources",
+        "Media": "Media",
+        "Templates": "Templates",
+        "Categories": "Categories",
+        "Pages": "Pages",
+        "PageRoles": "PageRoles",
+        "Posts": "Posts",
+        "Translations": "Translations"
+    }
+}

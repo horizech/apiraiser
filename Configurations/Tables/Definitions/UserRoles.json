@@ -1,0 +1,12 @@
+{
+    "$schema": "../Schema.json",
+    "Name": "UserRoles",
+    "AddAdditionalColumns": true,
+    "Columns": [
+        {"Name": "User", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Users"},
+        {"Name": "Role", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Roles"}
+    ],
+    "DefaultRows": [
+        {"User": 1, "Role": 1}
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "$schema": "../Schema.json",
+    "Name": "ForeignData",
+    "AddAdditionalColumns": true,
+    "Columns": [
+        {"Name": "Schema", "Datatype": "ShortText", "IsRequired": true},
+        {"Name": "Table", "Datatype": "ShortText", "IsRequired": true},
+        {"Name": "Column", "Datatype": "ShortText", "IsRequired": true},
+        {"Name": "ForeignName", "Datatype": "ShortText", "IsRequired": true},
+        {"Name": "OutputName", "Datatype": "ShortText", "IsRequired": true}
+    ],
+    "DefaultRows": [
+        {"Id": 1, "Schema": "Apiraiser", "Table": "Roles", "Column": "CreatedBy", "ForeignName": "Username", "OutputName": "CreatedByName"},
+        {"Id": 2, "Schema": "Apiraiser", "Table": "Roles", "Column": "CreatedBy", "ForeignName": "Email", "OutputName": "CreatedByEmail"},
+        {"Id": 3, "Schema": "Apiraiser", "Table": "Roles", "Column": "LastUpdatedBy", "ForeignName": "Username", "OutputName": "LastUpdatedByName"}
+    ]
+}

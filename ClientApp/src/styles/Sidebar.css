@@ -1,0 +1,10 @@
+.sidebar-header{
+    padding: 17px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

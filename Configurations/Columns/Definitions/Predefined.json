@@ -1,0 +1,18 @@
+{
+    "$schema": "../Schema.json",
+    "Name": "Predefined",
+    "Columns": [
+        {"Name": "Id", "Datatype": "Integer", "IsRequired": true},
+        {"Name": "CreatedOn", "Datatype": "DateTime", "IsRequired": true},
+        {"Name": "CreatedBy", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Users"},
+        {"Name": "LastUpdatedOn", "Datatype": "DateTime"},
+        {"Name": "LastUpdatedBy", "Datatype": "Integer", "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Users"}
+    ],
+    "Descriptions": [
+        {"Name": "Id", "Description": "Id"},
+        {"Name": "CreatedOn", "Description": "Created On"},
+        {"Name": "CreatedBy", "Description": "Created By"},
+        {"Name": "LastUpdatedOn", "Description": "Last Updated On"},
+        {"Name": "LastUpdatedBy", "Description": "Last Updated By"}
+    ]
+}

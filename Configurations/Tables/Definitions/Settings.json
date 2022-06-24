@@ -1,0 +1,13 @@
+{
+    "$schema": "../Schema.json",
+    "Name": "Settings",
+    "AddAdditionalColumns": true,
+    "Columns": [
+        {"Name": "Key", "Datatype": "ShortText", "IsUnique": true, "IsRequired": true},
+        {"Name": "Value", "Datatype": "ShortText", "IsRequired": false}
+    ],
+    "DefaultRows": [
+        {"Key": "DefaultRoleOnSignup", "Value": "3"},
+        {"Key": "DefaultMediaSource", "Value": "1"}
+    ]
+}

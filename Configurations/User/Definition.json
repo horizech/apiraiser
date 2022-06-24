@@ -1,0 +1,47 @@
+{
+    "$schema": "./Schema.json",
+    "JWT": {
+        "JWTExpirationTime": {
+            "Value": 7,
+            "TimeType": "Days"
+        },
+        "JWTClaims": [
+            {
+                "Table": "Users",
+                "Column": "Username",
+                "ClaimType": "Name",
+                "IncludeAs": "SingleValue"
+            },
+            {
+                "Table": "Users",
+                "Column": "Fullname",
+                "ClaimType": "NameIdentifier",
+                "IncludeAs": "SingleValue"
+            },
+            {
+                "Table": "Users",
+                "Column": "Id",
+                "ClaimType": "SerialNumber",
+                "IncludeAs": "SingleValue"
+            },
+            {
+                "Table": "Users",
+                "Column": "Email",
+                "ClaimType": "Email",
+                "IncludeAs": "SingleValue"
+            },
+            {
+                "Table": "Roles",
+                "Column": "Id",
+                "ClaimType": "Role",
+                "IncludeAs": "SingleValue"
+            },
+            {
+                "Table": "RolePermissionGroupMappings",
+                "Column": "PermissionGroup",
+                "ClaimType": "Authentication",
+                "IncludeAs": "MultipleValues"
+            }
+        ]
+    }
+}

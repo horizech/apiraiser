@@ -1,0 +1,9 @@
+{
+    "$schema": "../Schema.json",
+    "Name": "PageRoles",
+    "AddAdditionalColumns": true,
+    "Columns": [
+        {"Name": "Page", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Pages"},
+        {"Name": "Role", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Roles"}
+    ]
+}
