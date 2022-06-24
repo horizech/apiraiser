@@ -1,0 +1,24 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: "3.4"
+
+services:
+  apiraiser:
+    image: horizech/apiraiser:latest
+    container_name: apiraiser
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 5000:5000
+      - 5001:5001
+    environment:
+      - APIRAISER_DATABASE_HOST=${APIRAISER_DATABASE_HOST}
+      - APIRAISER_DATABASE_NAME=${APIRAISER_DATABASE_NAME}
+      - APIRAISER_DATABASE_PASSWORD=${APIRAISER_DATABASE_PASSWORD}
+      - APIRAISER_DATABASE_PORT=${APIRAISER_DATABASE_PORT}
+      - APIRAISER_DATABASE_TYPE=${APIRAISER_DATABASE_TYPE}
+      - APIRAISER_DATABASE_USERNAME=${APIRAISER_DATABASE_USERNAME}
+      - APIRAISER_JWT_TOKEN_ISSUER=${APIRAISER_JWT_TOKEN_ISSUER}
+      - APIRAISER_JWT_TOKEN_SECRET_KEY=${APIRAISER_JWT_TOKEN_SECRET_KEY}
+      - APIRAISER_LOGGING_LEVEL=${APIRAISER_LOGGING_LEVEL}
