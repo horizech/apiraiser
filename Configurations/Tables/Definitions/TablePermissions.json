@@ -1,0 +1,14 @@
+{
+    "$schema": "../Schema.json",
+    "Name": "TablePermissions",
+    "AddAdditionalColumns": true,
+    "Columns": [
+        {"Name": "Table", "Datatype": "ShortText", "IsRequired": true},
+        {"Name": "Role", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Roles"},
+        {"Name": "UserAccessLevel", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "UserAccessLevels"},
+        {"Name": "CanRead", "Datatype": "Boolean", "IsRequired": true},
+        {"Name": "CanWrite", "Datatype": "Boolean", "IsRequired": true},
+        {"Name": "CanUpdate", "Datatype": "Boolean", "IsRequired": true},
+        {"Name": "CanDelete", "Datatype": "Boolean", "IsRequired": true}
+    ]
+}
