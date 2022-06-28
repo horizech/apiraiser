@@ -50,7 +50,7 @@ namespace Apiraiser.Controllers
                 return APIResult.GetSimpleFailureResult("password is not valid!");
             }
 
-            return await ServiceManager.Instance.GetService<ApiraiserService>().Initialize(loginDetails.Username, loginDetails.Password);
+            return await ServiceManager.Instance.GetService<ApiraiserService>().Initialize(loginDetails.Username, loginDetails.Email, loginDetails.Password);
         }
 
         [ApiraiserAuthorized]

@@ -47,7 +47,7 @@ namespace Apiraiser.Services
 
         }
 
-        public async Task<APIResult> Initialize(string username, string password)
+        public async Task<APIResult> Initialize(string username, string email, string password)
         {
             List<string> tables = await ServiceManager
                 .Instance
@@ -135,6 +135,7 @@ namespace Apiraiser.Services
                                     new Dictionary<string, object>
                                     {
                                         { "Username", username },
+                                        { "Email", email },
                                         { "Password", Hash.Create(password) },
                                         { "CreatedOn", DateTime.UtcNow}
                                     }
