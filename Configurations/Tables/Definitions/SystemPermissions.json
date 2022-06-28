@@ -1,0 +1,15 @@
+{
+    "$schema": "../Schema.json",
+    "Name": "SystemPermissions",
+    "AddAdditionalColumns": true,
+    "Columns": [
+        {"Name": "Role", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Roles"},
+        {"Name": "CanCreateTables", "Datatype": "Boolean", "IsRequired": true}
+    ],
+    "DefaultRows": [
+        {"Role": 1, "CanCreateTables": true},
+        {"Role": 2, "CanCreateTables": false},
+        {"Role": 3, "CanCreateTables": false},
+        {"Role": 4, "CanCreateTables": false}
+    ]
+}
