@@ -37,9 +37,13 @@ const UserPage = ({ user, loggedIn }) => {
             </ListGroup>
             </Collapsible>
             
-            <Collapsible style={{marginTop: "32px"}} icon="user-tag" title=" User Role" subTitle="">
+            <Collapsible style={{marginTop: "32px"}} icon="user-tag" title=" User Roles" subTitle="">
                 <ListGroup variant="flush">
-                    <ListGroupItem>{user.Role.Description}</ListGroupItem>
+                {
+                    user && user.Roles && user.Roles.length > 0 && user.Roles.map( role => (
+                        <ListGroupItem key={'role_' + role.Id}>{role.Description}</ListGroupItem>
+                    ))
+                }    
                 </ListGroup>
             </Collapsible>
             <Collapsible style={{marginTop: "32px"}}  icon="user" title=" User Permissions" subTitle="">

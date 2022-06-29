@@ -6,6 +6,7 @@
 
 - Added Table Permissions
 - Added System Permissions
+- Added multiple User Roles
 
 ### Changed:
 

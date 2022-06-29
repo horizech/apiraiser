@@ -73,17 +73,17 @@ namespace Apiraiser.Filters
             }
             int userId = Int32.Parse(userIdString);
 
-            string roleIdString = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
-            if (string.IsNullOrEmpty(roleIdString))
+            string roleIdsString = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
+            if (string.IsNullOrEmpty(roleIdsString))
             {
                 context.Result = new ForbidResult(); return;
             }
-            int roleId = Int32.Parse(roleIdString);
+            List<int> roleIds = roleIdsString.Split(",").Select(x => Int32.Parse(x)).ToList();
 
             APIResult allTablePermissions = await ServiceManager.Instance.GetService<TablePermissionsService>().GetTablePermissions();
 
             List<Dictionary<string, object>> tablePermissions = ((List<Dictionary<string, object>>)allTablePermissions.Data)
-                .Where(x => schema == x["Schema"].ToString() && table == x["Table"].ToString() && roleId == Int32.Parse(x["Role"].ToString()))
+                .Where(x => schema == x["Schema"].ToString() && table == x["Table"].ToString() && roleIds.Contains((int)x["Role"]))
                 .ToList();
 
             if (tablePermissions.Count == 0)
@@ -98,7 +98,9 @@ namespace Apiraiser.Filters
                 context.Result = new ForbidResult(); return;
             }
 
-            if (Int32.Parse(tablePermissions.First()["UserAccessLevel"].ToString()) != 1)
+            int minUserLevel = tablePermissions.Where(x => bool.Parse(x[permission].ToString()) == true).Select(x => (int)x["UserAccessLevel"]).ToList().Min();
+
+            if (minUserLevel != 1)
             {
                 if (!string.IsNullOrEmpty(checkPropertyName))
                 {

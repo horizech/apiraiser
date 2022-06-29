@@ -30,15 +30,15 @@ namespace Apiraiser.Controllers
         }
 
         [TablePermission(Schemas.System, "Users", "CanRead")]
-        [HttpGet("GetUserRole/{userId}")]
-        public async Task<APIResult> GetUserRole(int userId)
+        [HttpGet("GetUserRoles/{userId}")]
+        public async Task<APIResult> GetUserRoles(int userId)
         {
             if (userId < 1)
             {
                 return APIResult.GetSimpleFailureResult("User Id is not vaild!");
             }
 
-            return await ServiceManager.Instance.GetService<UsersService>().GetUserRole(userId);
+            return await ServiceManager.Instance.GetService<UsersService>().GetUserRoles(userId);
         }
 
         [TablePermission(Schemas.System, "Users", "CanRead")]

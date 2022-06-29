@@ -40,17 +40,17 @@ namespace Apiraiser.Filters
             }
 
 
-            string roleIdString = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
-            if (string.IsNullOrEmpty(roleIdString))
+            string roleIdsString = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
+            if (string.IsNullOrEmpty(roleIdsString))
             {
                 context.Result = new ForbidResult(); return;
             }
-            int roleId = Int32.Parse(roleIdString);
+            List<int> roleIds = roleIdsString.Split(",").Select(x => Int32.Parse(x)).ToList();
 
             APIResult allSystemPermissions = await ServiceManager.Instance.GetService<SystemPermissionsService>().GetSystemPermissions();
 
             List<Dictionary<string, object>> systemPermissions = ((List<Dictionary<string, object>>)allSystemPermissions.Data)
-                .Where(x => roleId == Int32.Parse(x["Role"].ToString()))
+                .Where(x => roleIds.Contains((int)x["Role"]))
                 .ToList();
 
             if (systemPermissions.Count == 0)

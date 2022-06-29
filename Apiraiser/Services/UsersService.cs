@@ -21,7 +21,7 @@ namespace Apiraiser.Services
         {
         }
 
-        public async Task<APIResult> GetUserRole(int Id)
+        public async Task<APIResult> GetUserRoles(int Id)
         {
             try
             {
@@ -29,52 +29,29 @@ namespace Apiraiser.Services
                     .CreateDesigner(schema: Schemas.System, table: TableNames.UserRoles.ToString())
                     .WhereEquals("User", Id)
                     .RunSelectQuery();
+                List<int> userRoleIds = userRoles.Select(x => (int)x["Role"]).ToList();
+
 
                 if ((userRoles?.Count ?? 0) > 0)
                 {
-                    if ((userRoles[0]["Role"]?.ToString().Length ?? 0) > 0)
+                    APIResult rolesResult = await ServiceManager.Instance.GetService<RolesService>().GetRoles();
+                    List<Dictionary<string, object>> roles = ((List<Dictionary<string, object>>)rolesResult.Data).Where(x => userRoleIds.Contains((int)x["Id"])).ToList();
+
+                    if (roles.Count > 0)
                     {
-                        APIResult rolesResult = await ServiceManager.Instance.GetService<RolesService>().GetRoles();
-
-                        List<Dictionary<string, object>> roles = ((List<Dictionary<string, object>>)rolesResult.Data).Where(x => (int)x["Id"] == (int)userRoles[0]["Role"]).ToList();
-
-                        if ((roles?.Count ?? 0) > 0)
+                        return new APIResult()
                         {
-                            if ((roles[0]["Name"]?.ToString().Length ?? 0) > 0)
-                            {
-                                return new APIResult()
-                                {
-                                    Success = true,
-                                    Message = "Role found successfully!",
-                                    Data = roles[0]
-                                };
-                            }
-                            else
-                            {
-                                return new APIResult()
-                                {
-                                    Success = false,
-                                    Message = "Role not found!",
-                                    Data = null
-                                };
-                            }
-                        }
-                        else
-                        {
-                            return new APIResult()
-                            {
-                                Success = false,
-                                Message = "User not found!",
-                                Data = null
-                            };
-                        }
+                            Success = true,
+                            Message = "Roles found successfully!",
+                            Data = roles
+                        };
                     }
                     else
                     {
                         return new APIResult()
                         {
                             Success = false,
-                            Message = "Role not found!",
+                            Message = "Roles not found!",
                             Data = null
                         };
                     }
