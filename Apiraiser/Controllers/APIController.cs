@@ -39,10 +39,9 @@ namespace Apiraiser.Controllers
         }
 
 #nullable enable
-        [ApiraiserAuthorized]
-        [ApiraiserUserAccessLevel("CreatedBy")]
-        [HttpGet("{table}")]
         [Authorize]
+        [TablePermission(Schemas.Application, "", "CanRead", "CreatedBy")]
+        [HttpGet("{table}")]
         public async Task<APIResult> GetRows(string table, [FromQuery] int? limit, [FromQuery] int? offset, [FromQuery] string? orderBy, [FromQuery] string? orderDescendingBy, [FromQuery] string? groupBy, int CreatedBy = 0, int LastUpdatedBy = 0)
         {
             if (table == null || table.Count() == 0)
@@ -104,10 +103,9 @@ namespace Apiraiser.Controllers
         }
 #nullable disable
 
-        [ApiraiserAuthorized]
-        [ApiraiserUserAccessLevel("CreatedBy")]
-        [HttpGet("{table}/{id}")]
         [Authorize]
+        [TablePermission(Schemas.Application, "", "CanRead", "CreatedBy")]
+        [HttpGet("{table}/{id}")]
         public async Task<APIResult> GetRow(string table, int id, int CreatedBy = 0, int LastUpdatedBy = 0)
         {
             if (table == null || table.Count() == 0)
@@ -171,8 +169,8 @@ namespace Apiraiser.Controllers
             return await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(Schemas.Application, table, parameters);
         }
 
-        [ApiraiserAuthorized]
-        [ApiraiserUserAccessLevel(insertPropertyName: "data.CreatedBy")]
+        [Authorize]
+        [TablePermission(Schemas.Application, "", "CanWrite", insertPropertyName: "data.CreatedBy")]
         [HttpPost("{table}")]
         public async Task<APIResult> InsertRow(string table, Dictionary<string, object> data)
         {
@@ -201,8 +199,8 @@ namespace Apiraiser.Controllers
             return await ServiceManager.Instance.GetService<APIService>().InsertRow(Schemas.Application, table, data);
         }
 
-        [ApiraiserAuthorized]
-        [ApiraiserUserAccessLevel("CreatedBy", updatePropertyName: "data.LastUpdatedBy")]
+        [Authorize]
+        [TablePermission(Schemas.Application, "", "CanUpdate", "CreatedBy", updatePropertyName: "data.LastUpdatedBy")]
         [HttpPut("{table}/{id}")]
         public async Task<APIResult> UpdateRow(string table, int id, Dictionary<string, object> data, int CreatedBy = 0, int LastUpdatedBy = 0)
         {
@@ -281,8 +279,8 @@ namespace Apiraiser.Controllers
         }
 
 
-        [ApiraiserAuthorized]
-        [ApiraiserUserAccessLevel("CreatedBy")]
+        [Authorize]
+        [TablePermission(Schemas.Application, "", "CanDelete", "CreatedBy")]
         [HttpDelete("{table}/{id}")]
         public async Task<APIResult> DeleteRow(string table, int id, int CreatedBy = 0, int LastUpdatedBy = 0)
         {

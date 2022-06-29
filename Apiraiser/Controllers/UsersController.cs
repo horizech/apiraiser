@@ -29,7 +29,7 @@ namespace Apiraiser.Controllers
             _logger = logger;
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Users", "CanRead")]
         [HttpGet("GetUserRole/{userId}")]
         public async Task<APIResult> GetUserRole(int userId)
         {
@@ -41,19 +41,7 @@ namespace Apiraiser.Controllers
             return await ServiceManager.Instance.GetService<UsersService>().GetUserRole(userId);
         }
 
-        [ApiraiserAuthorized]
-        [HttpGet("GetUserPermissions/{userId}")]
-        public async Task<APIResult> GetUserPermissions(int userId)
-        {
-            if (userId < 1)
-            {
-                return APIResult.GetSimpleFailureResult("User Id is not vaild!");
-            }
-
-            return await ServiceManager.Instance.GetService<UsersService>().GetUserPermissions(userId);
-        }
-
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Users", "CanRead")]
         [HttpGet("GetUser/{Id}")]
         public async Task<APIResult> GetUser(int Id)
         {
@@ -61,7 +49,7 @@ namespace Apiraiser.Controllers
 
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Users", "CanRead")]
         [HttpGet("GetUsers")]
         public async Task<APIResult> GetUsers()
         {
@@ -69,7 +57,7 @@ namespace Apiraiser.Controllers
 
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Users", "CanWrite")]
         [HttpPost("AddUser")]
         public async Task<APIResult> AddUser(SignupRequest user)
         {
@@ -87,7 +75,7 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Users", "CanUpdate")]
         [HttpPut("UpdateUser")]
         public async Task<APIResult> UpdateUser(int Id, Dictionary<string, object> data)
         {
@@ -141,7 +129,7 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Users", "CanDelete")]
         [HttpDelete("DeleteUser")]
         public async Task<APIResult> DeleteUser(int Id)
         {

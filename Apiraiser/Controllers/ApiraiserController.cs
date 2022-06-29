@@ -53,7 +53,6 @@ namespace Apiraiser.Controllers
             return await ServiceManager.Instance.GetService<ApiraiserService>().Initialize(loginDetails.Username, loginDetails.Email, loginDetails.Password);
         }
 
-        [ApiraiserAuthorized]
         [HttpGet("GetAllActions")]
         public APIResult GetAllActions()
         {
@@ -75,23 +74,6 @@ namespace Apiraiser.Controllers
                 Message = "Actions loaded successfully!"
             };
         }
-
-        [ApiraiserAuthorized]
-        [HttpGet("GetTablesList")]
-        [Authorize]
-        public async Task<APIResult> GetTablesList()
-        {
-            return await ServiceManager.Instance.GetService<TableService>().GetTablesList(Schemas.System);
-        }
-
-        [ApiraiserAuthorized]
-        [HttpGet("GetTableColumns")]
-        [Authorize]
-        public async Task<APIResult> GetTableColumns(string table)
-        {
-            return await ServiceManager.Instance.GetService<TableService>().GetTableColumns(Schemas.System, table);
-        }
-
 
         [HttpGet("GetInfo")]
         public APIResult GetInfo()
