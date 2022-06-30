@@ -71,11 +71,11 @@ namespace Apiraiser.Services
             };
         }
 
-        public async Task<APIResult> UpdateRole(string name, Dictionary<string, object> data)
+        public async Task<APIResult> UpdateRole(int id, Dictionary<string, object> data)
         {
             bool result = await QueryDesigner
                 .CreateDesigner(schema: Schemas.System, table: TableNames.Roles.ToString())
-                .WhereEquals("Name", name)
+                .WhereEquals("Id", id)
                 .AddRow(data)
                 .RunUpdateQuery();
 
@@ -89,11 +89,11 @@ namespace Apiraiser.Services
             };
         }
 
-        public async Task<APIResult> DeleteRole(string name)
+        public async Task<APIResult> DeleteRole(int id)
         {
             bool result = await QueryDesigner
                 .CreateDesigner(schema: Schemas.System, table: TableNames.Roles.ToString())
-                .WhereEquals("Name", name)
+                .WhereEquals("Id", id)
                 .RunDeleteQuery();
 
             ServiceManager.Instance.GetService<MemoryCacheService>().Remove("Roles");

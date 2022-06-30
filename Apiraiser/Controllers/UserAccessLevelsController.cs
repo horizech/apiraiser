@@ -96,7 +96,7 @@ namespace Apiraiser.Controllers
 
         [TablePermission(Schemas.System, "UserAccessLevels", "CanUpdate")]
         [HttpPut("UpdateUserAccessLevel")]
-        public async Task<APIResult> UpdateUserAccessLevel(string name, Dictionary<string, object> data)
+        public async Task<APIResult> UpdateUserAccessLevel(int id, Dictionary<string, object> data)
         {
             try
             {
@@ -120,7 +120,7 @@ namespace Apiraiser.Controllers
 
                 try
                 {
-                    APIResult result = await ServiceManager.Instance.GetService<UserAccessLevelsService>().UpdateUserAccessLevel(name, data);
+                    APIResult result = await ServiceManager.Instance.GetService<UserAccessLevelsService>().UpdateUserAccessLevel(id, data);
                     return result;
                 }
                 catch (Exception e)
@@ -150,13 +150,13 @@ namespace Apiraiser.Controllers
 
         [TablePermission(Schemas.System, "UserAccessLevels", "CanDelete")]
         [HttpDelete("DeleteUserAccessLevel")]
-        public async Task<APIResult> DeleteUserAccessLevel(string name)
+        public async Task<APIResult> DeleteUserAccessLevel(int id)
         {
             try
             {
                 try
                 {
-                    APIResult result = await ServiceManager.Instance.GetService<UserAccessLevelsService>().DeleteUserAccessLevel(name);
+                    APIResult result = await ServiceManager.Instance.GetService<UserAccessLevelsService>().DeleteUserAccessLevel(id);
                     return result;
                 }
                 catch (Exception e)
