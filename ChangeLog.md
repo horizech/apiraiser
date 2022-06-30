@@ -6,8 +6,6 @@
 
 ### Changed:
 
-- Use Ids instead names when updating or deleting Roles, TablePermissions, SystemPermissions and UserAccessLevels.
-
 ### Deprecated:
 
 ### Removed:
