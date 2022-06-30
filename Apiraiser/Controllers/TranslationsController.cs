@@ -29,14 +29,14 @@ namespace Apiraiser.Controllers
             _logger = logger;
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Translations", "CanRead")]
         [HttpGet("GetTranslations")]
         public async Task<APIResult> GetTranslations()
         {
             return await ServiceManager.Instance.GetService<TranslationsService>().GetTranslations();
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Translations", "CanWrite")]
         [HttpPost("AddTranslation")]
         public async Task<APIResult> AddTranslation(Dictionary<string, object> data)
         {
@@ -93,7 +93,7 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Translations", "CanUpdate")]
         [HttpPut("UpdateTranslation")]
         public async Task<APIResult> UpdateTranslation(int id, Dictionary<string, object> data)
         {
@@ -147,7 +147,7 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Translations", "CanDelete")]
         [HttpDelete("DeleteTranslation")]
         public async Task<APIResult> DeleteTranslation(int id)
         {

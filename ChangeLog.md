@@ -4,6 +4,10 @@
 
 ### Added:
 
+- Added Table Permissions
+- Added System Permissions
+- Added multiple User Roles
+
 ### Changed:
 
 ### Deprecated:
@@ -11,6 +15,8 @@
 ### Removed:
 
 ### Fixed:
+
+- Fixed email not saving in Initialize
 
 ### Security:
 

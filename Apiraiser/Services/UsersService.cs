@@ -21,7 +21,7 @@ namespace Apiraiser.Services
         {
         }
 
-        public async Task<APIResult> GetUserRole(int Id)
+        public async Task<APIResult> GetUserRoles(int Id)
         {
             try
             {
@@ -29,52 +29,29 @@ namespace Apiraiser.Services
                     .CreateDesigner(schema: Schemas.System, table: TableNames.UserRoles.ToString())
                     .WhereEquals("User", Id)
                     .RunSelectQuery();
+                List<int> userRoleIds = userRoles.Select(x => (int)x["Role"]).ToList();
+
 
                 if ((userRoles?.Count ?? 0) > 0)
                 {
-                    if ((userRoles[0]["Role"]?.ToString().Length ?? 0) > 0)
+                    APIResult rolesResult = await ServiceManager.Instance.GetService<RolesService>().GetRoles();
+                    List<Dictionary<string, object>> roles = ((List<Dictionary<string, object>>)rolesResult.Data).Where(x => userRoleIds.Contains((int)x["Id"])).ToList();
+
+                    if (roles.Count > 0)
                     {
-                        APIResult rolesResult = await ServiceManager.Instance.GetService<RolesService>().GetRoles();
-
-                        List<Dictionary<string, object>> roles = ((List<Dictionary<string, object>>)rolesResult.Data).Where(x => (int)x["Id"] == (int)userRoles[0]["Role"]).ToList();
-
-                        if ((roles?.Count ?? 0) > 0)
+                        return new APIResult()
                         {
-                            if ((roles[0]["Name"]?.ToString().Length ?? 0) > 0)
-                            {
-                                return new APIResult()
-                                {
-                                    Success = true,
-                                    Message = "Role found successfully!",
-                                    Data = roles[0]
-                                };
-                            }
-                            else
-                            {
-                                return new APIResult()
-                                {
-                                    Success = false,
-                                    Message = "Role not found!",
-                                    Data = null
-                                };
-                            }
-                        }
-                        else
-                        {
-                            return new APIResult()
-                            {
-                                Success = false,
-                                Message = "User not found!",
-                                Data = null
-                            };
-                        }
+                            Success = true,
+                            Message = "Roles found successfully!",
+                            Data = roles
+                        };
                     }
                     else
                     {
                         return new APIResult()
                         {
                             Success = false,
-                            Message = "Role not found!",
+                            Message = "Roles not found!",
                             Data = null
                         };
                     }
@@ -217,97 +194,6 @@ namespace Apiraiser.Services
                     {
                         Success = false,
                         Message = "Permissions not found!",
-                        Data = null
-                    };
-                }
-            }
-            catch (Exception e)
-            {
-                return APIResult.GetExceptionResult(e);
-            }
-        }
-
-        public async Task<APIResult> GetUserPermissions(int Id)
-        {
-            try
-            {
-                List<Dictionary<string, object>> userRoles = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.UserRoles.ToString())
-                .WhereEquals("User", Id)
-                .RunSelectQuery();
-
-                if ((userRoles?.Count ?? 0) > 0)
-                {
-                    if ((userRoles[0]["Role"]?.ToString().Length ?? 0) > 0)
-                    {
-                        APIResult permissionGroupsResult = await ServiceManager.Instance.GetService<RolePermissionGroupMappingsService>().GetRolePermissionGroupMappings();
-
-                        List<Dictionary<string, object>> permissionGroups = ((List<Dictionary<string, object>>)permissionGroupsResult.Data).Where(x => (int)x["Role"] == (int)userRoles[0]["Role"]).ToList();
-
-                        List<int> permissionGroupIds = permissionGroups.Select(x => Int32.Parse(x["PermissionGroup"].ToString())).ToList();
-
-                        APIResult rolePermissionsResult = await ServiceManager.Instance.GetService<PermissionGroupMappingsService>().GetPermissionGroupMappings();
-
-                        List<Dictionary<string, object>> rolePermissions = ((List<Dictionary<string, object>>)rolePermissionsResult.Data).Where(x => permissionGroupIds.Contains((int)x["PermissionGroup"])).ToList();
-
-                        if ((rolePermissions?.Count ?? 0) > 0)
-                        {
-                            int[] permissionIds = new int[rolePermissions.Count];
-                            for (int i = 0; i < rolePermissions.Count; i++)
-                            {
-                                permissionIds[i] = Int32.Parse(rolePermissions[i]["Permission"].ToString());
-                            }
-
-
-                            APIResult permissionsResult = await ServiceManager.Instance.GetService<PermissionsService>().GetPermissions();
-
-                            List<Dictionary<string, object>> permissions = ((List<Dictionary<string, object>>)permissionsResult.Data).Where(x => permissionIds.Contains((int)x["Id"])).ToList();
-
-                            if ((permissions?.Count ?? 0) > 0)
-                            {
-                                return new APIResult()
-                                {
-                                    Success = true,
-                                    Message = "Permissions found successfully!",
-                                    Data = permissions
-                                };
-                            }
-                            else
-                            {
-                                return new APIResult()
-                                {
-                                    Success = false,
-                                    Message = "Permissions not found!",
-                                    Data = null
-                                };
-                            }
-                        }
-                        else
-                        {
-                            return new APIResult()
-                            {
-                                Success = false,
-                                Message = "Permissions not found!",
-                                Data = null
-                            };
-                        }
-                    }
-                    else
-                    {
-                        return new APIResult()
-                        {
-                            Success = false,
-                            Message = "Role not found!",
-                            Data = null
-                        };
-                    }
-                }
-                else
-                {
-                    return new APIResult()
-                    {
-                        Success = false,
-                        Message = "User not found!",
                         Data = null
                     };
                 }

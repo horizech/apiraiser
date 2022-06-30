@@ -5,6 +5,8 @@
         "UserAccessLevels": "UserAccessLevels",
         "Roles": "Roles",
         "UserRoles": "UserRoles",
+        "SystemPermissions": "SystemPermissions",
+        "TablePermissions": "TablePermissions",
         "Permissions": "Permissions",
         "PermissionGroups": "PermissionGroups",
         "PermissionGroupMappings": "PermissionGroupMappings",

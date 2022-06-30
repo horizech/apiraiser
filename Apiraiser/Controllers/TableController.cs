@@ -29,9 +29,9 @@ namespace Apiraiser.Controllers
             _logger = logger;
         }
 
-        [ApiraiserAuthorized]
-        [HttpPost("CreateTable")]
         [Authorize]
+        [SystemPermission("CanCreateTables")]
+        [HttpPost("CreateTable")]
         public async Task<APIResult> CreateTable(string table, List<ColumnInfo> columns)
         {
             if (table == null || table.Count() == 0)
@@ -63,32 +63,30 @@ namespace Apiraiser.Controllers
             return await ServiceManager.Instance.GetService<TableService>().CreateTable(Schemas.Application, table, columns);
         }
 
-        [ApiraiserAuthorized]
-        [HttpGet("GetTablesList")]
         [Authorize]
+        [HttpGet("GetTablesList")]
         public async Task<APIResult> GetTablesList()
         {
             return await ServiceManager.Instance.GetService<TableService>().GetTablesList(Schemas.Application);
         }
 
-        [ApiraiserAuthorized]
-        [HttpGet("GetTableColumns")]
         [Authorize]
+        [HttpGet("GetTableColumns")]
         public async Task<APIResult> GetTableColumns(string table)
         {
             return await ServiceManager.Instance.GetService<TableService>().GetTableColumns(Schemas.Application, table);
         }
 
 
-        [ApiraiserAuthorized]
-        [HttpGet("GetPredefinedColumns")]
         [Authorize]
+        [HttpGet("GetPredefinedColumns")]
         public APIResult GetPredefinedColumns()
         {
             return ServiceManager.Instance.GetService<TableService>().GetPredefinedColumns();
         }
 
-        [ApiraiserAuthorized]
+        [Authorize]
+        [SystemPermission("CanUpdateTables")]
         [HttpPost("AddColumn")]
         public async Task<APIResult> AddColumn(string table, ColumnInfo columnInfo)
         {
@@ -142,7 +140,8 @@ namespace Apiraiser.Controllers
 
         }
 
-        [ApiraiserAuthorized]
+        [Authorize]
+        [SystemPermission("CanUpdateTables")]
         [HttpDelete("DeleteColumn")]
         public async Task<APIResult> DeleteColumn(string table, string column)
         {
@@ -196,9 +195,8 @@ namespace Apiraiser.Controllers
 
         }
 
-        [ApiraiserAuthorized]
-        [ApiraiserUserAccessLevel(insertPropertyName: "data.CreatedBy")]
         [Authorize]
+        [TablePermission(Schemas.Application, "", "CanWrite", insertPropertyName: "data.CreatedBy")]
         [HttpPost("InsertRows")]
         public async Task<APIResult> InsertRows(string table, List<Dictionary<string, object>> data)
         {
@@ -275,10 +273,9 @@ namespace Apiraiser.Controllers
 
         }
 
-        [ApiraiserAuthorized]
-        [ApiraiserUserAccessLevel("CreatedBy")]
-        [HttpGet("GetRows")]
         [Authorize]
+        [TablePermission(Schemas.Application, "", "CanRead", "CreatedBy")]
+        [HttpGet("GetRows")]
         public async Task<APIResult> GetRows(string table, int CreatedBy = 0, int LastUpdatedBy = 0)
         {
             if (table == null || table.Count() == 0)
@@ -327,9 +324,8 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [ApiraiserAuthorized]
-        [ApiraiserUserAccessLevel("parameters.CreatedBy")]
         [Authorize]
+        [TablePermission(Schemas.Application, "", "CanRead", "parameters.CreatedBy")]
         [HttpPost("GetRowsByConditions")]
         public async Task<APIResult> GetRowsByConditions(string table, List<QuerySearchItem> parameters)
         {
@@ -370,9 +366,8 @@ namespace Apiraiser.Controllers
             return await ServiceManager.Instance.GetService<TableService>().GetRowsByConditions(Schemas.Application, table, parameters);
         }
 
-        [ApiraiserAuthorized]
-        [ApiraiserUserAccessLevel("request.Parameters.CreatedBy", updatePropertyName: "request.Data.LastUpdatedBy")]
         [Authorize]
+        [TablePermission(Schemas.Application, "", "CanUpdate", "request.parameters.CreatedBy", updatePropertyName: "request.Data.LastUpdatedBy")]
         [HttpPut("UpdateRows")]
         public async Task<APIResult> UpdateRows(string table, UpdateRequest request)
         {
@@ -437,8 +432,8 @@ namespace Apiraiser.Controllers
         }
 
 
-        [ApiraiserAuthorized]
-        [ApiraiserUserAccessLevel("parameters.CreatedBy")]
+        [Authorize]
+        [TablePermission(Schemas.Application, "", "CanDelete", "parameters.CreatedBy")]
         [HttpDelete("DeleteRows")]
         public async Task<APIResult> DeleteRows(string table, List<QuerySearchItem> parameters)
         {

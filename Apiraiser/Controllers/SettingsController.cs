@@ -29,7 +29,7 @@ namespace Apiraiser.Controllers
             _logger = logger;
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Settings", "CanRead")]
         [HttpGet("GetSetting/{key}")]
         public async Task<APIResult> GetSetting(string key)
         {
@@ -37,7 +37,7 @@ namespace Apiraiser.Controllers
 
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Settings", "CanRead")]
         [HttpGet("GetSettings")]
         public async Task<APIResult> GetSettings()
         {
@@ -45,7 +45,7 @@ namespace Apiraiser.Controllers
 
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Settings", "CanWrite")]
         [HttpPost("AddSetting")]
         public async Task<APIResult> AddSetting(Dictionary<string, object> data)
         {
@@ -102,7 +102,7 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Settings", "CanUpdate")]
         [HttpPut("UpdateSetting")]
         public async Task<APIResult> UpdateSetting(string key, Dictionary<string, object> data)
         {
@@ -157,7 +157,7 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "Settings", "CanDelete")]
         [HttpDelete("DeleteSetting")]
         public async Task<APIResult> DeleteSetting(string key)
         {

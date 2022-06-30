@@ -29,14 +29,14 @@ namespace Apiraiser.Controllers
             _logger = logger;
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "UserRoles", "CanRead")]
         [HttpGet("GetUserRoles")]
         public async Task<APIResult> GetUserRoles()
         {
             return await ServiceManager.Instance.GetService<UserRolesService>().GetUserRoles();
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "UserRoles", "CanWrite")]
         [HttpPost("AddUserRole")]
         public async Task<APIResult> AddUserRole(Dictionary<string, object> data)
         {
@@ -93,7 +93,7 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "UserRoles", "CanUpdate")]
         [HttpPut("UpdateUserRole")]
         public async Task<APIResult> UpdateUserRole(int id, Dictionary<string, object> data)
         {
@@ -147,7 +147,7 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "UserRoles", "CanDelete")]
         [HttpDelete("DeleteUserRole")]
         public async Task<APIResult> DeleteUserRole(int id)
         {

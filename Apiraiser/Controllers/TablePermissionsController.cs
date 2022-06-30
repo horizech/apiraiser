@@ -20,32 +20,31 @@ namespace Apiraiser.Controllers
 {
     [ApiController]
     [Route("API/[controller]")]
-    public class RolesController : ControllerBase
+    public class TablePermissionsController : ControllerBase
     {
-        private readonly ILogger<RolesController> _logger;
+        private readonly ILogger<TablePermissionsController> _logger;
 
-        public RolesController(ILogger<RolesController> logger)
+        public TablePermissionsController(ILogger<TablePermissionsController> logger)
         {
             _logger = logger;
         }
 
-        [TablePermission(Schemas.System, "Roles", "CanRead")]
-        [HttpGet("GetRoles")]
-        public async Task<APIResult> GetRoles()
+        [TablePermission(Schemas.System, "TablePermissions", "CanRead")]
+        [HttpGet("GetTablePermissions")]
+        public async Task<APIResult> GetTablePermissions()
         {
-            return await ServiceManager.Instance.GetService<RolesService>().GetRoles();
-
+            return await ServiceManager.Instance.GetService<TablePermissionsService>().GetTablePermissions();
         }
 
-        [TablePermission(Schemas.System, "Roles", "CanWrite")]
-        [HttpPost("AddRole")]
-        public async Task<APIResult> AddRole(Dictionary<string, object> data)
+        [TablePermission(Schemas.System, "TablePermissions", "CanWrite")]
+        [HttpPost("AddTablePermission")]
+        public async Task<APIResult> AddTablePermission(Dictionary<string, object> data)
         {
             try
             {
-                if (data == null || data.Count() == 0 || !data.ContainsKey("Name") || !data.ContainsKey("Description") || !data.ContainsKey("Level"))
+                if (data == null || data.Count() == 0 || !data.ContainsKey("Schema") || !data.ContainsKey("Table") || !data.ContainsKey("Role") || !data.ContainsKey("UserAccessLevel") || !data.ContainsKey("CanRead") || !data.ContainsKey("CanWrite") || !data.ContainsKey("CanUpdate") || !data.ContainsKey("CanDelete"))
                 {
-                    return APIResult.GetSimpleFailureResult("Role must contain Name, Description and Level!");
+                    return APIResult.GetSimpleFailureResult("Table Permission must contain Schema, Table, Role, UserAccessLevel, CanRead, CanWrite, CanUpdate and CanDelete!");
                 }
 
                 List<string> predefinedColumns = Columns.PredefinedColumns.Descriptions.Select(x => x["Name"].ToLower()).ToList();
@@ -66,7 +65,7 @@ namespace Apiraiser.Controllers
 
                 try
                 {
-                    APIResult result = await ServiceManager.Instance.GetService<RolesService>().AddRole(data);
+                    APIResult result = await ServiceManager.Instance.GetService<TablePermissionsService>().AddTablePermission(data);
                     return result;
                 }
                 catch (Exception e)
@@ -94,16 +93,17 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [TablePermission(Schemas.System, "Roles", "CanUpdate")]
-        [HttpPut("UpdateRole")]
-        public async Task<APIResult> UpdateRole(string name, Dictionary<string, object> data)
+        [TablePermission(Schemas.System, "TablePermissions", "CanUpdate")]
+        [HttpPut("UpdateTablePermission")]
+        public async Task<APIResult> UpdateTablePermission(string name, Dictionary<string, object> data)
         {
             try
             {
-                if (data == null || data.Count() == 0 || !data.ContainsKey("Name") || !data.ContainsKey("Description") || !data.ContainsKey("Level"))
+                if (data == null || data.Count() == 0 || !data.ContainsKey("Schema") || !data.ContainsKey("Table") || !data.ContainsKey("Role") || !data.ContainsKey("UserAccessLevel") || !data.ContainsKey("CanRead") || !data.ContainsKey("CanWrite") || !data.ContainsKey("CanUpdate") || !data.ContainsKey("CanDelete"))
                 {
-                    return APIResult.GetSimpleFailureResult("Role must contain Name, Description and Level!");
+                    return APIResult.GetSimpleFailureResult("Table Permission must contain Schema, Table, Role, UserAccessLevel, CanRead, CanWrite, CanUpdate and CanDelete!");
                 }
+
 
                 List<string> predefinedColumns = Columns.PredefinedColumns.Descriptions.Select(x => x["Name"].ToLower()).ToList();
 
@@ -120,7 +120,7 @@ namespace Apiraiser.Controllers
 
                 try
                 {
-                    APIResult result = await ServiceManager.Instance.GetService<RolesService>().UpdateRole(name, data);
+                    APIResult result = await ServiceManager.Instance.GetService<TablePermissionsService>().UpdateTablePermission(name, data);
                     return result;
                 }
                 catch (Exception e)
@@ -148,15 +148,15 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [TablePermission(Schemas.System, "Roles", "CanDelete")]
-        [HttpDelete("DeleteRole")]
-        public async Task<APIResult> DeleteRole(string name)
+        [TablePermission(Schemas.System, "TablePermissions", "CanDelete")]
+        [HttpDelete("DeleteTablePermission")]
+        public async Task<APIResult> DeleteTablePermission(string name)
         {
             try
             {
                 try
                 {
-                    APIResult result = await ServiceManager.Instance.GetService<RolesService>().DeleteRole(name);
+                    APIResult result = await ServiceManager.Instance.GetService<TablePermissionsService>().DeleteTablePermission(name);
                     return result;
                 }
                 catch (Exception e)

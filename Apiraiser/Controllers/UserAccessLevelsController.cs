@@ -29,7 +29,7 @@ namespace Apiraiser.Controllers
             _logger = logger;
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "UserAccessLevels", "CanRead")]
         [HttpGet("GetUserAccessLevels")]
         public async Task<APIResult> GetUserAccessLevels()
         {
@@ -37,7 +37,7 @@ namespace Apiraiser.Controllers
 
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "UserAccessLevels", "CanWrite")]
         [HttpPost("AddUserAccessLevel")]
         public async Task<APIResult> AddUserAccessLevel(Dictionary<string, object> data)
         {
@@ -94,7 +94,7 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "UserAccessLevels", "CanUpdate")]
         [HttpPut("UpdateUserAccessLevel")]
         public async Task<APIResult> UpdateUserAccessLevel(string name, Dictionary<string, object> data)
         {
@@ -148,7 +148,7 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [ApiraiserAuthorized]
+        [TablePermission(Schemas.System, "UserAccessLevels", "CanDelete")]
         [HttpDelete("DeleteUserAccessLevel")]
         public async Task<APIResult> DeleteUserAccessLevel(string name)
         {

@@ -5,6 +5,8 @@ namespace Apiraiser.Enums
         Users,
         Roles,
         UserRoles,
+        TablePermissions,
+        SystemPermissions,
         Permissions,
         RolePermissions,
         PermissionGroups,

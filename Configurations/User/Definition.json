@@ -34,12 +34,6 @@
                 "Table": "Roles",
                 "Column": "Id",
                 "ClaimType": "Role",
-                "IncludeAs": "SingleValue"
-            },
-            {
-                "Table": "RolePermissionGroupMappings",
-                "Column": "PermissionGroup",
-                "ClaimType": "Authentication",
                 "IncludeAs": "MultipleValues"
             }
         ]

@@ -20,32 +20,31 @@ namespace Apiraiser.Controllers
 {
     [ApiController]
     [Route("API/[controller]")]
-    public class RolesController : ControllerBase
+    public class SystemPermissionsController : ControllerBase
     {
-        private readonly ILogger<RolesController> _logger;
+        private readonly ILogger<SystemPermissionsController> _logger;
 
-        public RolesController(ILogger<RolesController> logger)
+        public SystemPermissionsController(ILogger<SystemPermissionsController> logger)
         {
             _logger = logger;
         }
 
-        [TablePermission(Schemas.System, "Roles", "CanRead")]
-        [HttpGet("GetRoles")]
-        public async Task<APIResult> GetRoles()
+        [TablePermission(Schemas.System, "SystemPermissions", "CanRead")]
+        [HttpGet("GetSystemPermissions")]
+        public async Task<APIResult> GetSystemPermissions()
         {
-            return await ServiceManager.Instance.GetService<RolesService>().GetRoles();
-
+            return await ServiceManager.Instance.GetService<SystemPermissionsService>().GetSystemPermissions();
         }
 
-        [TablePermission(Schemas.System, "Roles", "CanWrite")]
-        [HttpPost("AddRole")]
-        public async Task<APIResult> AddRole(Dictionary<string, object> data)
+        [TablePermission(Schemas.System, "SystemPermissions", "CanWrite")]
+        [HttpPost("AddSystemPermission")]
+        public async Task<APIResult> AddSystemPermission(Dictionary<string, object> data)
         {
             try
             {
-                if (data == null || data.Count() == 0 || !data.ContainsKey("Name") || !data.ContainsKey("Description") || !data.ContainsKey("Level"))
+                if (data == null || data.Count() == 0 || !data.ContainsKey("Name") || !data.ContainsKey("Description"))
                 {
-                    return APIResult.GetSimpleFailureResult("Role must contain Name, Description and Level!");
+                    return APIResult.GetSimpleFailureResult("System Permission must contain Name and Description!");
                 }
 
                 List<string> predefinedColumns = Columns.PredefinedColumns.Descriptions.Select(x => x["Name"].ToLower()).ToList();
@@ -66,7 +65,7 @@ namespace Apiraiser.Controllers
 
                 try
                 {
-                    APIResult result = await ServiceManager.Instance.GetService<RolesService>().AddRole(data);
+                    APIResult result = await ServiceManager.Instance.GetService<SystemPermissionsService>().AddSystemPermission(data);
                     return result;
                 }
                 catch (Exception e)
@@ -94,16 +93,17 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [TablePermission(Schemas.System, "Roles", "CanUpdate")]
-        [HttpPut("UpdateRole")]
-        public async Task<APIResult> UpdateRole(string name, Dictionary<string, object> data)
+        [TablePermission(Schemas.System, "SystemPermissions", "CanUpdate")]
+        [HttpPut("UpdateSystemPermission")]
+        public async Task<APIResult> UpdateSystemPermission(string name, Dictionary<string, object> data)
         {
             try
             {
-                if (data == null || data.Count() == 0 || !data.ContainsKey("Name") || !data.ContainsKey("Description") || !data.ContainsKey("Level"))
+                if (data == null || data.Count() == 0 || !data.ContainsKey("Name") || !data.ContainsKey("Description"))
                 {
-                    return APIResult.GetSimpleFailureResult("Role must contain Name, Description and Level!");
+                    return APIResult.GetSimpleFailureResult("System Permission must contain Name and Description!");
                 }
+
 
                 List<string> predefinedColumns = Columns.PredefinedColumns.Descriptions.Select(x => x["Name"].ToLower()).ToList();
 
@@ -120,7 +120,7 @@ namespace Apiraiser.Controllers
 
                 try
                 {
-                    APIResult result = await ServiceManager.Instance.GetService<RolesService>().UpdateRole(name, data);
+                    APIResult result = await ServiceManager.Instance.GetService<SystemPermissionsService>().UpdateSystemPermission(name, data);
                     return result;
                 }
                 catch (Exception e)
@@ -148,15 +148,15 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [TablePermission(Schemas.System, "Roles", "CanDelete")]
-        [HttpDelete("DeleteRole")]
-        public async Task<APIResult> DeleteRole(string name)
+        [TablePermission(Schemas.System, "SystemPermissions", "CanDelete")]
+        [HttpDelete("DeleteSystemPermission")]
+        public async Task<APIResult> DeleteSystemPermission(string name)
         {
             try
             {
                 try
                 {
-                    APIResult result = await ServiceManager.Instance.GetService<RolesService>().DeleteRole(name);
+                    APIResult result = await ServiceManager.Instance.GetService<SystemPermissionsService>().DeleteSystemPermission(name);
                     return result;
                 }
                 catch (Exception e)
