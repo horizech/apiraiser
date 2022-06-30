@@ -4,6 +4,20 @@
 
 ### Added:
 
+### Changed:
+
+### Deprecated:
+
+### Removed:
+
+### Fixed:
+
+### Security:
+
+## [v0.3.0] - 2022-06-30
+
+### Added:
+
 - Added Table Permissions
 - Added System Permissions
 - Added multiple User Roles
