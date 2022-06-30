@@ -95,7 +95,7 @@ namespace Apiraiser.Controllers
 
         [TablePermission(Schemas.System, "TablePermissions", "CanUpdate")]
         [HttpPut("UpdateTablePermission")]
-        public async Task<APIResult> UpdateTablePermission(string name, Dictionary<string, object> data)
+        public async Task<APIResult> UpdateTablePermission(int id, Dictionary<string, object> data)
         {
             try
             {
@@ -120,7 +120,7 @@ namespace Apiraiser.Controllers
 
                 try
                 {
-                    APIResult result = await ServiceManager.Instance.GetService<TablePermissionsService>().UpdateTablePermission(name, data);
+                    APIResult result = await ServiceManager.Instance.GetService<TablePermissionsService>().UpdateTablePermission(id, data);
                     return result;
                 }
                 catch (Exception e)
@@ -150,13 +150,13 @@ namespace Apiraiser.Controllers
 
         [TablePermission(Schemas.System, "TablePermissions", "CanDelete")]
         [HttpDelete("DeleteTablePermission")]
-        public async Task<APIResult> DeleteTablePermission(string name)
+        public async Task<APIResult> DeleteTablePermission(int id)
         {
             try
             {
                 try
                 {
-                    APIResult result = await ServiceManager.Instance.GetService<TablePermissionsService>().DeleteTablePermission(name);
+                    APIResult result = await ServiceManager.Instance.GetService<TablePermissionsService>().DeleteTablePermission(id);
                     return result;
                 }
                 catch (Exception e)

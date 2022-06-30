@@ -62,11 +62,11 @@ namespace Apiraiser.Services
             };
         }
 
-        public async Task<APIResult> UpdateTablePermission(string name, Dictionary<string, object> data)
+        public async Task<APIResult> UpdateTablePermission(int id, Dictionary<string, object> data)
         {
             bool result = await QueryDesigner
                 .CreateDesigner(schema: Schemas.System, table: TableNames.TablePermissions.ToString())
-                .WhereEquals("Name", name)
+                .WhereEquals("Id", id)
                 .AddRow(data)
                 .RunUpdateQuery();
 
@@ -80,11 +80,11 @@ namespace Apiraiser.Services
             };
         }
 
-        public async Task<APIResult> DeleteTablePermission(string name)
+        public async Task<APIResult> DeleteTablePermission(int id)
         {
             bool result = await QueryDesigner
                 .CreateDesigner(schema: Schemas.System, table: TableNames.TablePermissions.ToString())
-                .WhereEquals("Name", name)
+                .WhereEquals("Id", id)
                 .RunDeleteQuery();
 
             ServiceManager.Instance.GetService<MemoryCacheService>().Remove(TableNames.TablePermissions.ToString());

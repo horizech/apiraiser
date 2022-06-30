@@ -66,16 +66,16 @@ namespace Apiraiser.Services
             return new APIResult()
             {
                 Success = true,
-                Message = "UserAccessLevel added successfully!",
+                Message = "User Access Level added successfully!",
                 Data = result
             };
         }
 
-        public async Task<APIResult> UpdateUserAccessLevel(string name, Dictionary<string, object> data)
+        public async Task<APIResult> UpdateUserAccessLevel(int id, Dictionary<string, object> data)
         {
             bool result = await QueryDesigner
                 .CreateDesigner(schema: Schemas.System, table: TableNames.UserAccessLevels.ToString())
-                .WhereEquals("Name", name)
+                .WhereEquals("Id", id)
                 .AddRow(data)
                 .RunUpdateQuery();
 
@@ -84,16 +84,16 @@ namespace Apiraiser.Services
             return new APIResult()
             {
                 Success = true,
-                Message = "UserAccessLevel updated successfully!",
+                Message = "User Access Level updated successfully!",
                 Data = result
             };
         }
 
-        public async Task<APIResult> DeleteUserAccessLevel(string name)
+        public async Task<APIResult> DeleteUserAccessLevel(int id)
         {
             bool result = await QueryDesigner
                 .CreateDesigner(schema: Schemas.System, table: TableNames.UserAccessLevels.ToString())
-                .WhereEquals("Name", name)
+                .WhereEquals("Id", id)
                 .RunDeleteQuery();
 
             ServiceManager.Instance.GetService<MemoryCacheService>().Remove("UserAccessLevels");
@@ -101,7 +101,7 @@ namespace Apiraiser.Services
             return new APIResult()
             {
                 Success = true,
-                Message = "UserAccessLevel deleted successfully!",
+                Message = "User Access Level deleted successfully!",
                 Data = result
             };
         }

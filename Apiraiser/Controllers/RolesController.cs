@@ -96,7 +96,7 @@ namespace Apiraiser.Controllers
 
         [TablePermission(Schemas.System, "Roles", "CanUpdate")]
         [HttpPut("UpdateRole")]
-        public async Task<APIResult> UpdateRole(string name, Dictionary<string, object> data)
+        public async Task<APIResult> UpdateRole(int id, Dictionary<string, object> data)
         {
             try
             {
@@ -120,7 +120,7 @@ namespace Apiraiser.Controllers
 
                 try
                 {
-                    APIResult result = await ServiceManager.Instance.GetService<RolesService>().UpdateRole(name, data);
+                    APIResult result = await ServiceManager.Instance.GetService<RolesService>().UpdateRole(id, data);
                     return result;
                 }
                 catch (Exception e)
@@ -150,13 +150,13 @@ namespace Apiraiser.Controllers
 
         [TablePermission(Schemas.System, "Roles", "CanDelete")]
         [HttpDelete("DeleteRole")]
-        public async Task<APIResult> DeleteRole(string name)
+        public async Task<APIResult> DeleteRole(int id)
         {
             try
             {
                 try
                 {
-                    APIResult result = await ServiceManager.Instance.GetService<RolesService>().DeleteRole(name);
+                    APIResult result = await ServiceManager.Instance.GetService<RolesService>().DeleteRole(id);
                     return result;
                 }
                 catch (Exception e)

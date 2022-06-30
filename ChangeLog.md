@@ -6,6 +6,24 @@
 
 ### Changed:
 
+- Use Ids instead names when updating or deleting Roles, TablePermissions, SystemPermissions and UserAccessLevels.
+
+### Deprecated:
+
+### Removed:
+
+### Fixed:
+
+### Security:
+
+## [v0.3.1] - 2022-06-30
+
+### Added:
+
+### Changed:
+
+- Use Ids instead names when updating or deleting Roles, TablePermissions, SystemPermissions and UserAccessLevels.
+
 ### Deprecated:
 
 ### Removed:
