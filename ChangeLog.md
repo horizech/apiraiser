@@ -4,6 +4,8 @@
 
 ### Added:
 
+- Added Table columns check in Insert and Update API.
+
 ### Changed:
 
 - Use GetTables and GetTableColumns for both Schemas.

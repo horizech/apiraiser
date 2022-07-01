@@ -185,6 +185,20 @@ namespace Apiraiser.Controllers
 
             List<string> predefinedColumns = Columns.PredefinedColumns.Descriptions.Select(x => x["Name"].ToLower()).ToList();
 
+            APIResult tableColumns = await ServiceManager.Instance.GetService<TableService>().GetTableColumns(Schemas.Application, table);
+            if (!tableColumns.Success || tableColumns.Data == null)
+            {
+                return APIResult.GetSimpleFailureResult("Table is not valid!");
+            }
+
+            List<string> MissingColumns = (tableColumns.Data as List<ColumnInfo>).Where(column =>
+                (!predefinedColumns.Contains(column.Name.ToLower()) && column.IsRequired && !data.ContainsKey(column.Name)) ? true : false).Select(x => x.Name).ToList();
+
+            if (MissingColumns.Count > 0)
+            {
+                return APIResult.GetSimpleFailureResult("Data is missing the following columns: " + string.Join(", ", MissingColumns));
+            }
+
             data.Keys.ToList().ForEach(key =>
             {
                 if (predefinedColumns.Contains(key.ToLower()))
@@ -212,6 +226,12 @@ namespace Apiraiser.Controllers
             if (data == null || data.Count() == 0)
             {
                 return APIResult.GetSimpleFailureResult("Data is not valid!");
+            }
+
+            APIResult tableColumns = await ServiceManager.Instance.GetService<TableService>().GetTableColumns(Schemas.Application, table);
+            if (!tableColumns.Success || tableColumns.Data == null)
+            {
+                return APIResult.GetSimpleFailureResult("Table is not valid!");
             }
 
             UpdateRequest request = new UpdateRequest()
