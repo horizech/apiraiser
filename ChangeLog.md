@@ -6,15 +6,17 @@
 
 ### Changed:
 
+- Use GetTables and GetTableColumns for both Schemas.
+
 ### Deprecated:
 
 ### Removed:
 
 ### Fixed:
 
-### Security:
+- Fixed System Permission Add and Update APIs.
 
-## [v0.3.1] - 2022-06-30
+### Security:
 
 ### Added:
 
@@ -34,9 +36,9 @@
 
 ### Added:
 
-- Added Table Permissions
-- Added System Permissions
-- Added multiple User Roles
+- Added Table Permissions.
+- Added System Permissions.
+- Added multiple User Roles.
 
 ### Changed:
 
@@ -46,7 +48,7 @@
 
 ### Fixed:
 
-- Fixed email not saving in Initialize
+- Fixed email not saving in Initialize.
 
 ### Security:
 
@@ -56,8 +58,8 @@
 
 ### Changed:
 
-- Changed Schema names
-- Changed app name to Apiraiser
+- Changed Schema names.
+- Changed app name to Apiraiser.
 
 ### Deprecated:
 

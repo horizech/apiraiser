@@ -42,9 +42,9 @@ namespace Apiraiser.Controllers
         {
             try
             {
-                if (data == null || data.Count() == 0 || !data.ContainsKey("Name") || !data.ContainsKey("Description"))
+                if (data == null || data.Count() == 0 || !data.ContainsKey("Role") || !data.ContainsKey("CanCreateTables") || !data.ContainsKey("CanUpdateTables") || !data.ContainsKey("CanDeleteTables"))
                 {
-                    return APIResult.GetSimpleFailureResult("System Permission must contain Name and Description!");
+                    return APIResult.GetSimpleFailureResult("System Permission must contain Role, CanCreateTables, CanUpdateTables and CanDeleteTables!");
                 }
 
                 List<string> predefinedColumns = Columns.PredefinedColumns.Descriptions.Select(x => x["Name"].ToLower()).ToList();
@@ -99,11 +99,10 @@ namespace Apiraiser.Controllers
         {
             try
             {
-                if (data == null || data.Count() == 0 || !data.ContainsKey("Name") || !data.ContainsKey("Description"))
+                if (data == null || data.Count() == 0 || !data.ContainsKey("Role") || !data.ContainsKey("CanCreateTables") || !data.ContainsKey("CanUpdateTables") || !data.ContainsKey("CanDeleteTables"))
                 {
-                    return APIResult.GetSimpleFailureResult("System Permission must contain Name and Description!");
+                    return APIResult.GetSimpleFailureResult("System Permission must contain Role, CanCreateTables, CanUpdateTables and CanDeleteTables!");
                 }
-
 
                 List<string> predefinedColumns = Columns.PredefinedColumns.Descriptions.Select(x => x["Name"].ToLower()).ToList();
 
