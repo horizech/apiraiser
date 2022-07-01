@@ -98,14 +98,9 @@ class App extends React.Component {
                         <UserGuardedRoute path='/fetch-data' component={FetchDataPage} />
                         <UserGuardedRoute path='/design-table/:table_name' component={designTablePage} />
                         <UserGuardedRoute path='/settings' component={SettingsPage} />
-                        <UserGuardedRoute path='/permissions' component={PermissionsPage} />
                         <UserGuardedRoute path='/roles' component={RolesPage} />
-                        <UserGuardedRoute path='/role-permissions' component={RolePermissionsPage} />
                         <UserGuardedRoute path='/users' component={UsersPage} />
                         <UserGuardedRoute path='/user' component={UserPage} />
-                        <UserGuardedRoute path='/permission-groups' component={PermissionGroupsPage} />
-                        <UserGuardedRoute path='/role-permission-group-mappings' component={RolePermissionGroupMappingsPage} />
-                        <UserGuardedRoute path='/permission-group-mappings' component={PermissionGroupMappingsPage} />
                         <UserGuardedRoute path='/user-access-levels' component={UserAccessLevelsPage} />
                         <UserGuardedRoute path='/configuration' component={ConfigurationPage} />
                         
