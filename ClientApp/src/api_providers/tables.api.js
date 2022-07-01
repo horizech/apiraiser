@@ -2,39 +2,14 @@ import { authHeader, config } from "../helpers";
 import { handleError, handleResponse } from "./handler.api";
 
 class TablesApiProvider {
-  static async getTables() {
-    const requestOptions = {
-      method: "get",
-      headers: authHeader(),
-    };
-
-    return fetch(`${config.apiUrl}/api/Table/GetTablesList`, requestOptions)
-      .then(handleResponse, handleError)
-      .then((result) => {
-        return result;
-      });
-  }
-
-  static async getApiraiserTables() {
-    const requestOptions = {
-      method: "get",
-      headers: authHeader(),
-    };
-
-    return fetch(`${config.apiUrl}/api/Apiraiser/GetTablesList`, requestOptions)
-      .then(handleResponse, handleError)
-      .then((result) => {
-        return result;
-      });
-  }
-  static async getApiraiserTableColumns(table) {
+  static async getTables(schema) {
     const requestOptions = {
       method: "get",
       headers: authHeader(),
     };
 
     return fetch(
-      `${config.apiUrl}/api/Apiraiser/GetTableColumns?table=${table}`,
+      `${config.apiUrl}/api/Table/GetTablesList?schema=${schema}`,
       requestOptions
     )
       .then(handleResponse, handleError)
@@ -43,20 +18,36 @@ class TablesApiProvider {
       });
   }
 
-  static async getTableColumns(table) {
+  static async getTableColumns(schema, table) {
     const requestOptions = {
       method: "get",
       headers: authHeader(),
     };
 
     return fetch(
-      `${config.apiUrl}/api/Table/GetTableColumns?table=${table}`,
+      `${config.apiUrl}/api/Table/GetTableColumns?schema=${schema}&table=${table}`,
       requestOptions
     )
       .then(handleResponse, handleError)
       .then((result) => {
         return result;
       });
+  }
+
+  static async getApplicationTables() {
+    return this.getTables("Application");
+  }
+
+  static async getApplicationTableColumns(table) {
+    return this.getTableColumns("Application", table);
+  }
+
+  static async getSystemTables() {
+    return this.getTables("System");
+  }
+
+  static async getSystemTableColumns(table) {
+    return this.getTableColumns("System", table);
   }
 
   static async getPredefinedColumns() {

@@ -63,7 +63,7 @@ const TableRecords = ({table, tableColumns, loadingCurrentTableRows, currentTabl
     React.useEffect(() => {
         if(table != currentTable) {
             setCurrentTable(table);
-            dispatch(tablesActions.getTableColumns(table));
+            dispatch(tablesActions.getApplicationTableColumns(table));
             dispatch(tablesActions.getTableRows(table));
         }
         if(deletingRow === false) {

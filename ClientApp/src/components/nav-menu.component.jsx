@@ -35,7 +35,7 @@ const NavMenu = ({ loggedIn, user, tableslist, dispatch, loadingTablesList }) =>
   
   React.useEffect(() => {
     if (user !== null) {
-      dispatch(tablesActions.getTables());
+      dispatch(tablesActions.getApplicationTables());
       
       if(user.PermissionGroups) {
         const updatedPermissionGroupsNames = user.PermissionGroups.map((x) => {

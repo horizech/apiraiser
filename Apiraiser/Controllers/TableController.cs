@@ -65,18 +65,17 @@ namespace Apiraiser.Controllers
 
         [Authorize]
         [HttpGet("GetTablesList")]
-        public async Task<APIResult> GetTablesList()
+        public async Task<APIResult> GetTablesList(string schema)
         {
-            return await ServiceManager.Instance.GetService<TableService>().GetTablesList(Schemas.Application);
+            return await ServiceManager.Instance.GetService<TableService>().GetTablesList(schema);
         }
 
         [Authorize]
         [HttpGet("GetTableColumns")]
-        public async Task<APIResult> GetTableColumns(string table)
+        public async Task<APIResult> GetTableColumns(string schema, string table)
         {
-            return await ServiceManager.Instance.GetService<TableService>().GetTableColumns(Schemas.Application, table);
+            return await ServiceManager.Instance.GetService<TableService>().GetTableColumns(schema, table);
         }
-
 
         [Authorize]
         [HttpGet("GetPredefinedColumns")]

@@ -172,23 +172,8 @@ const AddTableColumn = ({ table, loggedIn, loadingCurrentTable,
     
     const loadForeignTableOptions = (values) => {
         const foreignSchema = (values.ForeignSchema.value);
-        if(foreignSchema == 'public') {
-            tablesService.getTables().then(
-                result => {
-                    if (result.Success) {
-                        console.log(result.Data);                        
-                        foreignTableOptions = (
-                            result.Data.map(x => {
-                                    return { label: x, value: x }
-                                }
-                            )
-                        );                            
-                    }
-                }
-            );
-        }
-        else if(foreignSchema == 'Apiraiser') {
-            tablesService.getApiraiserTables().then(
+        if(foreignSchema) {
+            tablesService.getTables(foreignSchema).then(
                 result => {
                     if (result.Success) {
                         console.log(result.Data);                        
@@ -208,8 +193,8 @@ const AddTableColumn = ({ table, loggedIn, loadingCurrentTable,
         console.log(values);
         const foreignSchema = (values.ForeignSchema.value);
         const foreignTable = (values.ForeignTable.value);
-        if (foreignSchema == 'public' && foreignTable) {
-            tablesService.getTableColumns(foreignTable).then(
+        if (foreignSchema && foreignTable) {
+            tablesService.getTableColumns(foreignSchema, foreignTable).then(
                 result => {
                     if (result.Success) {                
                         foreignNameOptions = (
@@ -222,20 +207,6 @@ const AddTableColumn = ({ table, loggedIn, loadingCurrentTable,
                 }
             );
         }
-        else if (foreignSchema == 'Apiraiser' && foreignTable){
-            tablesService.getApiraiserTableColumns(foreignTable).then(
-                result => {
-                    if (result.Success) {                
-                        foreignNameOptions = (
-                            result.Data.map(x => {
-                                    return { label: x['Name'], value: x['Name'] }
-                                }
-                            )
-                        );
-                    }
-                }
-            );
-        }  
     }
 
 

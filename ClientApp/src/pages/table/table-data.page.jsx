@@ -34,7 +34,7 @@ const TableDataPage = ({match, location, dispatch, loggedIn}) => {
         if(table != match.params.table_name) {
             setTable(match.params.table_name);
             setLoadingTableColumns(true);
-            tablesService.getTableColumns(match.params.table_name).then( response => {
+            tablesService.getApplicationTableColumns(match.params.table_name).then( response => {
                 setLoadingTableColumns(false);
                 if(response.Success) {
                     setTableColumns(response.Data);

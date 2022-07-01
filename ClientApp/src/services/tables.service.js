@@ -1,10 +1,12 @@
 import { TablesApiProvider } from "../api_providers";
 
 export const tablesService = {
-  getApiraiserTables,
-  getApiraiserTableColumns,
   getTables,
   getTableColumns,
+  getSystemTables,
+  getSystemTableColumns,
+  getApplicationTables,
+  getApplicationTableColumns,
   getPredefinedColumns,
   getTableRows,
   insertRow,
@@ -15,16 +17,28 @@ export const tablesService = {
   addColumn,
 };
 
-function getTables() {
-  return TablesApiProvider.getTables();
+function getTables(schema) {
+  return TablesApiProvider.getTables(schema);
 }
 
-function getTableColumns(table) {
-  return TablesApiProvider.getTableColumns(table);
+function getTableColumns(schema, table) {
+  return TablesApiProvider.getTableColumns(schema, table);
 }
 
-function getApiraiserTableColumns(table) {
-  return TablesApiProvider.getApiraiserTableColumns(table);
+function getApplicationTables() {
+  return TablesApiProvider.getApplicationTables();
+}
+
+function getApplicationTableColumns(table) {
+  return TablesApiProvider.getApplicationTableColumns(table);
+}
+
+function getSystemTables() {
+  return TablesApiProvider.getSystemTables();
+}
+
+function getSystemTableColumns(table) {
+  return TablesApiProvider.getSystemTableColumns(table);
 }
 
 function getPredefinedColumns() {
@@ -56,7 +70,4 @@ function deleteColumn(table, Column) {
 
 function addColumn(table, ColumnsInfo) {
   return TablesApiProvider.addColumn(table, ColumnsInfo);
-}
-function getApiraiserTables(table, ColumnsInfo) {
-  return TablesApiProvider.getApiraiserTables();
 }

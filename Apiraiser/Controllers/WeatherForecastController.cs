@@ -42,13 +42,13 @@ namespace Apiraiser.Controllers
                 .Instance
                 .GetService<DatabaseService>()
                 .GetDatabaseDriver()
-                .CreateTable("public", "school", columns);
+                .CreateTable("Application", "school", columns);
 
             ServiceManager
                 .Instance
                 .GetService<DatabaseService>()
                 .GetDatabaseDriver()
-                .GetTableColumns("public", "school");
+                .GetTableColumns("Application", "school");
 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

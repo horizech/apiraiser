@@ -46,12 +46,12 @@ const Sidebar = ({loggedIn, tableslist, loadingTablesList, dispatch, user })=>{
 
  React.useEffect(()=>{
   if(loggedIn && tableslist === null) {
-    getTables();
+    getApplicationTables();
   }
  });
  
- const getTables= () => {
-  dispatch(tablesActions.getTables());
+ const getApplicationTables= () => {
+  dispatch(tablesActions.getApplicationTables());
 }
 const renderTables = (tables) => {
   return (

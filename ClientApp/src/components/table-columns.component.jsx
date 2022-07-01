@@ -14,7 +14,7 @@ const TableColumns = ({ dispatch, deletedColumnSuccess, deletingColumn, addedCol
     const [ currentRow, setCurrentRow] = React.useState(null);
 
     React.useEffect(()=>{
-        dispatch(tablesActions.getTableColumns(table));
+        dispatch(tablesActions.getApplicationTableColumns(table));
     },[table]);
 
     const showDeleteConfirmationModal = (row) => {
@@ -52,11 +52,11 @@ const TableColumns = ({ dispatch, deletedColumnSuccess, deletingColumn, addedCol
 
     if(deletedColumnSuccess === true && deletingColumn === false) {
         dispatch(tablesActions.acknowledgeDeleteColumn());
-        dispatch(tablesActions.getTableColumns(table));
+        dispatch(tablesActions.getApplicationTableColumns(table));
     }
     if(addedColumnSuccess === true && addingColumn === false) {
     
-        dispatch(tablesActions.getTableColumns(table));
+        dispatch(tablesActions.getApplicationTableColumns(table));
     }
     if (loadingCurrentTable || deletingColumn || loadingPredefinedColumns) {
         return (

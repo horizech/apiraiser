@@ -19,7 +19,7 @@ const TableCreatePage = ({dispatch}) => {
 
         tablesService.createTable(table, columns).then( response => {
             if(response.Success){
-                dispatch(tablesActions.getTables());
+                dispatch(tablesActions.getApplicationTables());
                 console.log('Table Created!');
                 history.push(`/table/design/${table}`);
             }

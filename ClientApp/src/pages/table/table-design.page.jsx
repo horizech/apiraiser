@@ -38,7 +38,7 @@ const TableDesignPage = ({match, location, dispatch, loggedIn}) => {
 
     const handleOnCreateColumnComplete = (result) => {
         if (result === true) {
-            dispatch(tablesActions.getTableColumns(table));
+            dispatch(tablesActions.getApplicationTableColumns(table));
         }
         setCreateTableColumnModalVisible(false);        
     }
@@ -49,7 +49,7 @@ const TableDesignPage = ({match, location, dispatch, loggedIn}) => {
 
     const handleOnCreateComplete = (result) => {
         if(result === true) {
-            dispatch(tablesActions.getTableColumns(table));
+            dispatch(tablesActions.getApplicationTableColumns(table));
         }
         setCreateTableColumnModalVisible(false);
     }
@@ -58,7 +58,7 @@ const TableDesignPage = ({match, location, dispatch, loggedIn}) => {
         if(table != match.params.table_name) {
             setTable(match.params.table_name);
             setLoadingTableColumns(true);
-            tablesService.getTableColumns(match.params.table_name).then( response => {
+            tablesService.getApplicationTableColumns(match.params.table_name).then( response => {
                 setLoadingTableColumns(false);
                 if(response.Success) {
                     setTableColumns(response.Data);
@@ -138,7 +138,7 @@ const TableDesignPage = ({match, location, dispatch, loggedIn}) => {
 //         }
 
 //         if (!loadingCurrentTable && (!currentTableColumns || currentTableColumns.name !== table)) {
-//             dispatch(tablesActions.getTableColumns(table));
+//             dispatch(tablesActions.getApplicationTableColumns(table));
 //         }
 //         return (
 //             <div>
