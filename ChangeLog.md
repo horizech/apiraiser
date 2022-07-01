@@ -14,6 +14,8 @@
 
 ### Removed:
 
+- Removed Permissions, Permission Groups related stuff.
+
 ### Fixed:
 
 - Fixed System Permission Add and Update APIs.
