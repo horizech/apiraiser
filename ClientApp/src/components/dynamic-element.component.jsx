@@ -1,126 +1,227 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { isColumnPredefined, history } from '../helpers';
-import { Form, Field } from 'react-final-form'
+import { isColumnPredefined, history } from "../helpers";
+import { Form, Field } from "react-final-form";
 import "../styles/DynamicElement.css";
 import { ReactSelectAdapter } from "../adapters";
+import { Button } from "reactstrap";
+import { ReactImageAdapter } from "../adapters/react-image.adapter";
 
-
-const DynamicElement = ({ user, input, column, isWorking, onChange, onFocus, onBlur, label, isSelect, selectOptions }) => {
-
+const DynamicElement = ({
+  user,
+  input,
+  column,
+  isWorking,
+  onChange,
+  onFocus,
+  onBlur,
+  label,
+  isSelect,
+  selectOptions,
+}) => {
   const getElement = () => {
-  
-    if(isSelect) {
+    if (isSelect) {
       return (
         <div className={getWidth()}>
-          <label htmlFor={column.Name}>{(label || column.Name) + (column.IsRequired ? ' *' : '')}</label>
-          <ReactSelectAdapter input={input} options={selectOptions}/>
+          <label htmlFor={column.Name}>
+            {(label || column.Name) + (column.IsRequired ? " *" : "")}
+          </label>
+          <ReactSelectAdapter input={input} options={selectOptions} />
         </div>
-      )
-    }
-    else {
+      );
+    } else {
       switch (column.Datatype) {
-        case "Integer": return (
-          <div className={getWidth()}>
-            <div className={'form-group'}>
-              <label htmlFor={column.Name}>{(label || column.Name) + (column.IsRequired ? ' *' : '')}</label>
-              <input className="form-control" {...input} id={column.Name}  type="number" required={column.IsRequired} disabled={ isWorking || isColumnPredefined(column)}
-                // onChange={(e) => { input.onChange(e); if (onChange) { onChange(e); }}}
-                // onFocus={(e) => { input.onFocus(e); if (onFocus) { onFocus(e); }}}
-                // onBlur={(e) => { input.onBlur(e); if (onBlur) { onBlur(e); }}}
-              />
-            </div>
-          </div>
-        );
-        default: case "LongText": case "ShortText": return (
-          <div className={getWidth()}>
-            <div className={'form-group'}>
-              <label htmlFor={column.Name}>{(label || column.Name) + (column.IsRequired ? ' *' : '')}</label>
-              <input className="form-control" {...input} id={column.Name}  type="text" required={column.IsRequired} disabled={ isWorking || isColumnPredefined(column)}
-                // onChange={(e) => { input.onChange(e); if (onChange) { onChange(e); }}}
-                // onFocus={(e) => { input.onFocus(e); if (onFocus) { onFocus(e); }}}
-                // onBlur={(e) => { input.onBlur(e); if (onBlur) { onBlur(e); }}}
-              />
-            </div>
-          </div>
-         
-        );
-        case "DateTime": return (
-          <div className={getWidth()}>
-            <div className={'form-group'}>
-              <label htmlFor={column.Name}>{(label || column.Name) + (column.IsRequired ? ' *' : '')}</label>
-              <input className="form-control" {...input} id={column.Name}  type="date" required={column.IsRequired} disabled={ isWorking || isColumnPredefined(column)}
-                // onChange={(e) => { input.onChange(e); if (onChange) { onChange(e); }}}
-                // onFocus={(e) => { input.onFocus(e); if (onFocus) { onFocus(e); }}}
-                // onBlur={(e) => { input.onBlur(e); if (onBlur) { onBlur(e); }}}
-              />
-            </div>
-          </div>
-        );
-        case "Boolean": return (
-          <div className={getWidth()}>
-            <div className="element-boolean">
-              <label htmlFor={column.Name}>
-                <input {...input} id={column.Name} type="checkbox" disabled={ isWorking || isColumnPredefined(column)}
+        case "Integer":
+          return (
+            <div className={getWidth()}>
+              <div className={"form-group"}>
+                <label htmlFor={column.Name}>
+                  {(label || column.Name) + (column.IsRequired ? " *" : "")}
+                </label>
+                <input
+                  className="form-control"
+                  {...input}
+                  id={column.Name}
+                  type="number"
+                  required={column.IsRequired}
+                  disabled={isWorking || isColumnPredefined(column)}
                   // onChange={(e) => { input.onChange(e); if (onChange) { onChange(e); }}}
                   // onFocus={(e) => { input.onFocus(e); if (onFocus) { onFocus(e); }}}
                   // onBlur={(e) => { input.onBlur(e); if (onBlur) { onBlur(e); }}}
                 />
-                <span className={input.checked ? 'element-boolean-checked': 'element-boolean-unchecked'}></span>{(label || column.Name) + (column.IsRequired ? ' *' : '')}
-              </label>
+              </div>
             </div>
-          </div>
-        );
-  
-        
+          );
+        default:
+        case "LongText":
+        case "ShortText":
+          return (
+            <div className={getWidth()}>
+              <div className={"form-group"}>
+                <label htmlFor={column.Name}>
+                  {(label || column.Name) + (column.IsRequired ? " *" : "")}
+                </label>
+                <input
+                  className="form-control"
+                  {...input}
+                  id={column.Name}
+                  type="text"
+                  required={column.IsRequired}
+                  disabled={isWorking || isColumnPredefined(column)}
+                  // onChange={(e) => { input.onChange(e); if (onChange) { onChange(e); }}}
+                  // onFocus={(e) => { input.onFocus(e); if (onFocus) { onFocus(e); }}}
+                  // onBlur={(e) => { input.onBlur(e); if (onBlur) { onBlur(e); }}}
+                />
+              </div>
+            </div>
+          );
+        case "DateTime":
+          return (
+            <div className={getWidth()}>
+              <div className={"form-group"}>
+                <label htmlFor={column.Name}>
+                  {(label || column.Name) + (column.IsRequired ? " *" : "")}
+                </label>
+                <input
+                  className="form-control"
+                  {...input}
+                  id={column.Name}
+                  type="date"
+                  required={column.IsRequired}
+                  disabled={isWorking || isColumnPredefined(column)}
+                  // onChange={(e) => { input.onChange(e); if (onChange) { onChange(e); }}}
+                  // onFocus={(e) => { input.onFocus(e); if (onFocus) { onFocus(e); }}}
+                  // onBlur={(e) => { input.onBlur(e); if (onBlur) { onBlur(e); }}}
+                />
+              </div>
+            </div>
+          );
+        case "Boolean":
+          return (
+            <div className={getWidth()}>
+              <div className="element-boolean">
+                <label htmlFor={column.Name}>
+                  <input
+                    {...input}
+                    id={column.Name}
+                    type="checkbox"
+                    disabled={isWorking || isColumnPredefined(column)}
+                    // onChange={(e) => { input.onChange(e); if (onChange) { onChange(e); }}}
+                    // onFocus={(e) => { input.onFocus(e); if (onFocus) { onFocus(e); }}}
+                    // onBlur={(e) => { input.onBlur(e); if (onBlur) { onBlur(e); }}}
+                  />
+                  <span
+                    className={
+                      input.checked
+                        ? "element-boolean-checked"
+                        : "element-boolean-unchecked"
+                    }
+                  ></span>
+                  {(label || column.Name) + (column.IsRequired ? " *" : "")}
+                </label>
+              </div>
+            </div>
+          );
+
+        case "Image":
+          return (
+            <div className={getWidth()}>
+              <label htmlFor={column.Name}>
+                {(label || column.Name) + (column.IsRequired ? " *" : "")}
+              </label>
+              <ReactImageAdapter
+                input={input}
+                column={column}
+                isWorking={isWorking}
+                onChange={onChange}
+                label={label}
+              />
+            </div>
+
+            // <div className={getWidth()}>
+            //   <div className="element-image">
+            //     <label htmlFor={column.Name}>
+            //       <Button onClick={() => inputFileRef.current.click()}>
+            //         {" "}
+            //         Load {column.Name}
+            //       </Button>
+            //       <input
+            //         {...input}
+            //         id={column.Name}
+            //         ref={inputFileRef}
+            //         hidden
+            //         type="file"
+            //         disabled={isWorking || isColumnPredefined(column)}
+            //         onChange={(e) => processImage(e)}
+            //         // onChange={(e) => { input.onChange(e); if (onChange) { onChange(e); }}}
+            //         // onFocus={(e) => { input.onFocus(e); if (onFocus) { onFocus(e); }}}
+            //         // onBlur={(e) => { input.onBlur(e); if (onBlur) { onBlur(e); }}}
+            //       />
+            //       <span>{selectedFileName}</span>
+            //       {(label || column.Name) + (column.IsRequired ? " *" : "")}
+            //       <img
+            //         src={preview}
+            //         style={{ maxWidth: "64px", maxHeight: "64px" }}
+            //       />
+            //     </label>
+            //   </div>
+            // </div>
+          );
       }
-  
     }
-  }
+  };
 
   const getWidth = () => {
     switch (column.Datatype) {
-      case "Integer": return ' col-md-4';
-      default: case "ShortText": return ' col-md-4';
-      case "ExtraLongText": return ' col-md-12';
-      case "LongText": return ' col-md-8';
-      case "DateTime": return ' col-md-4';
-      case "Boolean": return ' col-md-4';
+      case "Integer":
+        return " col-md-4";
+      default:
+      case "ShortText":
+        return " col-md-4";
+      case "ExtraLongText":
+        return " col-md-12";
+      case "LongText":
+        return " col-md-8";
+      case "Image":
+        return " col-md-12";
+      case "DateTime":
+        return " col-md-4";
+      case "Boolean":
+        return " col-md-4";
     }
-  }
+  };
 
   const getDefaultValue = () => {
-    
     if (column) {
       switch (column.Datatype) {
-        case "Integer": return 0;
-        default: case "ShortText": return '';
-        case "LongText": return '';
-        case "DateTime": return (new Date());
-        case "Boolean": return false;
+        case "Integer":
+          return 0;
+        default:
+        case "ShortText":
+          return "";
+        case "LongText":
+          return "";
+        case "DateTime":
+          return new Date();
+        case "Boolean":
+          return false;
       }
-    }
-    else {
+    } else {
       return undefined;
     }
+  };
+
+  if (column) {
+    return getElement();
+  } else {
+    return (
+      <p>
+        <em>Loading...</em>
+      </p>
+    );
   }
-
-    if (column) {
-      return (
-        getElement()
-      )
-    }
-    else {
-      return (
-        <p>
-          <em>Loading...</em>
-        </p>
-      );
-    }
-  
-
-}
+};
 // class DynamicElement extends Component {
 //   static displayName = DynamicElement.name;
 
@@ -128,7 +229,7 @@ const DynamicElement = ({ user, input, column, isWorking, onChange, onFocus, onB
 //     super(props);
 //     this.handleChange = this.handleChange.bind(this);
 //     this.getDefaultValue = this.getDefaultValue.bind(this);
-    
+
 //     if (this.props.column) {
 //       this.state = {
 //         checked: this.props.value || this.getDefaultValue(),
@@ -236,10 +337,9 @@ const DynamicElement = ({ user, input, column, isWorking, onChange, onFocus, onB
 //             </div>
 //           </div>
 //         );
-  
-        
+
 //       }
-  
+
 //     }
 //   }
 
@@ -287,7 +387,6 @@ const DynamicElement = ({ user, input, column, isWorking, onChange, onFocus, onB
 //     }
 //   }
 
-
 // }
 
 function mapStateToProps(state) {
@@ -295,7 +394,7 @@ function mapStateToProps(state) {
 
   return {
     user,
-    loggedIn
+    loggedIn,
   };
 }
 

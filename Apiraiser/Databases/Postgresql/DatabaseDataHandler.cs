@@ -236,7 +236,12 @@ namespace Apiraiser.Databases.Postgresql
                     case ColumnDataType.LongText:
                         return JsonSerializer.Deserialize<string[]>(json);
                     case ColumnDataType.Image:
-                        return JsonSerializer.Deserialize<byte[]>(json);
+                        {
+                            int[] intArray = JsonSerializer.Deserialize<int[]>(json);
+                            byte[] result = new byte[intArray.Length * sizeof(int)];
+                            Buffer.BlockCopy(intArray, 0, result, 0, result.Length);
+                            return result;
+                        }
                 }
             }
             else

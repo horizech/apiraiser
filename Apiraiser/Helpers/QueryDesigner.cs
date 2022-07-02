@@ -342,12 +342,13 @@ namespace Apiraiser.Helpers
 
         public async Task<List<Dictionary<string, object>>> RunSelectQuery()
         {
+            if ((this.query.ColumnsDefinitions?.Count ?? 0) < 1)
+            {
+                this.AddColumnDefinitions(await ServiceManager.Instance.GetService<DatabaseService>().GetDatabaseDriver().GetTableColumns(this.query.SchemaName, this.query.TableName));
+            }
+
             if ((this.query.Conditions?.Count ?? 0) > 0)
             {
-                if ((this.query.ColumnsDefinitions?.Count ?? 0) < 1)
-                {
-                    this.AddColumnDefinitions(await ServiceManager.Instance.GetService<DatabaseService>().GetDatabaseDriver().GetTableColumns(this.query.SchemaName, this.query.TableName));
-                }
 
                 this.query.Conditions = this.query.Conditions.Select(parameter =>
                 {
@@ -370,6 +371,22 @@ namespace Apiraiser.Helpers
             SelectAction(QueryAction.SelectRows);
 
             List<Dictionary<string, object>> result = (await ExecuteQuery<Dictionary<string, object>>()).ToList();
+
+            List<string> imageColumns = this.query.ColumnsDefinitions.Where(column => column.Datatype == ColumnDataType.Image).Select(x => x.Name).ToList();
+
+            if (imageColumns.Count > 0)
+            {
+                for (int i = 0; i < result.Count; i++)
+                {
+                    foreach (string imageColumn in imageColumns)
+                    {
+                        if (result[i][imageColumn] != null)
+                        {
+                            result[i][imageColumn] = (result[i][imageColumn] as byte[]).Select(x => (int)x).ToArray();
+                        }
+                    }
+                }
+            }
             return result;
 
         }
