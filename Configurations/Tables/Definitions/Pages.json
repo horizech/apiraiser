@@ -1,11 +1,12 @@
 {
     "$schema": "../Schema.json",
+    "Schema": "Application",
     "Name": "Pages",
     "AddAdditionalColumns": true,
     "Columns": [
         {"Name": "Name", "Datatype": "ShortText", "IsUnique": true, "IsRequired": true},
         {"Name": "Description", "Datatype": "ShortText", "IsRequired": true},
-        {"Name": "TemplateId", "Datatype": "Integer", "IsRequired": false, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Templates"},
+        {"Name": "TemplateId", "Datatype": "Integer", "IsRequired": false, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "Application", "ForeignTable": "Templates"},
         {"Name": "Content", "Datatype": "LongText", "IsRequired": true}
     ]
 }

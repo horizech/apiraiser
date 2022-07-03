@@ -1,12 +1,13 @@
 {
     "$schema": "../Schema.json",
+    "Schema": "Application",
     "Name": "Posts",
     "AddAdditionalColumns": true,
     "Columns": [
         {"Name": "Name", "Datatype": "ShortText", "IsUnique": true, "IsRequired": true},
         {"Name": "Description", "Datatype": "ShortText", "IsRequired": true},
-        {"Name": "CategoryId", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Categories"},
-        {"Name": "MediaId", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Media"},
+        {"Name": "CategoryId", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "Application", "ForeignTable": "Categories"},
+        {"Name": "MediaId", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "Application", "ForeignTable": "Media"},
         {"Name": "Content", "Datatype": "LongText", "IsRequired": true}
     ]
 }

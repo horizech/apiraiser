@@ -1,5 +1,6 @@
 {
     "$schema": "../Schema.json",
+    "Schema": "Application",
     "Name": "Templates",
     "AddAdditionalColumns": true,
     "Columns": [

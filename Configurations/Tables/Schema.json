@@ -9,6 +9,11 @@
         "$schema": {
             "type": "string"
         },
+        "Schema": {
+            "type": "string",
+            "enum": ["Application", "System"],
+            "description": "M: Schema of table"
+        },
         "Name": {
             "type": "string",
             "description": "M: Name of table"

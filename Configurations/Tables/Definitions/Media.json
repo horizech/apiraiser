@@ -1,5 +1,6 @@
 {
     "$schema": "../Schema.json",
+    "Schema": "Application",
     "Name": "Media",
     "AddAdditionalColumns": true,
     "Columns": [

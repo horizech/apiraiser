@@ -1,5 +1,6 @@
 {
     "$schema": "../Schema.json",
+    "Schema": "System",
     "Name": "UserAccessLevels",
     "AddAdditionalColumns": true,
     "Columns": [

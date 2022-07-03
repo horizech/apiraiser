@@ -47,7 +47,7 @@ namespace Apiraiser.Services
 
         }
 
-        public async Task<APIResult> Initialize(string username, string email, string password)
+        public async Task<APIResult> Initialize(string username, string email, string password, string template)
         {
             List<string> tables = await ServiceManager
                 .Instance
@@ -78,9 +78,13 @@ namespace Apiraiser.Services
                     .CreateSchema(Schemas.System);
 
                 // Create tables from Tables Json file in 
-                string tablesInfoPath = FileSystem.GetPathInConfigurations(@"Tables/Info.json");
-                string tablesInfoJson = FileSystem.ReadFile(tablesInfoPath);
-                TablesInfo tablesInfo = FileSystem.ReadJsonString<TablesInfo>(tablesInfoJson);
+                string appTemplatesPath = FileSystem.GetPathInConfigurations(@"Tables/Templates.json");
+                string appTemplatesJson = FileSystem.ReadFile(appTemplatesPath);
+                AppTemplates appTemplates = FileSystem.ReadJsonString<AppTemplates>(appTemplatesJson);
+
+                List<Dictionary<string, object>> tablePermissions = new List<Dictionary<string, object>>();
+                TablesInfo tablesInfo = appTemplates.Templates.First(x => x.Name == template);
+
                 if ((tablesInfo?.Tables?.Count ?? 0) > 0)
                 {
                     foreach (KeyValuePair<string, string> tableName in tablesInfo.Tables)
@@ -113,7 +117,7 @@ namespace Apiraiser.Services
                                 .Instance
                                 .GetService<DatabaseService>()
                                 .GetDatabaseDriver()
-                                .CreateTable(Schemas.System, table.Name, table.Columns);
+                                .CreateTable(table.Schema, table.Name, table.Columns);
                             if ((table.DefaultRows?.Count ?? 0) > 0)
                             {
                                 if (table.AddAdditionalColumns)
@@ -127,7 +131,7 @@ namespace Apiraiser.Services
                                     .Instance
                                     .GetService<DatabaseService>()
                                     .GetDatabaseDriver()
-                                    .InsertRows(Schemas.System, table.Name, table.DefaultRows);
+                                    .InsertRows(table.Schema, table.Name, table.DefaultRows);
                             }
                             else if (table.Name.Equals("Users"))
                             {
@@ -145,7 +149,7 @@ namespace Apiraiser.Services
                                     .Instance
                                     .GetService<DatabaseService>()
                                     .GetDatabaseDriver()
-                                    .InsertRows(Schemas.System, TableNames.Users.ToString(), users);
+                                    .InsertRows(table.Schema, TableNames.Users.ToString(), users);
 
                             }
                             // Setval
@@ -153,9 +157,55 @@ namespace Apiraiser.Services
                                 .Instance
                                 .GetService<DatabaseService>()
                                 .GetDatabaseDriver()
-                                .SetValWithMaxId(Schemas.System, table.Name);
+                                .SetValWithMaxId(table.Schema, table.Name);
                         }
+
+                        tablePermissions.AddRange(new List<Dictionary<string, object>>{
+                            new Dictionary<string, object>{
+                            { "Schema", table.Schema },
+                            { "Table", table.Name },
+                            { "Role", 1 },
+                            { "UserAccessLevel", 1 },
+                            { "CanRead", true },
+                            { "CanWrite", true },
+                            { "CanUpdate", true },
+                            { "CanDelete", true },
+                            { "CreatedOn", DateTime.UtcNow},
+                            { "CreatedBy", 1}
+                        },
+                        new Dictionary<string, object>{
+                            { "Schema", table.Schema },
+                            { "Table", table.Name },
+                            { "Role", 2 },
+                            { "UserAccessLevel", 1 },
+                            { "CanRead", true },
+                            { "CanWrite", true },
+                            { "CanUpdate", true },
+                            { "CanDelete", true },
+                            { "CreatedOn", DateTime.UtcNow},
+                            { "CreatedBy", 1}
+                        },
+                        new Dictionary<string, object>{
+                            { "Schema", table.Schema },
+                            { "Table", table.Name },
+                            { "Role", 3 },
+                            { "UserAccessLevel", 2 },
+                            { "CanRead", true },
+                            { "CanWrite", table.Schema == Schemas.Application },
+                            { "CanUpdate", table.Schema == Schemas.Application },
+                            { "CanDelete", table.Schema == Schemas.Application },
+                            { "CreatedOn", DateTime.UtcNow},
+                            { "CreatedBy", 1}
+                        }
+                        }
+                        );
                     };
+
+                    await ServiceManager
+                                    .Instance
+                                    .GetService<DatabaseService>()
+                                    .GetDatabaseDriver()
+                                    .InsertRows(Schemas.System, TableNames.TablePermissions.ToString(), tablePermissions);
                 }
 
                 await ServiceManager
