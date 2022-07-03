@@ -9,6 +9,7 @@
 ### Changed:
 
 - Use GetTables and GetTableColumns for both Schemas.
+- Use unit array while creating and getting images.
 
 ### Deprecated:
 
@@ -19,6 +20,7 @@
 ### Fixed:
 
 - Fixed System Permission Add and Update APIs.
+- Added Check for Predefined column in CreateTable.
 
 ### Security:
 
