@@ -382,7 +382,7 @@ namespace Apiraiser.Helpers
                     {
                         if (result[i][imageColumn] != null)
                         {
-                            result[i][imageColumn] = (result[i][imageColumn] as byte[]).Select(x => (int)x).ToArray();
+                            result[i][imageColumn] = (result[i][imageColumn] as byte[]).Select(x => (uint)x).ToArray();
                         }
                     }
                 }
