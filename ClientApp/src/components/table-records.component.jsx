@@ -111,10 +111,11 @@ const TableRecords = ({
     }
   }, [table, loadingCurrentTableRows, deletingRow, deletedRowSuccess]);
 
-  console.log("Inside right table: ", currentTableColumns.name == table);
   return (
     <React.Fragment>
-      {(loadingCurrentTableRows || deletingRow) && <Loading></Loading>}
+      {(loadingCurrentTableRows || deletingRow || !currentTableColumns) && (
+        <Loading></Loading>
+      )}
       {loadingCurrentTableRows === null &&
         deletingRow === null &&
         (!currentTableRows || currentTableRows.length < 1) && (
