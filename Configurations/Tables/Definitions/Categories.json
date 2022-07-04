@@ -1,14 +1,33 @@
 {
     "$schema": "../Schema.json",
+    "Schema": "Data",
     "Name": "Categories",
     "AddAdditionalColumns": true,
     "AddColumns": ["Additional"],
     "Columns": [
-        {"Name": "Name", "Datatype": "ShortText", "IsUnique": true, "IsRequired": true},
-        {"Name": "Description", "Datatype": "ShortText", "IsRequired": true},
-        {"Name": "ParentCategoryId", "Datatype": "Integer", "IsRequired": false, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Categories"}
+        {
+            "Name": "Name",
+            "Datatype": "ShortText",
+            "IsUnique": true,
+            "IsRequired": true
+        },
+        { "Name": "Description", "Datatype": "ShortText", "IsRequired": true },
+        {
+            "Name": "ParentCategoryId",
+            "Datatype": "Integer",
+            "IsRequired": false,
+            "IsForeignKey": true,
+            "ForeignName": "Id",
+            "ForeignSchema": "Data",
+            "ForeignTable": "Categories"
+        }
     ],
     "DefaultRows": [
-        {"Id": 1, "Name": "Default", "Description": "Default", "ParentCategoryId": null}
+        {
+            "Id": 1,
+            "Name": "Default",
+            "Description": "Default",
+            "ParentCategoryId": null
+        }
     ]
 }

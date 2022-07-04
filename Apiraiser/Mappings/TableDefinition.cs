@@ -14,6 +14,9 @@ namespace Apiraiser.Mappings
     public class TableDefinition
     {
 
+        [JsonPropertyName("Schema")]
+        public string Schema { get; set; }
+
         [JsonPropertyName("Name")]
         public string Name { get; set; }
 

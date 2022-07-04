@@ -1,54 +1,278 @@
 {
     "$schema": "../Schema.json",
+    "Schema": "Administration",
     "Name": "InsertionOverrides",
     "AddAdditionalColumns": true,
     "Columns": [
-        {"Name": "Action", "Datatype": "ShortText", "IsRequired": true},
-        {"Name": "Type", "Datatype": "ShortText", "IsRequired": true},
-        {"Name": "Column", "Datatype": "ShortText", "IsRequired": true},
-        {"Name": "Condition", "Datatype": "ShortText", "IsRequired": false},
-        {"Name": "Value", "Datatype": "ShortText", "IsRequired": true}
+        { "Name": "Action", "Datatype": "ShortText", "IsRequired": true },
+        { "Name": "Type", "Datatype": "ShortText", "IsRequired": true },
+        { "Name": "Column", "Datatype": "ShortText", "IsRequired": true },
+        { "Name": "Condition", "Datatype": "ShortText", "IsRequired": false },
+        { "Name": "Value", "Datatype": "ShortText", "IsRequired": true }
     ],
     "DefaultRows": [
-        {"Id": 1, "Action": "Permissions.AddPermission.POST", "Type": "INSERT_COLUMN_VALUE", "Column": "CreatedBy", "Condition": null, "Value": "CurrentUserId"},
-        {"Id": 2, "Action": "Permissions.AddPermission.POST", "Type": "INSERT_COLUMN_VALUE", "Column": "CreatedOn", "Condition": null, "Value": "CurrentDateTime"},        
-        {"Id": 3, "Action": "Permissions.UpdatePermission.PUT", "Type": "INSERT_COLUMN_VALUE", "Column": "LastUpdatedBy", "Condition": null, "Value": "CurrentUserId"},
-        {"Id": 4, "Action": "Permissions.UpdatePermission.PUT", "Type": "INSERT_COLUMN_VALUE", "Column": "LastUpdatedOn", "Condition": null, "Value": "CurrentDateTime"},
-        
-        {"Id": 5, "Action": "PermissionGroups.AddPermissionGroup.POST", "Type": "INSERT_COLUMN_VALUE", "Column": "CreatedBy", "Condition": null, "Value": "CurrentUserId"},
-        {"Id": 6, "Action": "PermissionGroups.AddPermissionGroup.POST", "Type": "INSERT_COLUMN_VALUE", "Column": "CreatedOn", "Condition": null, "Value": "CurrentDateTime"},
-        {"Id": 7, "Action": "PermissionGroups.UpdatePermissionGroup.PUT", "Type": "INSERT_COLUMN_VALUE", "Column": "LastUpdatedBy", "Condition": null, "Value": "CurrentUserId"},
-        {"Id": 8, "Action": "PermissionGroups.UpdatePermissionGroup.PUT", "Type": "INSERT_COLUMN_VALUE", "Column": "LastUpdatedOn", "Condition": null, "Value": "CurrentDateTime"},
-        
-        {"Id": 9, "Action": "Roles.AddRole.POST", "Type": "INSERT_COLUMN_VALUE", "Column": "CreatedBy", "Condition": null, "Value": "CurrentUserId"},
-        {"Id": 10, "Action": "Roles.AddRole.POST", "Type": "INSERT_COLUMN_VALUE", "Column": "CreatedOn", "Condition": null, "Value": "CurrentDateTime"},
-        {"Id": 11, "Action": "Roles.UpdateRole.PUT", "Type": "INSERT_COLUMN_VALUE", "Column": "LastUpdatedBy", "Condition": null, "Value": "CurrentUserId"},
-        {"Id": 12, "Action": "Roles.UpdateRole.PUT", "Type": "INSERT_COLUMN_VALUE", "Column": "LastUpdatedOn", "Condition": null, "Value": "CurrentDateTime"},
-        
-        {"Id": 13, "Action": "PermissionGroupMappings.AddPermissionGroupMapping.POST", "Type": "INSERT_COLUMN_VALUE", "Column": "CreatedBy", "Condition": null, "Value": "CurrentUserId"},
-        {"Id": 14, "Action": "PermissionGroupMappings.AddPermissionGroupMapping.POST", "Type": "INSERT_COLUMN_VALUE", "Column": "CreatedOn", "Condition": null, "Value": "CurrentDateTime"},
-        {"Id": 15, "Action": "PermissionGroupMappings.UpdatePermissionGroupMapping.PUT", "Type": "INSERT_COLUMN_VALUE", "Column": "LastUpdatedBy", "Condition": null, "Value": "CurrentUserId"},
-        {"Id": 16, "Action": "PermissionGroupMappings.UpdatePermissionGroupMapping.PUT", "Type": "INSERT_COLUMN_VALUE", "Column": "LastUpdatedOn", "Condition": null, "Value": "CurrentDateTime"},
-        
-        {"Id": 17, "Action": "RolePermissionGroupMappings.AddRolePermissionGroupMapping.POST", "Type": "INSERT_COLUMN_VALUE", "Column": "CreatedBy", "Condition": null, "Value": "CurrentUserId"},
-        {"Id": 18, "Action": "RolePermissionGroupMappings.AddRolePermissionGroupMapping.POST", "Type": "INSERT_COLUMN_VALUE", "Column": "CreatedOn", "Condition": null, "Value": "CurrentDateTime"},
-        {"Id": 19, "Action": "RolePermissionGroupMappings.UpdateRolePermissionGroupMapping.PUT", "Type": "INSERT_COLUMN_VALUE", "Column": "LastUpdatedBy", "Condition": null, "Value": "CurrentUserId"},
-        {"Id": 20, "Action": "RolePermissionGroupMappings.UpdateRolePermissionGroupMapping.PUT", "Type": "INSERT_COLUMN_VALUE", "Column": "LastUpdatedOn", "Condition": null, "Value": "CurrentDateTime"},
-        
-        {"Id": 21, "Action": "Settings.AddSetting.POST", "Type": "INSERT_COLUMN_VALUE", "Column": "CreatedBy", "Condition": null, "Value": "CurrentUserId"},
-        {"Id": 22, "Action": "Settings.AddSetting.POST", "Type": "INSERT_COLUMN_VALUE", "Column": "CreatedOn", "Condition": null, "Value": "CurrentDateTime"},
-        {"Id": 23, "Action": "Settings.UpdateSetting.PUT", "Type": "INSERT_COLUMN_VALUE", "Column": "LastUpdatedBy", "Condition": null, "Value": "CurrentUserId"},
-        {"Id": 24, "Action": "Settings.UpdateSetting.PUT", "Type": "INSERT_COLUMN_VALUE", "Column": "LastUpdatedOn", "Condition": null, "Value": "CurrentDateTime"},
-        
-        {"Id": 25, "Action": "Table.InsertRows.POST", "Type": "INSERT_COLUMN_VALUE", "Column": "CreatedBy", "Condition": null, "Value": "CurrentUserId"},
-        {"Id": 26, "Action": "Table.InsertRows.POST", "Type": "INSERT_COLUMN_VALUE", "Column": "CreatedOn", "Condition": null, "Value": "CurrentDateTime"},
-        {"Id": 27, "Action": "Table.UpdateRows.PUT", "Type": "INSERT_COLUMN_VALUE", "Column": "LastUpdatedBy", "Condition": null, "Value": "CurrentUserId"},
-        {"Id": 28, "Action": "Table.UpdateRows.PUT", "Type": "INSERT_COLUMN_VALUE", "Column": "LastUpdatedOn", "Condition": null, "Value": "CurrentDateTime"},
-    
-        {"Id": 29, "Action": "Permissions.AddPermission.POST", "Type": "FORBID_ACTION", "Column": "IsSystem", "Condition": "==", "Value": "true"},
-        {"Id": 30, "Action": "Permissions.UpdatePermission.PUT", "Type": "FORBID_ACTION", "Column": "IsSystem", "Condition": "==", "Value": "true"},
-        {"Id": 31, "Action": "PermissionGroups.AddPermissionGroup.POST", "Type": "FORBID_ACTION", "Column": "IsSystem", "Condition": "==", "Value": "true"},
-        {"Id": 32, "Action": "PermissionGroups.UpdatePermissionGroup.PUT", "Type": "FORBID_ACTION", "Column": "IsSystem", "Condition": "==", "Value": "true"}
-        
+        {
+            "Id": 1,
+            "Action": "Permissions.AddPermission.POST",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "CreatedBy",
+            "Condition": null,
+            "Value": "CurrentUserId"
+        },
+        {
+            "Id": 2,
+            "Action": "Permissions.AddPermission.POST",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "CreatedOn",
+            "Condition": null,
+            "Value": "CurrentDateTime"
+        },
+        {
+            "Id": 3,
+            "Action": "Permissions.UpdatePermission.PUT",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "LastUpdatedBy",
+            "Condition": null,
+            "Value": "CurrentUserId"
+        },
+        {
+            "Id": 4,
+            "Action": "Permissions.UpdatePermission.PUT",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "LastUpdatedOn",
+            "Condition": null,
+            "Value": "CurrentDateTime"
+        },
+
+        {
+            "Id": 5,
+            "Action": "PermissionGroups.AddPermissionGroup.POST",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "CreatedBy",
+            "Condition": null,
+            "Value": "CurrentUserId"
+        },
+        {
+            "Id": 6,
+            "Action": "PermissionGroups.AddPermissionGroup.POST",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "CreatedOn",
+            "Condition": null,
+            "Value": "CurrentDateTime"
+        },
+        {
+            "Id": 7,
+            "Action": "PermissionGroups.UpdatePermissionGroup.PUT",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "LastUpdatedBy",
+            "Condition": null,
+            "Value": "CurrentUserId"
+        },
+        {
+            "Id": 8,
+            "Action": "PermissionGroups.UpdatePermissionGroup.PUT",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "LastUpdatedOn",
+            "Condition": null,
+            "Value": "CurrentDateTime"
+        },
+
+        {
+            "Id": 9,
+            "Action": "Roles.AddRole.POST",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "CreatedBy",
+            "Condition": null,
+            "Value": "CurrentUserId"
+        },
+        {
+            "Id": 10,
+            "Action": "Roles.AddRole.POST",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "CreatedOn",
+            "Condition": null,
+            "Value": "CurrentDateTime"
+        },
+        {
+            "Id": 11,
+            "Action": "Roles.UpdateRole.PUT",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "LastUpdatedBy",
+            "Condition": null,
+            "Value": "CurrentUserId"
+        },
+        {
+            "Id": 12,
+            "Action": "Roles.UpdateRole.PUT",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "LastUpdatedOn",
+            "Condition": null,
+            "Value": "CurrentDateTime"
+        },
+
+        {
+            "Id": 13,
+            "Action": "PermissionGroupMappings.AddPermissionGroupMapping.POST",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "CreatedBy",
+            "Condition": null,
+            "Value": "CurrentUserId"
+        },
+        {
+            "Id": 14,
+            "Action": "PermissionGroupMappings.AddPermissionGroupMapping.POST",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "CreatedOn",
+            "Condition": null,
+            "Value": "CurrentDateTime"
+        },
+        {
+            "Id": 15,
+            "Action": "PermissionGroupMappings.UpdatePermissionGroupMapping.PUT",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "LastUpdatedBy",
+            "Condition": null,
+            "Value": "CurrentUserId"
+        },
+        {
+            "Id": 16,
+            "Action": "PermissionGroupMappings.UpdatePermissionGroupMapping.PUT",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "LastUpdatedOn",
+            "Condition": null,
+            "Value": "CurrentDateTime"
+        },
+
+        {
+            "Id": 17,
+            "Action": "RolePermissionGroupMappings.AddRolePermissionGroupMapping.POST",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "CreatedBy",
+            "Condition": null,
+            "Value": "CurrentUserId"
+        },
+        {
+            "Id": 18,
+            "Action": "RolePermissionGroupMappings.AddRolePermissionGroupMapping.POST",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "CreatedOn",
+            "Condition": null,
+            "Value": "CurrentDateTime"
+        },
+        {
+            "Id": 19,
+            "Action": "RolePermissionGroupMappings.UpdateRolePermissionGroupMapping.PUT",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "LastUpdatedBy",
+            "Condition": null,
+            "Value": "CurrentUserId"
+        },
+        {
+            "Id": 20,
+            "Action": "RolePermissionGroupMappings.UpdateRolePermissionGroupMapping.PUT",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "LastUpdatedOn",
+            "Condition": null,
+            "Value": "CurrentDateTime"
+        },
+
+        {
+            "Id": 21,
+            "Action": "Settings.AddSetting.POST",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "CreatedBy",
+            "Condition": null,
+            "Value": "CurrentUserId"
+        },
+        {
+            "Id": 22,
+            "Action": "Settings.AddSetting.POST",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "CreatedOn",
+            "Condition": null,
+            "Value": "CurrentDateTime"
+        },
+        {
+            "Id": 23,
+            "Action": "Settings.UpdateSetting.PUT",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "LastUpdatedBy",
+            "Condition": null,
+            "Value": "CurrentUserId"
+        },
+        {
+            "Id": 24,
+            "Action": "Settings.UpdateSetting.PUT",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "LastUpdatedOn",
+            "Condition": null,
+            "Value": "CurrentDateTime"
+        },
+
+        {
+            "Id": 25,
+            "Action": "Table.InsertRows.POST",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "CreatedBy",
+            "Condition": null,
+            "Value": "CurrentUserId"
+        },
+        {
+            "Id": 26,
+            "Action": "Table.InsertRows.POST",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "CreatedOn",
+            "Condition": null,
+            "Value": "CurrentDateTime"
+        },
+        {
+            "Id": 27,
+            "Action": "Table.UpdateRows.PUT",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "LastUpdatedBy",
+            "Condition": null,
+            "Value": "CurrentUserId"
+        },
+        {
+            "Id": 28,
+            "Action": "Table.UpdateRows.PUT",
+            "Type": "INSERT_COLUMN_VALUE",
+            "Column": "LastUpdatedOn",
+            "Condition": null,
+            "Value": "CurrentDateTime"
+        },
+
+        {
+            "Id": 29,
+            "Action": "Permissions.AddPermission.POST",
+            "Type": "FORBID_ACTION",
+            "Column": "IsSystem",
+            "Condition": "==",
+            "Value": "true"
+        },
+        {
+            "Id": 30,
+            "Action": "Permissions.UpdatePermission.PUT",
+            "Type": "FORBID_ACTION",
+            "Column": "IsSystem",
+            "Condition": "==",
+            "Value": "true"
+        },
+        {
+            "Id": 31,
+            "Action": "PermissionGroups.AddPermissionGroup.POST",
+            "Type": "FORBID_ACTION",
+            "Column": "IsSystem",
+            "Condition": "==",
+            "Value": "true"
+        },
+        {
+            "Id": 32,
+            "Action": "PermissionGroups.UpdatePermissionGroup.PUT",
+            "Type": "FORBID_ACTION",
+            "Column": "IsSystem",
+            "Condition": "==",
+            "Value": "true"
+        }
     ]
 }

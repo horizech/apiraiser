@@ -42,10 +42,10 @@ namespace Apiraiser.Filters
 
             string permission = string.Format("{0}.{1}.{2}", controller, action, method);
 
-            List<ColumnInfo> columnDefinitions = await ServiceManager.Instance.GetService<DatabaseService>().GetDatabaseDriver().GetTableColumns(Schemas.System, TableNames.InsertionOverrides.ToString());
+            List<ColumnInfo> columnDefinitions = await ServiceManager.Instance.GetService<DatabaseService>().GetDatabaseDriver().GetTableColumns(Schemas.Administration, TableNames.InsertionOverrides.ToString());
 
             List<Dictionary<string, object>> result = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.InsertionOverrides.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.InsertionOverrides.ToString())
                 .WhereEquals("Action", permission)
                 .WhereEquals("Type", "INSERT_COLUMN_VALUE")
                 .AddColumnDefinitions(columnDefinitions)

@@ -46,7 +46,7 @@ namespace Apiraiser.Services
                 }
 
                 List<Dictionary<string, object>> usernameCheckResult = await QueryDesigner
-                    .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                    .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                     .WhereEquals("Username", user.Username)
                     .RunSelectQuery();
 
@@ -61,7 +61,7 @@ namespace Apiraiser.Services
                 }
 
                 List<Dictionary<string, object>> emailCheckResult = await QueryDesigner
-                    .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                    .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                     .WhereEquals("Email", user.Email)
                     .RunSelectQuery();
 
@@ -75,12 +75,11 @@ namespace Apiraiser.Services
                     };
                 }
 
-                APIResult userDefaultRoleUser = await ServiceManager
+                APIResult allSettings = await ServiceManager
                     .Instance
-                    .GetService<SettingsService>()
-                    .GetSetting(Constants.Settings.DefaultRoleOnSignup);
+                    .GetService<TableService>().GetRows(Schemas.Administration, TableNames.Settings.ToString());
 
-                Dictionary<string, object> userDefaultRole = (Dictionary<string, object>)(userDefaultRoleUser.Data);
+                Dictionary<string, object> userDefaultRole = ((List<Dictionary<string, object>>)(allSettings.Data)).First(x => (x["Key"] as string) == Constants.Settings.DefaultRoleOnSignup);
 
                 // Create User
                 Dictionary<string, object> userData = new Dictionary<string, object>
@@ -93,7 +92,7 @@ namespace Apiraiser.Services
                 };
 
                 List<int> ids = await QueryDesigner
-                    .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                    .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                     .AddRow(userData)
                     .RunInsertQuery();
 
@@ -110,7 +109,7 @@ namespace Apiraiser.Services
                 Columns.AppendCreatedInfo(userRoleData, ids[0]);
 
                 await QueryDesigner
-                    .CreateDesigner(schema: Schemas.System, table: TableNames.UserRoles.ToString())
+                    .CreateDesigner(schema: Schemas.Administration, table: TableNames.UserRoles.ToString())
                     .AddRow(userRoleData)
                     .RunInsertQuery();
 
@@ -128,7 +127,7 @@ namespace Apiraiser.Services
             try
             {
                 List<Dictionary<string, object>> result = await QueryDesigner
-                    .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                    .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                     .WhereEquals(
                         (username?.Length ?? 0) > 0 ? "Username" : "Email",
                         (username?.Length ?? 0) > 0 ? username : email
@@ -184,7 +183,7 @@ namespace Apiraiser.Services
             try
             {
                 List<Dictionary<string, object>> result = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .WhereEquals("Id", Id)
                 .RunSelectQuery();
 

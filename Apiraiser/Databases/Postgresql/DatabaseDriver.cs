@@ -195,9 +195,13 @@ namespace Apiraiser.Databases.Postgresql
                 completeColumns = columns.ToArray().ToList();
             }
 
-            if (schema.Equals(Schemas.Application))
+            if (schema.Equals(Schemas.Data))
             {
-                completeColumns.AddRange(Columns.AdditionalColumns.Columns);
+                // Check if table already contains predefined columns
+                if (!completeColumns.Any(x => Columns.AdditionalColumns.Columns[0].Name == x.Name))
+                {
+                    completeColumns.AddRange(Columns.AdditionalColumns.Columns);
+                }
             }
 
             using (var conn = new NpgsqlConnection(Connection.GetDatabaseConnectionString()))

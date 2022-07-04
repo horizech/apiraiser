@@ -4,13 +4,27 @@
 
 ### Added:
 
+-   Added dynamic API for system tables
+-   Created templates for loading default tables.
+-   Added Table columns check in Insert and Update API.
+
 ### Changed:
+
+-   Changed schemas to Administration and Data.
+-   Changed some default tables Schema to Application.
+-   Use GetTables and GetTableColumns for both Schemas.
+-   Use unit array while creating and getting images.
 
 ### Deprecated:
 
 ### Removed:
 
+-   Removed Permissions, Permission Groups related stuff.
+
 ### Fixed:
+
+-   Fixed System Permission Add and Update APIs.
+-   Added Check for Predefined column in CreateTable.
 
 ### Security:
 
@@ -20,7 +34,7 @@
 
 ### Changed:
 
-- Use Ids instead names when updating or deleting Roles, TablePermissions, SystemPermissions and UserAccessLevels.
+-   Use Ids instead names when updating or deleting Roles, TablePermissions, SystemPermissions and UserAccessLevels.
 
 ### Deprecated:
 
@@ -34,9 +48,9 @@
 
 ### Added:
 
-- Added Table Permissions
-- Added System Permissions
-- Added multiple User Roles
+-   Added Table Permissions.
+-   Added System Permissions.
+-   Added multiple User Roles.
 
 ### Changed:
 
@@ -46,7 +60,7 @@
 
 ### Fixed:
 
-- Fixed email not saving in Initialize
+-   Fixed email not saving in Initialize.
 
 ### Security:
 
@@ -56,8 +70,8 @@
 
 ### Changed:
 
-- Changed Schema names
-- Changed app name to Apiraiser
+-   Changed Schema names.
+-   Changed app name to Apiraiser.
 
 ### Deprecated:
 
@@ -71,8 +85,8 @@
 
 ### Added:
 
-- Added User Roles API.
-- Added Translations table and API.
+-   Added User Roles API.
+-   Added Translations table and API.
 
 ### Changed:
 
@@ -88,13 +102,13 @@
 
 ### Added:
 
-- Added management of UserAccessLevels.
-- Added AWS S3 plugin.
-- Clear Cache on Create, Edit and Delete.
+-   Added management of UserAccessLevels.
+-   Added AWS S3 plugin.
+-   Clear Cache on Create, Edit and Delete.
 
 ### Changed:
 
-- Changed the Configuration page.
+-   Changed the Configuration page.
 
 ### Deprecated:
 
@@ -108,14 +122,14 @@
 
 ### Added:
 
-- Use LevendrUserAccessLevel filter in API controller functions.
+-   Use LevendrUserAccessLevel filter in API controller functions.
 
 ### Changed:
 
-- Renamed UserLevelAccess table to UserAccessLevels.
-- Updated UserLevelAccess filter
-- Changed Table Controller UserLevelAccess filter parameters
-- Use API Controller for Table records management in FE
+-   Renamed UserLevelAccess table to UserAccessLevels.
+-   Updated UserLevelAccess filter
+-   Changed Table Controller UserLevelAccess filter parameters
+-   Use API Controller for Table records management in FE
 
 ### Deprecated:
 
@@ -129,35 +143,35 @@
 
 ### Added:
 
-- Added PermissionGroups in GetUserInfo result.
-- Use LevendrUserAccessLevel filter in Table controller functions.
-- Added LevendrUserAccessLevel filter.
-- Added boolen type output in Execute<T> function.
-- Implemented MemoryCache in many services.
-- Added MemoryCache system.
-- Connected UserLevelAccess with RolePermissionGroup
-- Added UserLevelAccess table.
-- Added error and success alerts and toasts
-- Implemented Alerts
-- Added title to alert
-- Implemented parseInt in create-edit public tables
-- Levendr Table create-edit-modal: implemented parseInt & updated dropdown
-- Implemented addUser FE
-- Implemented AddUser API
-- Implemened Levendr Dropdown component
+-   Added PermissionGroups in GetUserInfo result.
+-   Use LevendrUserAccessLevel filter in Table controller functions.
+-   Added LevendrUserAccessLevel filter.
+-   Added boolen type output in Execute<T> function.
+-   Implemented MemoryCache in many services.
+-   Added MemoryCache system.
+-   Connected UserLevelAccess with RolePermissionGroup
+-   Added UserLevelAccess table.
+-   Added error and success alerts and toasts
+-   Implemented Alerts
+-   Added title to alert
+-   Implemented parseInt in create-edit public tables
+-   Levendr Table create-edit-modal: implemented parseInt & updated dropdown
+-   Implemented addUser FE
+-   Implemented AddUser API
+-   Implemened Levendr Dropdown component
 
 ### Changed:
 
-- Updated NavMenu Component.
-- Updated Table controller to use UserAccessLevel
-- Updated UpdateRows function.
-- Updated Permissions Configuration.
-- Updated LevendrAuthorized filter
-- Updated RolePermission in JWT and authorization.
-- Added tables to NavBar and removed sidebar
-- Updated navmenu with role, permissions, settings and users
-- Updated Login response.
-- Code cleanup
+-   Updated NavMenu Component.
+-   Updated Table controller to use UserAccessLevel
+-   Updated UpdateRows function.
+-   Updated Permissions Configuration.
+-   Updated LevendrAuthorized filter
+-   Updated RolePermission in JWT and authorization.
+-   Added tables to NavBar and removed sidebar
+-   Updated navmenu with role, permissions, settings and users
+-   Updated Login response.
+-   Code cleanup
 
 ### Deprecated:
 
@@ -165,10 +179,10 @@
 
 ### Fixed:
 
-- Fixed AddUser API
+-   Fixed AddUser API
 
 ### Security:
 
 ## [v0.1.0] - 2022-01-11
 
-- First release
+-   First release

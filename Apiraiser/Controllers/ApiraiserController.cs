@@ -34,23 +34,23 @@ namespace Apiraiser.Controllers
         }
 
         [HttpPost("Initialize")]
-        public async Task<APIResult> Initialize(LoginRequest loginDetails)
+        public async Task<APIResult> Initialize(InitializeRequest initializeRequest)
         {
-            if (loginDetails == null)
+            if (initializeRequest == null)
             {
                 return APIResult.GetSimpleFailureResult("Credentials not valid!");
             }
-            if (loginDetails.Username == null || loginDetails.Username.Length < 6)
+            if (initializeRequest.Username == null || initializeRequest.Username.Length < 6)
             {
                 return APIResult.GetSimpleFailureResult("Username should be at least 6 characters!");
             }
 
-            if (loginDetails.Password == null || loginDetails.Password.Length == 0)
+            if (initializeRequest.Password == null || initializeRequest.Password.Length == 0)
             {
                 return APIResult.GetSimpleFailureResult("password is not valid!");
             }
 
-            return await ServiceManager.Instance.GetService<ApiraiserService>().Initialize(loginDetails.Username, loginDetails.Email, loginDetails.Password);
+            return await ServiceManager.Instance.GetService<ApiraiserService>().Initialize(initializeRequest.Username, initializeRequest.Email, initializeRequest.Password, !string.IsNullOrEmpty(initializeRequest.Template) ? initializeRequest.Template : "Minimum");
         }
 
         [HttpGet("GetAllActions")]

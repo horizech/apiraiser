@@ -17,42 +17,6 @@ const ConfigurationPage = (props) => {
           <CardText></CardText>
         </Card>
       </div>
-     <div className={"configuration-button"} onClick={ () => history.push("/permissions")}>
-        <Card body>
-          <center>    
-            <i className={"fas fa-user-lock fa-3x"}></i>
-            <p>Permisssions</p>
-          </center>
-          <CardText></CardText>
-        </Card>
-      </div>
-      <div className={"configuration-button"} onClick={ () => history.push("/permission-groups")}>
-        <Card body>
-          <center>    
-            <i className={"fas fa-layer-group fa-3x"}></i>
-            <p>Permisssion Groups</p>
-          </center>
-          <CardText></CardText>
-        </Card>
-      </div>
-      <div className={"configuration-button"} onClick={ () => history.push("/permission-group-mappings")}>
-        <Card body>
-          <center>    
-            <i className={"fas fa-users-cog fa-3x"}></i>
-            <p>Permisssion Group Mappings</p>
-          </center>
-          <CardText></CardText>
-        </Card>
-      </div>
-      <div className={"configuration-button"} onClick={ () => history.push("/role-permission-group-mappings")}>
-        <Card body>
-          <center>    
-            <i className={"fas fa-sitemap fa-3x"}></i>
-            <p>Role Permisssion Group Mappings</p>
-          </center>
-          <CardText></CardText>
-        </Card>
-      </div>
       <div className={"configuration-button"} onClick={ () => history.push("/user-access-levels")}>
         <Card body>
           <center>    

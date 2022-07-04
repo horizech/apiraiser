@@ -26,7 +26,7 @@ namespace Apiraiser.Services
             try
             {
                 List<Dictionary<string, object>> userRoles = await QueryDesigner
-                    .CreateDesigner(schema: Schemas.System, table: TableNames.UserRoles.ToString())
+                    .CreateDesigner(schema: Schemas.Administration, table: TableNames.UserRoles.ToString())
                     .WhereEquals("User", Id)
                     .RunSelectQuery();
                 List<int> userRoleIds = userRoles.Select(x => (int)x["Role"]).ToList();
@@ -34,7 +34,7 @@ namespace Apiraiser.Services
 
                 if ((userRoles?.Count ?? 0) > 0)
                 {
-                    APIResult rolesResult = await ServiceManager.Instance.GetService<RolesService>().GetRoles();
+                    APIResult rolesResult = await ServiceManager.Instance.GetService<TableService>().GetRows(Schemas.Administration, TableNames.Roles.ToString());
                     List<Dictionary<string, object>> roles = ((List<Dictionary<string, object>>)rolesResult.Data).Where(x => userRoleIds.Contains((int)x["Id"])).ToList();
 
                     if (roles.Count > 0)
@@ -72,142 +72,10 @@ namespace Apiraiser.Services
             }
         }
 
-        public async Task<APIResult> GetRolePermissionGroupMappings(int RoleId)
-        {
-            try
-            {
-                APIResult result = await ServiceManager.Instance.GetService<RolePermissionGroupMappingsService>().GetRolePermissionGroupMappings();
-
-                List<Dictionary<string, object>> rolePermissionGroupMappings = ((List<Dictionary<string, object>>)result.Data).Where(x => (int)x["Role"] == RoleId).ToList();
-
-                if ((rolePermissionGroupMappings?.Count ?? 0) > 0)
-                {
-                    return new APIResult()
-                    {
-                        Success = true,
-                        Message = "Role Permission Group mappings found successfully!",
-                        Data = rolePermissionGroupMappings
-                    };
-                }
-                else
-                {
-                    return new APIResult()
-                    {
-                        Success = false,
-                        Message = "Role Permission Group mappings not found!",
-                        Data = null
-                    };
-                }
-            }
-            catch (Exception e)
-            {
-                return APIResult.GetExceptionResult(e);
-            }
-        }
-
-        public async Task<APIResult> GetPermissionGroupMappings(List<int> permissionGroupIds)
-        {
-            try
-            {
-                APIResult result = await ServiceManager.Instance.GetService<PermissionGroupMappingsService>().GetPermissionGroupMappings();
-
-                List<Dictionary<string, object>> rolePermissionsGroups = ((List<Dictionary<string, object>>)result.Data).Where(x => permissionGroupIds.Contains((int)x["PermissionGroup"])).ToList();
-
-                if ((rolePermissionsGroups?.Count ?? 0) > 0)
-                {
-                    return new APIResult()
-                    {
-                        Success = true,
-                        Message = "Permission Groups found successfully!",
-                        Data = rolePermissionsGroups
-                    };
-                }
-                else
-                {
-                    return new APIResult()
-                    {
-                        Success = false,
-                        Message = "Permission Groups not found!",
-                        Data = null
-                    };
-                }
-            }
-            catch (Exception e)
-            {
-                return APIResult.GetExceptionResult(e);
-            }
-        }
-
-        public async Task<APIResult> GetPermissionGroupsByIds(List<int> Ids)
-        {
-            try
-            {
-                APIResult result = await ServiceManager.Instance.GetService<PermissionGroupMappingsService>().GetPermissionGroupMappings();
-
-                List<Dictionary<string, object>> rolePermissionsGroups = ((List<Dictionary<string, object>>)result.Data).Where(x => Ids.Contains((int)x["Id"])).ToList();
-
-                if ((rolePermissionsGroups?.Count ?? 0) > 0)
-                {
-                    return new APIResult()
-                    {
-                        Success = true,
-                        Message = "Permission Groups found successfully!",
-                        Data = rolePermissionsGroups
-                    };
-                }
-                else
-                {
-                    return new APIResult()
-                    {
-                        Success = false,
-                        Message = "Permission Groups not found!",
-                        Data = null
-                    };
-                }
-            }
-            catch (Exception e)
-            {
-                return APIResult.GetExceptionResult(e);
-            }
-        }
-
-        public async Task<APIResult> GetPermissionsByIds(List<int> Ids)
-        {
-            try
-            {
-                APIResult result = await ServiceManager.Instance.GetService<PermissionsService>().GetPermissions();
-
-                List<Dictionary<string, object>> permissions = ((List<Dictionary<string, object>>)result.Data).Where(x => Ids.Contains((int)x["Id"])).ToList();
-
-                if ((permissions?.Count ?? 0) > 0)
-                {
-                    return new APIResult()
-                    {
-                        Success = true,
-                        Message = "Permissions found successfully!",
-                        Data = permissions
-                    };
-                }
-                else
-                {
-                    return new APIResult()
-                    {
-                        Success = false,
-                        Message = "Permissions not found!",
-                        Data = null
-                    };
-                }
-            }
-            catch (Exception e)
-            {
-                return APIResult.GetExceptionResult(e);
-            }
-        }
-
         public async Task<APIResult> GetUser(int Id)
         {
             List<Dictionary<string, object>> result = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .WhereEquals("Id", Id, true)
                 .RunSelectQuery();
 
@@ -234,7 +102,7 @@ namespace Apiraiser.Services
         public async Task<APIResult> GetUsers()
         {
             List<Dictionary<string, object>> result = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .RunSelectQuery();
 
             return new APIResult()
@@ -273,7 +141,7 @@ namespace Apiraiser.Services
             }
 
             List<Dictionary<string, object>> usernameCheckResult = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .WhereEquals("Username", user.Username)
                 .RunSelectQuery();
 
@@ -288,7 +156,7 @@ namespace Apiraiser.Services
             }
 
             List<Dictionary<string, object>> emailCheckResult = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .WhereEquals("Email", user.Email)
                 .RunSelectQuery();
 
@@ -309,12 +177,12 @@ namespace Apiraiser.Services
             }
             else
             {
-                APIResult userDefaultRoleUser = await ServiceManager
+                APIResult allSettings = await ServiceManager
                     .Instance
-                    .GetService<SettingsService>()
-                    .GetSetting(Constants.Settings.DefaultRoleOnSignup);
+                    .GetService<TableService>().GetRows(Schemas.Administration, TableNames.Settings.ToString());
 
-                Dictionary<string, object> userDefaultRole = (Dictionary<string, object>)(userDefaultRoleUser.Data);
+                Dictionary<string, object> userDefaultRole = ((List<Dictionary<string, object>>)(allSettings.Data)).First(x => (x["Key"] as string) == Constants.Settings.DefaultRoleOnSignup);
+
                 role = Int32.Parse(userDefaultRole["Value"].ToString());
             }
 
@@ -329,7 +197,7 @@ namespace Apiraiser.Services
                 };
 
             List<int> ids = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .AddRow(userData)
                 .RunInsertQuery();
 
@@ -346,7 +214,7 @@ namespace Apiraiser.Services
             Columns.AppendCreatedInfo(userRoleData, ids[0]);
 
             await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.UserRoles.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.UserRoles.ToString())
                 .AddRow(userRoleData)
                 .RunInsertQuery();
 
@@ -361,7 +229,7 @@ namespace Apiraiser.Services
         public async Task<APIResult> UpdateUser(int Id, Dictionary<string, object> data)
         {
             bool result = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .WhereEquals("Id", Id)
                 .AddRow(data)
                 .RunUpdateQuery();
@@ -378,7 +246,7 @@ namespace Apiraiser.Services
         {
             // Delete User Role
             bool result = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.UserRoles.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.UserRoles.ToString())
                 .WhereEquals("User", Id)
                 .RunDeleteQuery();
 
@@ -394,7 +262,7 @@ namespace Apiraiser.Services
 
             // Delete User
             result = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .WhereEquals("Id", Id)
                 .RunDeleteQuery();
             if (!result)

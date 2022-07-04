@@ -11,12 +11,9 @@ using Apiraiser.Enums;
 
 namespace Apiraiser.Mappings
 {
-    public class TablesInfo
+    public class AppTemplates
     {
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        [JsonPropertyName("Tables")]
-        public Dictionary<string, string> Tables { get; set; }
+        [JsonPropertyName("Templates")]
+        public List<TablesInfo> Templates { get; set; }
     }
 }

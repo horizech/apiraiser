@@ -1,0 +1,59 @@
+{
+    "Templates": [
+        {
+            "Name": "Minimum",
+            "Tables": {
+                "Users": "Users",
+                "UserAccessLevels": "UserAccessLevels",
+                "Roles": "Roles",
+                "UserRoles": "UserRoles",
+                "SystemPermissions": "SystemPermissions",
+                "TablePermissions": "TablePermissions",
+                "Settings": "Settings",
+                "Translations": "Translations"
+            }
+        },
+        {
+            "Name": "Blog",
+            "Tables": {
+                "Users": "Users",
+                "UserAccessLevels": "UserAccessLevels",
+                "Roles": "Roles",
+                "UserRoles": "UserRoles",
+                "SystemPermissions": "SystemPermissions",
+                "TablePermissions": "TablePermissions",
+                "Settings": "Settings",
+                "Translations": "Translations",
+                "MediaSources": "MediaSources",
+                "PageRoles": "PageRoles",
+                "Media": "Media",
+                "Templates": "Templates",
+                "Categories": "Categories",
+                "Pages": "Pages",
+                "Posts": "Posts"
+            }
+        },
+        {
+            "Name": "Extras",
+            "Tables": {
+                "Users": "Users",
+                "UserAccessLevels": "UserAccessLevels",
+                "Roles": "Roles",
+                "UserRoles": "UserRoles",
+                "SystemPermissions": "SystemPermissions",
+                "TablePermissions": "TablePermissions",
+                "ForeignData": "ForeignData",
+                "InsertionOverrides": "InsertionOverrides",
+                "Settings": "Settings",
+                "Translations": "Translations",
+                "MediaSources": "MediaSources",
+                "PageRoles": "PageRoles",
+                "Media": "Media",
+                "Templates": "Templates",
+                "Categories": "Categories",
+                "Pages": "Pages",
+                "Posts": "Posts"
+            }
+        }
+    ]
+}

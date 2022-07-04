@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
+using Apiraiser.Enums;
+using Apiraiser.Constants;
 using Apiraiser.Services;
 using Apiraiser.Models;
 using System.Threading.Tasks;
@@ -80,7 +82,7 @@ namespace Apiraiser.Filters
             }
             List<int> roleIds = roleIdsString.Split(",").Select(x => Int32.Parse(x)).ToList();
 
-            APIResult allTablePermissions = await ServiceManager.Instance.GetService<TablePermissionsService>().GetTablePermissions();
+            APIResult allTablePermissions = await ServiceManager.Instance.GetService<TableService>().GetRows(Schemas.Administration, TableNames.TablePermissions.ToString());
 
             List<Dictionary<string, object>> tablePermissions = ((List<Dictionary<string, object>>)allTablePermissions.Data)
                 .Where(x => schema == x["Schema"].ToString() && table == x["Table"].ToString() && roleIds.Contains((int)x["Role"]))

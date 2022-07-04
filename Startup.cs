@@ -52,7 +52,7 @@ namespace Apiraiser
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = Schemas.System, Version = "v3" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = Schemas.Administration, Version = "v3" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,

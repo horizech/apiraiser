@@ -1,10 +1,26 @@
 {
     "$schema": "../Schema.json",
+    "Schema": "Administration",
     "Name": "Translations",
     "AddAdditionalColumns": true,
     "Columns": [
-        {"Name": "Name", "Datatype": "ShortText", "IsUnique": true, "IsRequired": true},
-        {"Name": "Description", "Datatype": "ShortText", "IsUnique": false, "IsRequired": false},
-        {"Name": "English", "Datatype": "ShortText", "IsUnique": false, "IsRequired": true}
+        {
+            "Name": "Name",
+            "Datatype": "ShortText",
+            "IsUnique": true,
+            "IsRequired": true
+        },
+        {
+            "Name": "Description",
+            "Datatype": "ShortText",
+            "IsUnique": false,
+            "IsRequired": false
+        },
+        {
+            "Name": "English",
+            "Datatype": "ShortText",
+            "IsUnique": false,
+            "IsRequired": true
+        }
     ]
 }

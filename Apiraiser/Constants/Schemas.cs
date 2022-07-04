@@ -6,7 +6,7 @@ namespace Apiraiser.Constants
 {
     public class Schemas
     {
-        public const string System = "System";
-        public const string Application = "Application";
+        public const string Administration = "Administration";
+        public const string Data = "Data";
     }
 }

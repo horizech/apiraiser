@@ -1,14 +1,20 @@
 {
     "$schema": "../Schema.json",
+    "Schema": "Administration",
     "Name": "MediaSources",
     "AddAdditionalColumns": true,
     "Columns": [
-        {"Name": "Name", "Datatype": "ShortText", "IsUnique": true, "IsRequired": true},
-        {"Name": "Description", "Datatype": "ShortText", "IsRequired": true}
+        {
+            "Name": "Name",
+            "Datatype": "ShortText",
+            "IsUnique": true,
+            "IsRequired": true
+        },
+        { "Name": "Description", "Datatype": "ShortText", "IsRequired": true }
     ],
     "DefaultRows": [
-        {"Id": 1, "Name": "Local", "Description": "Local File System"},
-        {"Id": 2, "Name": "Database", "Description": "Database"},
-        {"Id": 3, "Name": "S3", "Description": "S3 Bucket"}
+        { "Id": 1, "Name": "Database", "Description": "Database" },
+        { "Id": 2, "Name": "Local", "Description": "Local File System" },
+        { "Id": 3, "Name": "S3", "Description": "S3 Bucket" }
     ]
 }
