@@ -4,6 +4,7 @@
 
 ### Added:
 
+-   Added dynamic API for system tables
 -   Created templates for loading default tables.
 -   Added Table columns check in Insert and Update API.
 
