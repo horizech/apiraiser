@@ -77,7 +77,10 @@ namespace Apiraiser.Controllers
             {
                 return cacheResult;
             }
-            return await ServiceManager.Instance.GetService<TableService>().GetTablesList(schema);
+            APIResult result = await ServiceManager.Instance.GetService<TableService>().GetTablesList(schema);
+            ServiceManager.Instance.GetService<MemoryCacheService>().Set(schema + "Tables", result);
+            return result;
+
         }
 
         [Authorize]
@@ -89,7 +92,9 @@ namespace Apiraiser.Controllers
             {
                 return cacheResult;
             }
-            return await ServiceManager.Instance.GetService<TableService>().GetTableColumns(schema, table);
+            APIResult result = await ServiceManager.Instance.GetService<TableService>().GetTableColumns(schema, table);
+            ServiceManager.Instance.GetService<MemoryCacheService>().Set(schema + table + "Columns", result);
+            return result;
         }
 
         [Authorize]
@@ -299,9 +304,10 @@ namespace Apiraiser.Controllers
             // };
             // return await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(Schemas.System, table, UserParameters, selectSettings);
 
+            APIResult result;
             if (CreatedBy == 0 && LastUpdatedBy == 0)
             {
-                return await ServiceManager.Instance.GetService<APIService>().GetRows(Schemas.System, table, selectSettings);
+                result = await ServiceManager.Instance.GetService<APIService>().GetRows(Schemas.System, table, selectSettings);
             }
             else
             {
@@ -328,8 +334,13 @@ namespace Apiraiser.Controllers
                     });
                 }
 
-                return await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(Schemas.System, table, parameters, selectSettings);
+                result = await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(Schemas.System, table, parameters, selectSettings);
             }
+            if (!limit.HasValue && !offset.HasValue && CreatedBy == 0 && LastUpdatedBy == 0)
+            {
+                ServiceManager.Instance.GetService<MemoryCacheService>().Set(Schemas.System + table + "Data", result);
+            }
+            return result;
         }
 #nullable disable
 
