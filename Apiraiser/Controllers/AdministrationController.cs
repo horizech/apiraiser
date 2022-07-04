@@ -20,11 +20,11 @@ namespace Apiraiser.Controllers
 {
     [ApiController]
     [Route("API/[controller]")]
-    public class SystemController : ControllerBase
+    public class AdministrationController : ControllerBase
     {
-        private readonly ILogger<SystemController> _logger;
+        private readonly ILogger<AdministrationController> _logger;
 
-        public SystemController(ILogger<SystemController> logger)
+        public AdministrationController(ILogger<AdministrationController> logger)
         {
             _logger = logger;
         }
@@ -60,10 +60,10 @@ namespace Apiraiser.Controllers
                 }
             }
 
-            APIResult result = await ServiceManager.Instance.GetService<TableService>().CreateTable(Schemas.System, table, columns);
+            APIResult result = await ServiceManager.Instance.GetService<TableService>().CreateTable(Schemas.Administration, table, columns);
             if (result.Success)
             {
-                ServiceManager.Instance.GetService<MemoryCacheService>().Remove(Schemas.System + "Tables");
+                ServiceManager.Instance.GetService<MemoryCacheService>().Remove(Schemas.Administration + "Tables");
             }
             return result;
         }
@@ -127,13 +127,13 @@ namespace Apiraiser.Controllers
                     return APIResult.GetSimpleFailureResult("Cannot delete predefined column!");
                 }
 
-                Task<APIResult> createTask = ServiceManager.Instance.GetService<TableService>().AddColumn(Schemas.System, table, columnInfo);
+                Task<APIResult> createTask = ServiceManager.Instance.GetService<TableService>().AddColumn(Schemas.Administration, table, columnInfo);
                 try
                 {
                     APIResult result = await createTask;
                     if (result.Success)
                     {
-                        ServiceManager.Instance.GetService<MemoryCacheService>().Remove(Schemas.System + table + "Columns");
+                        ServiceManager.Instance.GetService<MemoryCacheService>().Remove(Schemas.Administration + table + "Columns");
                     }
                     return result;
                 }
@@ -186,13 +186,13 @@ namespace Apiraiser.Controllers
                     return APIResult.GetSimpleFailureResult("Cannot delete predefined column!");
                 }
 
-                Task<APIResult> deleteTask = ServiceManager.Instance.GetService<TableService>().DeleteColumn(Schemas.System, table, column);
+                Task<APIResult> deleteTask = ServiceManager.Instance.GetService<TableService>().DeleteColumn(Schemas.Administration, table, column);
                 try
                 {
                     APIResult result = await deleteTask;
                     if (result.Success)
                     {
-                        ServiceManager.Instance.GetService<MemoryCacheService>().Remove(Schemas.System + table + "Columns");
+                        ServiceManager.Instance.GetService<MemoryCacheService>().Remove(Schemas.Administration + table + "Columns");
                     }
                     return result;
                 }
@@ -223,7 +223,7 @@ namespace Apiraiser.Controllers
         }
 
         [Authorize]
-        [TablePermission(Schemas.System, "", "CanRead", "parameters.CreatedBy")]
+        [TablePermission(Schemas.Administration, "", "CanRead", "parameters.CreatedBy")]
         [HttpPost("GetRowsByConditions")]
         public async Task<APIResult> GetRowsByConditions(string table, List<QuerySearchItem> parameters)
         {
@@ -259,15 +259,15 @@ namespace Apiraiser.Controllers
             //         }
             //     );
             // }
-            // return await ServiceManager.Instance.GetService<TableService>().GetRowsByConditions(Schemas.System, table, parameters);
+            // return await ServiceManager.Instance.GetService<TableService>().GetRowsByConditions(Schemas.Administration, table, parameters);
 
-            return await ServiceManager.Instance.GetService<TableService>().GetRowsByConditions(Schemas.System, table, parameters);
+            return await ServiceManager.Instance.GetService<TableService>().GetRowsByConditions(Schemas.Administration, table, parameters);
         }
 
 
 #nullable enable
         [Authorize]
-        [TablePermission(Schemas.System, "", "CanRead", "CreatedBy")]
+        [TablePermission(Schemas.Administration, "", "CanRead", "CreatedBy")]
         [HttpGet("{table}")]
         public async Task<APIResult> GetRows(string table, [FromQuery] int? limit, [FromQuery] int? offset, [FromQuery] string? orderBy, [FromQuery] string? orderDescendingBy, [FromQuery] string? groupBy, int CreatedBy = 0, int LastUpdatedBy = 0)
         {
@@ -278,7 +278,7 @@ namespace Apiraiser.Controllers
 
             if (!limit.HasValue && !offset.HasValue && CreatedBy == 0 && LastUpdatedBy == 0)
             {
-                APIResult cacheResult = await ServiceManager.Instance.GetService<MemoryCacheService>().Get(Schemas.System + table + "Data");
+                APIResult cacheResult = await ServiceManager.Instance.GetService<MemoryCacheService>().Get(Schemas.Administration + table + "Data");
                 if (cacheResult != null)
                 {
                     return cacheResult;
@@ -302,12 +302,12 @@ namespace Apiraiser.Controllers
             //         Value = Users.GetUserId(User)
             //     }
             // };
-            // return await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(Schemas.System, table, UserParameters, selectSettings);
+            // return await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(Schemas.Administration, table, UserParameters, selectSettings);
 
             APIResult result;
             if (CreatedBy == 0 && LastUpdatedBy == 0)
             {
-                result = await ServiceManager.Instance.GetService<APIService>().GetRows(Schemas.System, table, selectSettings);
+                result = await ServiceManager.Instance.GetService<APIService>().GetRows(Schemas.Administration, table, selectSettings);
             }
             else
             {
@@ -334,18 +334,18 @@ namespace Apiraiser.Controllers
                     });
                 }
 
-                result = await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(Schemas.System, table, parameters, selectSettings);
+                result = await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(Schemas.Administration, table, parameters, selectSettings);
             }
             if (!limit.HasValue && !offset.HasValue && CreatedBy == 0 && LastUpdatedBy == 0)
             {
-                ServiceManager.Instance.GetService<MemoryCacheService>().Set(Schemas.System + table + "Data", result);
+                ServiceManager.Instance.GetService<MemoryCacheService>().Set(Schemas.Administration + table + "Data", result);
             }
             return result;
         }
 #nullable disable
 
         [Authorize]
-        [TablePermission(Schemas.System, "", "CanRead", "CreatedBy")]
+        [TablePermission(Schemas.Administration, "", "CanRead", "CreatedBy")]
         [HttpGet("{table}/{id}")]
         public async Task<APIResult> GetRow(string table, int id, int CreatedBy = 0, int LastUpdatedBy = 0)
         {
@@ -374,7 +374,7 @@ namespace Apiraiser.Controllers
             //         Value = id
             //     }
             // };
-            // return await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(Schemas.System, table, UserParameters);
+            // return await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(Schemas.Administration, table, UserParameters);
 
             List<QuerySearchItem> parameters = new List<QuerySearchItem>{
                 new QuerySearchItem(){
@@ -407,11 +407,11 @@ namespace Apiraiser.Controllers
                 });
             }
 
-            return await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(Schemas.System, table, parameters);
+            return await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(Schemas.Administration, table, parameters);
         }
 
         [Authorize]
-        [TablePermission(Schemas.System, "", "CanWrite", insertPropertyName: "data.CreatedBy")]
+        [TablePermission(Schemas.Administration, "", "CanWrite", insertPropertyName: "data.CreatedBy")]
         [HttpPost("{table}")]
         public async Task<APIResult> InsertRow(string table, Dictionary<string, object> data)
         {
@@ -426,7 +426,7 @@ namespace Apiraiser.Controllers
 
             List<string> predefinedColumns = Columns.PredefinedColumns.Descriptions.Select(x => x["Name"].ToLower()).ToList();
 
-            APIResult tableColumns = await ServiceManager.Instance.GetService<TableService>().GetTableColumns(Schemas.System, table);
+            APIResult tableColumns = await ServiceManager.Instance.GetService<TableService>().GetTableColumns(Schemas.Administration, table);
             if (!tableColumns.Success || tableColumns.Data == null)
             {
                 return APIResult.GetSimpleFailureResult("Table is not valid!");
@@ -451,16 +451,16 @@ namespace Apiraiser.Controllers
 
             Columns.AppendCreatedInfo(data, Users.GetUserId(User));
 
-            APIResult result = await ServiceManager.Instance.GetService<APIService>().InsertRow(Schemas.System, table, data);
+            APIResult result = await ServiceManager.Instance.GetService<APIService>().InsertRow(Schemas.Administration, table, data);
             if (result.Success)
             {
-                ServiceManager.Instance.GetService<MemoryCacheService>().Remove(Schemas.System + table + "Data");
+                ServiceManager.Instance.GetService<MemoryCacheService>().Remove(Schemas.Administration + table + "Data");
             }
             return result;
         }
 
         [Authorize]
-        [TablePermission(Schemas.System, "", "CanUpdate", "CreatedBy", updatePropertyName: "data.LastUpdatedBy")]
+        [TablePermission(Schemas.Administration, "", "CanUpdate", "CreatedBy", updatePropertyName: "data.LastUpdatedBy")]
         [HttpPut("{table}/{id}")]
         public async Task<APIResult> UpdateRow(string table, int id, Dictionary<string, object> data, int CreatedBy = 0, int LastUpdatedBy = 0)
         {
@@ -474,7 +474,7 @@ namespace Apiraiser.Controllers
                 return APIResult.GetSimpleFailureResult("Data is not valid!");
             }
 
-            APIResult tableColumns = await ServiceManager.Instance.GetService<TableService>().GetTableColumns(Schemas.System, table);
+            APIResult tableColumns = await ServiceManager.Instance.GetService<TableService>().GetTableColumns(Schemas.Administration, table);
             if (!tableColumns.Success || tableColumns.Data == null)
             {
                 return APIResult.GetSimpleFailureResult("Table is not valid!");
@@ -539,19 +539,19 @@ namespace Apiraiser.Controllers
             //     }
             // );
 
-            // return await ServiceManager.Instance.GetService<APIService>().UpdateRow(Schemas.System, table, request.Data, request.Parameters);
+            // return await ServiceManager.Instance.GetService<APIService>().UpdateRow(Schemas.Administration, table, request.Data, request.Parameters);
 
-            APIResult result = await ServiceManager.Instance.GetService<APIService>().UpdateRow(Schemas.System, table, request.Data, request.Parameters);
+            APIResult result = await ServiceManager.Instance.GetService<APIService>().UpdateRow(Schemas.Administration, table, request.Data, request.Parameters);
             if (result.Success)
             {
-                ServiceManager.Instance.GetService<MemoryCacheService>().Remove(Schemas.System + table + "Data");
+                ServiceManager.Instance.GetService<MemoryCacheService>().Remove(Schemas.Administration + table + "Data");
             }
             return result;
         }
 
 
         [Authorize]
-        [TablePermission(Schemas.System, "", "CanDelete", "CreatedBy")]
+        [TablePermission(Schemas.Administration, "", "CanDelete", "CreatedBy")]
         [HttpDelete("{table}/{id}")]
         public async Task<APIResult> DeleteRow(string table, int id, int CreatedBy = 0, int LastUpdatedBy = 0)
         {
@@ -608,12 +608,12 @@ namespace Apiraiser.Controllers
             //     }
             // );
 
-            // return await ServiceManager.Instance.GetService<APIService>().DeleteRow(Schemas.System, table, parameters);
+            // return await ServiceManager.Instance.GetService<APIService>().DeleteRow(Schemas.Administration, table, parameters);
 
-            APIResult result = await ServiceManager.Instance.GetService<APIService>().DeleteRow(Schemas.System, table, parameters);
+            APIResult result = await ServiceManager.Instance.GetService<APIService>().DeleteRow(Schemas.Administration, table, parameters);
             if (result.Success)
             {
-                ServiceManager.Instance.GetService<MemoryCacheService>().Remove(Schemas.System + table + "Data");
+                ServiceManager.Instance.GetService<MemoryCacheService>().Remove(Schemas.Administration + table + "Data");
             }
             return result;
         }

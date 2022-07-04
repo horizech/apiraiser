@@ -1,10 +1,26 @@
 {
     "$schema": "../Schema.json",
-    "Schema": "System",
+    "Schema": "Administration",
     "Name": "PageRoles",
     "AddAdditionalColumns": true,
     "Columns": [
-        {"Name": "Page", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "Application", "ForeignTable": "Pages"},
-        {"Name": "Role", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Roles"}
+        {
+            "Name": "Page",
+            "Datatype": "Integer",
+            "IsRequired": true,
+            "IsForeignKey": true,
+            "ForeignName": "Id",
+            "ForeignSchema": "Data",
+            "ForeignTable": "Pages"
+        },
+        {
+            "Name": "Role",
+            "Datatype": "Integer",
+            "IsRequired": true,
+            "IsForeignKey": true,
+            "ForeignName": "Id",
+            "ForeignSchema": "Administration",
+            "ForeignTable": "Roles"
+        }
     ]
 }

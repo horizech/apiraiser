@@ -10,6 +10,7 @@
 
 ### Changed:
 
+-   Changed schemas to Administration and Data.
 -   Changed some default tables Schema to Application.
 -   Use GetTables and GetTableColumns for both Schemas.
 -   Use unit array while creating and getting images.

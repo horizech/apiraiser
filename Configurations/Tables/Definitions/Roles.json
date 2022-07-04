@@ -1,32 +1,37 @@
 {
     "$schema": "../Schema.json",
-    "Schema": "System",
+    "Schema": "Administration",
     "Name": "Roles",
     "AddAdditionalColumns": true,
     "Columns": [
-        {"Name": "Name", "Datatype": "ShortText", "IsUnique": true, "IsRequired": true},
-        {"Name": "Description", "Datatype": "ShortText", "IsRequired": true},
-        {"Name": "Level", "Datatype": "Integer", "IsRequired": true}
+        {
+            "Name": "Name",
+            "Datatype": "ShortText",
+            "IsUnique": true,
+            "IsRequired": true
+        },
+        { "Name": "Description", "Datatype": "ShortText", "IsRequired": true },
+        { "Name": "Level", "Datatype": "Integer", "IsRequired": true }
     ],
     "DefaultRows": [
-        {"Name": "SuperAdmin", "Description": "Super Admin", "Level": 0},
-        {"Name": "Admin", "Description": "Admin", "Level": 10},
-        {"Name": "User", "Description": "User", "Level": 50},
-        {"Name": "Public", "Description": "Public","Level": 100}
+        { "Name": "SuperAdmin", "Description": "Super Admin", "Level": 0 },
+        { "Name": "Admin", "Description": "Admin", "Level": 10 },
+        { "Name": "User", "Description": "User", "Level": 50 },
+        { "Name": "Public", "Description": "Public", "Level": 100 }
     ],
     "AddForeignTables": [
         {
-            "Name": "CreatedBy", 
+            "Name": "CreatedBy",
             "ForeignColumns": [
-                {"ForeignName": "Username", "OutputName": "CreatedByName"},
-                {"ForeignName": "Email", "OutputName": "CreatedByEmail"}
+                { "ForeignName": "Username", "OutputName": "CreatedByName" },
+                { "ForeignName": "Email", "OutputName": "CreatedByEmail" }
             ]
         },
         {
-            "Name": "LastUpdatedBy", 
+            "Name": "LastUpdatedBy",
             "ForeignColumns": [
-                {"ForeignName": "Username", "OutputName": "LastUpdatedByName"}
+                { "ForeignName": "Username", "OutputName": "LastUpdatedByName" }
             ]
-        }      
+        }
     ]
 }

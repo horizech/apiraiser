@@ -47,7 +47,9 @@ const CreateEditTableRecord = ({
         tableColumns
             .filter((column) => column.Datatype == "Image")
             .map((column) => {
-                data[column.Name] = Object.values(data[column.Name]);
+                data[column.Name] = data[column.Name]
+                    ? Object.values(data[column.Name])
+                    : null;
             });
         if (event && event.preventDefault) {
             event.preventDefault();

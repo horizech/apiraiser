@@ -29,7 +29,7 @@ namespace Apiraiser.Controllers
             _logger = logger;
         }
 
-        [TablePermission(Schemas.System, "Users", "CanRead")]
+        [TablePermission(Schemas.Administration, "Users", "CanRead")]
         [HttpGet("GetUserRoles/{userId}")]
         public async Task<APIResult> GetUserRoles(int userId)
         {
@@ -41,7 +41,7 @@ namespace Apiraiser.Controllers
             return await ServiceManager.Instance.GetService<UsersService>().GetUserRoles(userId);
         }
 
-        [TablePermission(Schemas.System, "Users", "CanRead")]
+        [TablePermission(Schemas.Administration, "Users", "CanRead")]
         [HttpGet("GetUser/{Id}")]
         public async Task<APIResult> GetUser(int Id)
         {
@@ -49,7 +49,7 @@ namespace Apiraiser.Controllers
 
         }
 
-        [TablePermission(Schemas.System, "Users", "CanRead")]
+        [TablePermission(Schemas.Administration, "Users", "CanRead")]
         [HttpGet("GetUsers")]
         public async Task<APIResult> GetUsers()
         {
@@ -57,7 +57,7 @@ namespace Apiraiser.Controllers
 
         }
 
-        [TablePermission(Schemas.System, "Users", "CanWrite")]
+        [TablePermission(Schemas.Administration, "Users", "CanWrite")]
         [HttpPost("AddUser")]
         public async Task<APIResult> AddUser(SignupRequest user)
         {
@@ -75,7 +75,7 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [TablePermission(Schemas.System, "Users", "CanUpdate")]
+        [TablePermission(Schemas.Administration, "Users", "CanUpdate")]
         [HttpPut("UpdateUser")]
         public async Task<APIResult> UpdateUser(int Id, Dictionary<string, object> data)
         {
@@ -129,7 +129,7 @@ namespace Apiraiser.Controllers
             }
         }
 
-        [TablePermission(Schemas.System, "Users", "CanDelete")]
+        [TablePermission(Schemas.Administration, "Users", "CanDelete")]
         [HttpDelete("DeleteUser")]
         public async Task<APIResult> DeleteUser(int Id)
         {

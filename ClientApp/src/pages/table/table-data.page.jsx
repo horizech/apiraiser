@@ -80,13 +80,17 @@ const TableDataPage = ({ schema, match, location, dispatch, loggedIn }) => {
             )}
             {!loadingTableColums && tableColumns && (
                 <div>
-                    <div align="right" style={{ marginBottom: "16px" }}>
-                        <button
-                            className="btn btn-primary"
-                            onClick={showCreateRecordModal}
-                        >
-                            Create a new row
-                        </button>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                        <h3>{`${schema}.${table}`}</h3>
+                        <div style={{ flex: "1 1" }}></div>
+                        <div align="right" style={{ marginBottom: "16px" }}>
+                            <button
+                                className="btn btn-primary"
+                                onClick={showCreateRecordModal}
+                            >
+                                Create a new row
+                            </button>
+                        </div>
                     </div>
                     <TableRecords
                         schema={schema}

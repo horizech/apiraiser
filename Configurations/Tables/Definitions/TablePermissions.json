@@ -1,6 +1,6 @@
 {
     "$schema": "../Schema.json",
-    "Schema": "System",
+    "Schema": "Administration",
     "Name": "TablePermissions",
     "AddAdditionalColumns": true,
     "Columns": [
@@ -12,7 +12,7 @@
             "IsRequired": true,
             "IsForeignKey": true,
             "ForeignName": "Id",
-            "ForeignSchema": "System",
+            "ForeignSchema": "Administration",
             "ForeignTable": "Roles"
         },
         {
@@ -21,7 +21,7 @@
             "IsRequired": true,
             "IsForeignKey": true,
             "ForeignName": "Id",
-            "ForeignSchema": "System",
+            "ForeignSchema": "Administration",
             "ForeignTable": "UserAccessLevels"
         },
         { "Name": "CanRead", "Datatype": "Boolean", "IsRequired": true },

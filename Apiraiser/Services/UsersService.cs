@@ -26,7 +26,7 @@ namespace Apiraiser.Services
             try
             {
                 List<Dictionary<string, object>> userRoles = await QueryDesigner
-                    .CreateDesigner(schema: Schemas.System, table: TableNames.UserRoles.ToString())
+                    .CreateDesigner(schema: Schemas.Administration, table: TableNames.UserRoles.ToString())
                     .WhereEquals("User", Id)
                     .RunSelectQuery();
                 List<int> userRoleIds = userRoles.Select(x => (int)x["Role"]).ToList();
@@ -34,7 +34,7 @@ namespace Apiraiser.Services
 
                 if ((userRoles?.Count ?? 0) > 0)
                 {
-                    APIResult rolesResult = await ServiceManager.Instance.GetService<RolesService>().GetRoles();
+                    APIResult rolesResult = await ServiceManager.Instance.GetService<TableService>().GetRows(Schemas.Administration, TableNames.Roles.ToString());
                     List<Dictionary<string, object>> roles = ((List<Dictionary<string, object>>)rolesResult.Data).Where(x => userRoleIds.Contains((int)x["Id"])).ToList();
 
                     if (roles.Count > 0)
@@ -75,7 +75,7 @@ namespace Apiraiser.Services
         public async Task<APIResult> GetUser(int Id)
         {
             List<Dictionary<string, object>> result = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .WhereEquals("Id", Id, true)
                 .RunSelectQuery();
 
@@ -102,7 +102,7 @@ namespace Apiraiser.Services
         public async Task<APIResult> GetUsers()
         {
             List<Dictionary<string, object>> result = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .RunSelectQuery();
 
             return new APIResult()
@@ -141,7 +141,7 @@ namespace Apiraiser.Services
             }
 
             List<Dictionary<string, object>> usernameCheckResult = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .WhereEquals("Username", user.Username)
                 .RunSelectQuery();
 
@@ -156,7 +156,7 @@ namespace Apiraiser.Services
             }
 
             List<Dictionary<string, object>> emailCheckResult = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .WhereEquals("Email", user.Email)
                 .RunSelectQuery();
 
@@ -177,12 +177,12 @@ namespace Apiraiser.Services
             }
             else
             {
-                APIResult userDefaultRoleUser = await ServiceManager
+                APIResult allSettings = await ServiceManager
                     .Instance
-                    .GetService<SettingsService>()
-                    .GetSetting(Constants.Settings.DefaultRoleOnSignup);
+                    .GetService<TableService>().GetRows(Schemas.Administration, TableNames.Settings.ToString());
 
-                Dictionary<string, object> userDefaultRole = (Dictionary<string, object>)(userDefaultRoleUser.Data);
+                Dictionary<string, object> userDefaultRole = ((List<Dictionary<string, object>>)(allSettings.Data)).First(x => (x["Key"] as string) == Constants.Settings.DefaultRoleOnSignup);
+
                 role = Int32.Parse(userDefaultRole["Value"].ToString());
             }
 
@@ -197,7 +197,7 @@ namespace Apiraiser.Services
                 };
 
             List<int> ids = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .AddRow(userData)
                 .RunInsertQuery();
 
@@ -214,7 +214,7 @@ namespace Apiraiser.Services
             Columns.AppendCreatedInfo(userRoleData, ids[0]);
 
             await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.UserRoles.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.UserRoles.ToString())
                 .AddRow(userRoleData)
                 .RunInsertQuery();
 
@@ -229,7 +229,7 @@ namespace Apiraiser.Services
         public async Task<APIResult> UpdateUser(int Id, Dictionary<string, object> data)
         {
             bool result = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .WhereEquals("Id", Id)
                 .AddRow(data)
                 .RunUpdateQuery();
@@ -246,7 +246,7 @@ namespace Apiraiser.Services
         {
             // Delete User Role
             bool result = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.UserRoles.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.UserRoles.ToString())
                 .WhereEquals("User", Id)
                 .RunDeleteQuery();
 
@@ -262,7 +262,7 @@ namespace Apiraiser.Services
 
             // Delete User
             result = await QueryDesigner
-                .CreateDesigner(schema: Schemas.System, table: TableNames.Users.ToString())
+                .CreateDesigner(schema: Schemas.Administration, table: TableNames.Users.ToString())
                 .WhereEquals("Id", Id)
                 .RunDeleteQuery();
             if (!result)

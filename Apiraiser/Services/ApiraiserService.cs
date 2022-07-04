@@ -29,7 +29,7 @@ namespace Apiraiser.Services
                     .Instance
                     .GetService<DatabaseService>()
                     .GetDatabaseDriver()
-                    .GetTablesList(Schemas.System);
+                    .GetTablesList(Schemas.Administration);
 
                 if (tables == null || tables.Count == 0 || tables.IndexOf(TableNames.Users.ToString()) < 0)
                 {
@@ -53,7 +53,7 @@ namespace Apiraiser.Services
                 .Instance
                 .GetService<DatabaseService>()
                 .GetDatabaseDriver()
-                .GetTablesList(Schemas.System);
+                .GetTablesList(Schemas.Administration);
 
 
             if (tables == null || tables.Count == 0 || tables.IndexOf(TableNames.Users.ToString()) < 0)
@@ -69,13 +69,13 @@ namespace Apiraiser.Services
                     .Instance
                     .GetService<DatabaseService>()
                     .GetDatabaseDriver()
-                    .CreateSchema(Schemas.Application);
+                    .CreateSchema(Schemas.Data);
 
                 await ServiceManager
                     .Instance
                     .GetService<DatabaseService>()
                     .GetDatabaseDriver()
-                    .CreateSchema(Schemas.System);
+                    .CreateSchema(Schemas.Administration);
 
                 // Create tables from Tables Json file in 
                 string appTemplatesPath = FileSystem.GetPathInConfigurations(@"Tables/Templates.json");
@@ -191,9 +191,9 @@ namespace Apiraiser.Services
                             { "Role", 3 },
                             { "UserAccessLevel", 2 },
                             { "CanRead", true },
-                            { "CanWrite", table.Schema == Schemas.Application },
-                            { "CanUpdate", table.Schema == Schemas.Application },
-                            { "CanDelete", table.Schema == Schemas.Application },
+                            { "CanWrite", table.Schema == Schemas.Data },
+                            { "CanUpdate", table.Schema == Schemas.Data },
+                            { "CanDelete", table.Schema == Schemas.Data },
                             { "CreatedOn", DateTime.UtcNow},
                             { "CreatedBy", 1}
                         }
@@ -205,7 +205,7 @@ namespace Apiraiser.Services
                                     .Instance
                                     .GetService<DatabaseService>()
                                     .GetDatabaseDriver()
-                                    .InsertRows(Schemas.System, TableNames.TablePermissions.ToString(), tablePermissions);
+                                    .InsertRows(Schemas.Administration, TableNames.TablePermissions.ToString(), tablePermissions);
                 }
 
                 await ServiceManager

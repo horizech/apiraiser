@@ -1,14 +1,24 @@
 {
     "$schema": "../Schema.json",
-    "Schema": "System",
+    "Schema": "Administration",
     "Name": "UserAccessLevels",
     "AddAdditionalColumns": true,
     "Columns": [
-        {"Name": "Name", "Datatype": "ShortText", "IsUnique": true, "IsRequired": true},
-        {"Name": "Description", "Datatype": "ShortText", "IsUnique": true, "IsRequired": true}
+        {
+            "Name": "Name",
+            "Datatype": "ShortText",
+            "IsUnique": true,
+            "IsRequired": true
+        },
+        {
+            "Name": "Description",
+            "Datatype": "ShortText",
+            "IsUnique": true,
+            "IsRequired": true
+        }
     ],
     "DefaultRows": [
-        {"Name": "Full", "Description": "Can access everything"},
-        {"Name": "Limited", "Description": "Can access their own data"}
+        { "Name": "Full", "Description": "Can access everything" },
+        { "Name": "Limited", "Description": "Can access their own data" }
     ]
 }

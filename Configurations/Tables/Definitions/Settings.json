@@ -1,6 +1,6 @@
 {
     "$schema": "../Schema.json",
-    "Schema": "System",
+    "Schema": "Administration",
     "Name": "Settings",
     "AddAdditionalColumns": true,
     "Columns": [

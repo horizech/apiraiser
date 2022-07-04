@@ -1,9 +1,7 @@
 {
     "title": "Tables Schema",
     "type": "object",
-    "required": [
-        "Name", "Columns"
-    ],
+    "required": ["Name", "Columns"],
     "additionalProperties": false,
     "properties": {
         "$schema": {
@@ -11,7 +9,7 @@
         },
         "Schema": {
             "type": "string",
-            "enum": ["Application", "System"],
+            "enum": ["Data", "Administration"],
             "description": "M: Schema of table"
         },
         "Name": {
@@ -34,9 +32,7 @@
             "description": "?: Columns of table",
             "items": {
                 "type": "object",
-                "required": [
-                    "Name", "Datatype"
-                ],
+                "required": ["Name", "Datatype"],
                 "additionalProperties": false,
                 "properties": {
                     "Id": {
@@ -90,7 +86,6 @@
                         "type": "string",
                         "description": "M: Column Name of Foreign Table"
                     }
-
                 }
             }
         },
@@ -110,9 +105,7 @@
                 "type": "object",
                 "description": "?: Table",
                 "additionalProperties": false,
-                "required": [
-                    "Name", "ForeignColumns"
-                ],
+                "required": ["Name", "ForeignColumns"],
                 "properties": {
                     "Name": {
                         "type": "string",
@@ -125,9 +118,7 @@
                             "type": "object",
                             "description": "?: Table",
                             "additionalProperties": false,
-                            "required": [
-                                "ForeignName", "OutputName"
-                            ],
+                            "required": ["ForeignName", "OutputName"],
                             "properties": {
                                 "ForeignName": {
                                     "type": "string",

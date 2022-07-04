@@ -6,12 +6,8 @@ import { toastActions } from "./toast.actions";
 
 export const tablesActions = {
     getTables,
-    getApplicationTables,
-    getSystemTables,
     acknowledgeGetTables,
     getTableColumns,
-    getApplicationTableColumns,
-    getSystemTableColumns,
     getPredefinedColumns,
     acknowledgePredefinedColumns,
     getTableRows,
@@ -73,14 +69,6 @@ function getTables(schema) {
     }
 }
 
-function getApplicationTables() {
-    return getTables("Application");
-}
-
-function getSystemTables() {
-    return getTables("System");
-}
-
 function acknowledgeGetTables() {
     return (dispatch) => {
         dispatch(acknowledge());
@@ -136,14 +124,6 @@ function getTableColumns(schema, tablename) {
     }
 }
 
-function getApplicationTableColumns(tablename) {
-    return getTableColumns("Application", tablename);
-}
-
-function getSystemTableColumns(tablename) {
-    return getTableColumns("System", tablename);
-}
-
 function acknowledgeGetTableColumns() {
     return (dispatch) => {
         dispatch(acknowledge());
@@ -157,7 +137,6 @@ function acknowledgeGetTableColumns() {
 function getTableRows(schema, tablename) {
     return (dispatch) => {
         dispatch(request());
-        console.log("Schema: ", schema);
         tablesService.getTableRows(schema, tablename).then(
             (result) => {
                 if (result.Success) {
@@ -345,11 +324,11 @@ function acknowledgeUpdateRow() {
     }
 }
 
-function deleteRow(table, id) {
+function deleteRow(schema, table, id) {
     return (dispatch) => {
         dispatch(request(id));
 
-        tablesService.deleteRow(table, id).then(
+        tablesService.deleteRow(schema, table, id).then(
             (user) => dispatch(success(id)),
             (error) => dispatch(failure(id, error.toString()))
         );

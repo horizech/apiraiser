@@ -2,11 +2,19 @@
     "$schema": "../Schema.json",
     "Name": "Created",
     "Columns": [
-        {"Name": "CreatedOn", "Datatype": "DateTime", "IsRequired": true},
-        {"Name": "CreatedBy", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "Users"}
+        { "Name": "CreatedOn", "Datatype": "DateTime", "IsRequired": true },
+        {
+            "Name": "CreatedBy",
+            "Datatype": "Integer",
+            "IsRequired": true,
+            "IsForeignKey": true,
+            "ForeignName": "Id",
+            "ForeignSchema": "Administration",
+            "ForeignTable": "Users"
+        }
     ],
     "Descriptions": [
-        {"Name": "CreatedOn", "Description": "Created On"},
-        {"Name": "CreatedBy", "Description": "Created By"}
+        { "Name": "CreatedOn", "Description": "Created On" },
+        { "Name": "CreatedBy", "Description": "Created By" }
     ]
 }

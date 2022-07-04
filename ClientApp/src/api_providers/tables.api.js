@@ -1,3 +1,4 @@
+import { Schemas } from "../constants";
 import { authHeader, config } from "../helpers";
 import { handleError, handleResponse } from "./handler.api";
 
@@ -34,22 +35,6 @@ class TablesApiProvider {
             });
     }
 
-    static async getApplicationTables() {
-        return this.getTables("Application");
-    }
-
-    static async getApplicationTableColumns(table) {
-        return this.getTableColumns("Application", table);
-    }
-
-    static async getSystemTables() {
-        return this.getTables("System");
-    }
-
-    static async getSystemTableColumns(table) {
-        return this.getTableColumns("System", table);
-    }
-
     static async getPredefinedColumns() {
         const requestOptions = {
             method: "get",
@@ -76,7 +61,7 @@ class TablesApiProvider {
         // Example of search query
         // const url = `${config.apiUrl}/api/${table}?limit=5&offset=5&orderBy=Id&groupBy=Id`;
         const url = `${config.apiUrl}/${
-            schema === "System" ? "api/system" : "api"
+            schema === Schemas.Administration ? "API/Administration" : "api"
         }/${table}`;
 
         return fetch(url, requestOptions)
@@ -98,7 +83,7 @@ class TablesApiProvider {
 
         return fetch(
             `${config.apiUrl}/${
-                schema === "System" ? "api/system" : "api"
+                schema === Schemas.Administration ? "API/Administration" : "api"
             }/${table}`,
             requestOptions
         ).then(handleResponse);
@@ -118,13 +103,13 @@ class TablesApiProvider {
 
         return fetch(
             `${config.apiUrl}/${
-                schema === "System" ? "api/system" : "api"
+                schema === Schemas.Administration ? "API/Administration" : "api"
             }/${table}/${row.Id}`,
             requestOptions
         ).then(handleResponse);
     }
 
-    static async deleteRow(table, id) {
+    static async deleteRow(schema, table, id) {
         let headers = authHeader();
         headers["Content-Type"] = "application/json";
 
@@ -136,7 +121,9 @@ class TablesApiProvider {
         };
 
         return fetch(
-            `${config.apiUrl}/api/${table}/${id}`,
+            `${config.apiUrl}/${
+                schema === Schemas.Administration ? "API/Administration" : "api"
+            }/${table}/${id}`,
             requestOptions
         ).then(handleResponse);
     }

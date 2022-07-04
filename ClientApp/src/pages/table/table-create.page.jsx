@@ -7,6 +7,7 @@ import { history } from "../../helpers";
 import { Page } from "../../components";
 import { AddTableColumnModal } from "../../modals";
 import { tablesService } from "../../services";
+import { Schemas } from "../../constants";
 
 const TableCreatePage = ({ schema, dispatch }) => {
     const [columns, setColumns] = React.useState([]);
@@ -20,10 +21,10 @@ const TableCreatePage = ({ schema, dispatch }) => {
             if (response.Success) {
                 dispatch(tablesActions.getTables(schema));
                 console.log("Table Created!");
-                if (schema === "Application") {
+                if (schema === Schemas.Data) {
                     history.push(`/table/design/${table}`);
                 } else {
-                    history.push(`/config/design/${table}`);
+                    history.push(`/admin/design/${table}`);
                 }
             } else {
                 setCreatingTable(false);

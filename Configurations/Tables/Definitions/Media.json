@@ -1,13 +1,26 @@
 {
     "$schema": "../Schema.json",
-    "Schema": "Application",
+    "Schema": "Data",
     "Name": "Media",
     "AddAdditionalColumns": true,
     "Columns": [
-        {"Name": "Name", "Datatype": "ShortText", "IsUnique": true, "IsRequired": true},
-        {"Name": "Description", "Datatype": "ShortText", "IsRequired": true},
-        {"Name": "MediaSourceId", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "System", "ForeignTable": "MediaSources"},
-        {"Name": "Path", "Datatype": "LongText", "IsRequired": false},
-        {"Name": "Data", "Datatype": "Image", "IsRequired": false}
+        {
+            "Name": "Name",
+            "Datatype": "ShortText",
+            "IsUnique": true,
+            "IsRequired": true
+        },
+        { "Name": "Description", "Datatype": "ShortText", "IsRequired": true },
+        {
+            "Name": "MediaSourceId",
+            "Datatype": "Integer",
+            "IsRequired": true,
+            "IsForeignKey": true,
+            "ForeignName": "Id",
+            "ForeignSchema": "Administration",
+            "ForeignTable": "MediaSources"
+        },
+        { "Name": "Path", "Datatype": "LongText", "IsRequired": false },
+        { "Name": "Data", "Datatype": "Image", "IsRequired": false }
     ]
 }

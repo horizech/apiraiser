@@ -21,15 +21,8 @@ import {
     FetchDataPage,
     LogoutPage,
     designTablePage,
-    SettingsPage,
-    PermissionsPage,
-    RolesPage,
-    RolePermissionsPage,
     UsersPage,
     UserPage,
-    PermissionGroupsPage,
-    PermissionGroupMappingsPage,
-    RolePermissionGroupMappingsPage,
     RegisterPage,
 } from "./pages";
 
@@ -41,10 +34,9 @@ import withReactContent from "sweetalert2-react-content";
 
 import "./styles/App.scss";
 import { ConfigurationPage } from "./pages/configuration.page";
-import { UserAccessLevelsPage } from "./pages/user-access-levels.page";
-import { SystemTableCreatePage } from "./pages/system-table/system-table-create.page";
-import { SystemTableDataPage } from "./pages/system-table/system-table-data.page";
-import { SystemTableDesignPage } from "./pages/system-table/system-table-design.page";
+import { SystemTableCreatePage } from "./pages/admin-table/system-table-create.page";
+import { SystemTableDataPage } from "./pages/admin-table/system-table-data.page";
+import { SystemTableDesignPage } from "./pages/admin-table/system-table-design.page";
 
 const MySwal = withReactContent(Swal);
 
@@ -121,7 +113,6 @@ class App extends React.Component {
                             path="/counter"
                             component={CounterPage}
                         />
-                        <UserGuardedRoute path="/admin" component={AdminPage} />
                         <UserGuardedRoute
                             path="/table/create"
                             component={AppTableCreatePage}
@@ -135,15 +126,15 @@ class App extends React.Component {
                             component={AppTableDesignPage}
                         />
                         <UserGuardedRoute
-                            path="/config/create"
+                            path="/admin/create"
                             component={SystemTableCreatePage}
                         />
                         <UserGuardedRoute
-                            path="/config/data/:table_name"
+                            path="/admin/data/:table_name"
                             component={SystemTableDataPage}
                         />
                         <UserGuardedRoute
-                            path="/config/design/:table_name"
+                            path="/admin/design/:table_name"
                             component={SystemTableDesignPage}
                         />
                         <UserGuardedRoute
@@ -158,17 +149,8 @@ class App extends React.Component {
                             path="/design-table/:table_name"
                             component={designTablePage}
                         />
-                        <UserGuardedRoute
-                            path="/settings"
-                            component={SettingsPage}
-                        />
-                        <UserGuardedRoute path="/roles" component={RolesPage} />
                         <UserGuardedRoute path="/users" component={UsersPage} />
                         <UserGuardedRoute path="/user" component={UserPage} />
-                        <UserGuardedRoute
-                            path="/user-access-levels"
-                            component={UserAccessLevelsPage}
-                        />
                         <UserGuardedRoute
                             path="/configuration"
                             component={ConfigurationPage}

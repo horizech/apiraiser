@@ -51,20 +51,15 @@ const TableRecords = ({
     };
 
     const handleOnEditComplete = (result) => {
-        console.log(result);
         if (result === true) {
-            console.log("getTableRows");
             dispatch(tablesActions.getTableRows(schema, table));
         }
         setEditModalVisible(false);
     };
 
     const handleOnDeleteComplete = (result) => {
-        console.log(result);
         if (result === true) {
-            console.log(currentRow);
-            console.log(currentRow.Id);
-            dispatch(tablesActions.deleteRow(table, currentRow.Id));
+            dispatch(tablesActions.deleteRow(schema, table, currentRow.Id));
         }
 
         setDeleteModalVisible(false);
@@ -77,9 +72,7 @@ const TableRecords = ({
             }
             case "Image": {
                 var u8 = new Uint8Array(value);
-                console.log("u8", u8);
                 var b64encoded = btoa(String.fromCharCode.apply(null, u8));
-                console.log("b64encoded", b64encoded);
                 // var decoder = new TextDecoder("utf8");
                 // console.log("decoder", decoder);
                 // var b64encoded = btoa(decoder.decode(unescape(encodeURIComponent(u8))));
@@ -98,7 +91,6 @@ const TableRecords = ({
     React.useEffect(() => {
         if (table != currentTable) {
             setCurrentTable(table);
-            console.log("getTableRows", schema, table);
             dispatch(tablesActions.getTableColumns(schema, table));
             dispatch(tablesActions.getTableRows(schema, table));
         }
@@ -121,7 +113,6 @@ const TableRecords = ({
     ) {
         return <Loading></Loading>;
     }
-    console.log("currentTableColumns.columns", currentTableColumns.columns);
 
     return (
         <React.Fragment>
@@ -191,6 +182,7 @@ const TableRecords = ({
                         </ApiraiserTable>
                         {isEditModalVisible && (
                             <CreateEditTableRecordModal
+                                schema={schema}
                                 key={table}
                                 table={table}
                                 tableColumns={tableColumns}

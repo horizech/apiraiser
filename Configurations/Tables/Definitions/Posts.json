@@ -1,13 +1,34 @@
 {
     "$schema": "../Schema.json",
-    "Schema": "Application",
+    "Schema": "Data",
     "Name": "Posts",
     "AddAdditionalColumns": true,
     "Columns": [
-        {"Name": "Name", "Datatype": "ShortText", "IsUnique": true, "IsRequired": true},
-        {"Name": "Description", "Datatype": "ShortText", "IsRequired": true},
-        {"Name": "CategoryId", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "Application", "ForeignTable": "Categories"},
-        {"Name": "MediaId", "Datatype": "Integer", "IsRequired": true, "IsForeignKey": true, "ForeignName": "Id", "ForeignSchema": "Application", "ForeignTable": "Media"},
-        {"Name": "Content", "Datatype": "LongText", "IsRequired": true}
+        {
+            "Name": "Name",
+            "Datatype": "ShortText",
+            "IsUnique": true,
+            "IsRequired": true
+        },
+        { "Name": "Description", "Datatype": "ShortText", "IsRequired": true },
+        {
+            "Name": "CategoryId",
+            "Datatype": "Integer",
+            "IsRequired": true,
+            "IsForeignKey": true,
+            "ForeignName": "Id",
+            "ForeignSchema": "Data",
+            "ForeignTable": "Categories"
+        },
+        {
+            "Name": "MediaId",
+            "Datatype": "Integer",
+            "IsRequired": true,
+            "IsForeignKey": true,
+            "ForeignName": "Id",
+            "ForeignSchema": "Data",
+            "ForeignTable": "Media"
+        },
+        { "Name": "Content", "Datatype": "LongText", "IsRequired": true }
     ]
 }

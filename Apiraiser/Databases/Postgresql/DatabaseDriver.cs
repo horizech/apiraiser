@@ -195,7 +195,7 @@ namespace Apiraiser.Databases.Postgresql
                 completeColumns = columns.ToArray().ToList();
             }
 
-            if (schema.Equals(Schemas.Application))
+            if (schema.Equals(Schemas.Data))
             {
                 // Check if table already contains predefined columns
                 if (!completeColumns.Any(x => Columns.AdditionalColumns.Columns[0].Name == x.Name))
