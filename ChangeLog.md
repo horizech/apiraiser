@@ -4,6 +4,20 @@
 
 ### Added:
 
+### Changed:
+
+### Deprecated:
+
+### Removed:
+
+### Fixed:
+
+### Security:
+
+## [v0.4.0] - 2022-07-04
+
+### Added:
+
 -   Added dynamic API for system tables
 -   Created templates for loading default tables.
 -   Added Table columns check in Insert and Update API.
