@@ -6,6 +6,20 @@
 
 ### Changed:
 
+### Deprecated:
+
+### Removed:
+
+### Fixed:
+
+### Security:
+
+## [v0.4.1] - 2022-07-06
+
+### Added:
+
+### Changed:
+
 -   Changed User Controller to Authentication.
 -   Use APIService.GetRowsByConditions in Table and Administration controller.
 
