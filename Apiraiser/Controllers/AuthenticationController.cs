@@ -20,11 +20,11 @@ namespace Apiraiser.Controllers
 {
     [ApiController]
     [Route("API/[controller]")]
-    public class UserController : ControllerBase
+    public class AuthenticationController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<AuthenticationController> _logger;
 
-        public UserController(ILogger<UserController> logger)
+        public AuthenticationController(ILogger<AuthenticationController> logger)
         {
             _logger = logger;
         }
@@ -46,7 +46,7 @@ namespace Apiraiser.Controllers
                 return APIResult.GetSimpleFailureResult("password is not valid!");
             }
 
-            return await ServiceManager.Instance.GetService<UserService>().Signup(user);
+            return await ServiceManager.Instance.GetService<AuthenticationService>().Signup(user);
         }
 
         [HttpPost("Login")]
@@ -66,14 +66,14 @@ namespace Apiraiser.Controllers
                 return APIResult.GetSimpleFailureResult("password is not valid!");
             }
 
-            return await ServiceManager.Instance.GetService<UserService>().Login(loginDetails.Username, loginDetails.Email, loginDetails.Password);
+            return await ServiceManager.Instance.GetService<AuthenticationService>().Login(loginDetails.Username, loginDetails.Email, loginDetails.Password);
         }
 
         [HttpGet("AuthLogin")]
         [Authorize]
         public async Task<APIResult> AuthLogin()
         {
-            return await ServiceManager.Instance.GetService<UserService>().AuthLogin(Users.GetUserId(User));
+            return await ServiceManager.Instance.GetService<AuthenticationService>().AuthLogin(Users.GetUserId(User));
         }
 
     }

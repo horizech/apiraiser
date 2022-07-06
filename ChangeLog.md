@@ -6,6 +6,8 @@
 
 ### Changed:
 
+-   Changed User Controller to Authentication.
+
 ### Deprecated:
 
 ### Removed:
