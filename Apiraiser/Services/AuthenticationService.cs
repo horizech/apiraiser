@@ -14,10 +14,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace Apiraiser.Services
 {
-    public class UserService : BaseService
+    public class AuthenticationService : BaseService
     {
 
-        public UserService(IConfiguration configuration) : base(configuration)
+        public AuthenticationService(IConfiguration configuration) : base(configuration)
         {
         }
 

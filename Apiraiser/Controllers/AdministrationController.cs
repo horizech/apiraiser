@@ -261,7 +261,7 @@ namespace Apiraiser.Controllers
             // }
             // return await ServiceManager.Instance.GetService<TableService>().GetRowsByConditions(Schemas.Administration, table, parameters);
 
-            return await ServiceManager.Instance.GetService<TableService>().GetRowsByConditions(Schemas.Administration, table, parameters);
+            return await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(Schemas.Administration, table, parameters);
         }
 
 
