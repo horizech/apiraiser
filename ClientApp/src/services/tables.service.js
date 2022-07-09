@@ -41,14 +41,14 @@ function deleteRow(schema, table, id) {
     return TablesApiProvider.deleteRow(schema, table, id);
 }
 
-function createTable(table, ColumnsInfo) {
-    return TablesApiProvider.createTable(table, ColumnsInfo);
+function createTable(schema, table, ColumnsInfo) {
+    return TablesApiProvider.createTable(schema, table, ColumnsInfo);
 }
 
-function deleteColumn(table, Column) {
-    return TablesApiProvider.deleteColumn(table, Column);
+function deleteColumn(schema, table, Column) {
+    return TablesApiProvider.deleteColumn(schema, table, Column);
 }
 
-function addColumn(table, ColumnsInfo) {
-    return TablesApiProvider.addColumn(table, ColumnsInfo);
+function addColumn(schema, table, ColumnsInfo) {
+    return TablesApiProvider.addColumn(schema, table, ColumnsInfo);
 }

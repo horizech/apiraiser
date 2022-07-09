@@ -20,11 +20,11 @@ namespace Apiraiser.Controllers
 {
     [ApiController]
     [Route("API/[controller]")]
-    public class AdministrationController : ControllerBase
+    public class Administration1Controller : ControllerBase
     {
-        private readonly ILogger<AdministrationController> _logger;
+        private readonly ILogger<Administration1Controller> _logger;
 
-        public AdministrationController(ILogger<AdministrationController> logger)
+        public Administration1Controller(ILogger<Administration1Controller> logger)
         {
             _logger = logger;
         }

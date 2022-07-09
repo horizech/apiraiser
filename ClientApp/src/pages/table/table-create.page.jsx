@@ -17,7 +17,7 @@ const TableCreatePage = ({ schema, dispatch }) => {
     const createTable = () => {
         setCreatingTable(true);
 
-        tablesService.createTable(table, columns).then((response) => {
+        tablesService.createTable(schema, table, columns).then((response) => {
             if (response.Success) {
                 dispatch(tablesActions.getTables(schema));
                 console.log("Table Created!");

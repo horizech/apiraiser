@@ -129,9 +129,10 @@ const TableDesignPage = ({ schema, match, location, dispatch, loggedIn }) => {
                             </button>
                         </div>
 
-                        <TableColumns table={table} />
+                        <TableColumns schema={schema} table={table} />
                         {isCreateTableColumnModalVisible && (
                             <AddTableColumnModal
+                                schema={schema}
                                 table={table}
                                 tableColumns={tableColumns}
                                 predefinedColumns={predefinedColumns}

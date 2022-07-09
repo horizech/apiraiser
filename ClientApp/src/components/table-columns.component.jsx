@@ -17,6 +17,7 @@ const TableColumns = ({
     addingColumn,
     loadingCurrentTable,
     currentTableColumns,
+    schema,
     table,
     loadingPredefinedColumns,
     predefinedColumns,
@@ -54,7 +55,7 @@ const TableColumns = ({
         if (result === true) {
             console.log(row);
             console.log(row.Name);
-            dispatch(tablesActions.deleteColumn(table, row.Name));
+            dispatch(tablesActions.deleteColumn(schema, table, row.Name));
         }
         setIsDeleteModalVisible(false);
     };

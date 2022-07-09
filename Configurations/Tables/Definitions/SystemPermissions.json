@@ -4,6 +4,7 @@
     "Name": "SystemPermissions",
     "AddAdditionalColumns": true,
     "Columns": [
+        { "Name": "Schema", "Datatype": "ShortText", "IsRequired": true },
         {
             "Name": "Role",
             "Datatype": "Integer",
@@ -27,24 +28,56 @@
     ],
     "DefaultRows": [
         {
+            "Schema": "Administration",
             "Role": 1,
             "CanCreateTables": true,
             "CanUpdateTables": true,
             "CanDeleteTables": true
         },
         {
+            "Schema": "Data",
+            "Role": 1,
+            "CanCreateTables": true,
+            "CanUpdateTables": true,
+            "CanDeleteTables": true
+        },
+        {
+            "Schema": "Administration",
             "Role": 2,
             "CanCreateTables": false,
             "CanUpdateTables": false,
             "CanDeleteTables": false
         },
         {
+            "Schema": "Data",
+            "Role": 2,
+            "CanCreateTables": false,
+            "CanUpdateTables": false,
+            "CanDeleteTables": false
+        },
+        {
+            "Schema": "Administration",
             "Role": 3,
             "CanCreateTables": false,
             "CanUpdateTables": false,
             "CanDeleteTables": false
         },
         {
+            "Schema": "Data",
+            "Role": 3,
+            "CanCreateTables": false,
+            "CanUpdateTables": false,
+            "CanDeleteTables": false
+        },
+        {
+            "Schema": "Administration",
+            "Role": 4,
+            "CanCreateTables": false,
+            "CanUpdateTables": false,
+            "CanDeleteTables": false
+        },
+        {
+            "Schema": "Data",
             "Role": 4,
             "CanCreateTables": false,
             "CanUpdateTables": false,

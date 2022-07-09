@@ -10,7 +10,7 @@ class TablesApiProvider {
         };
 
         return fetch(
-            `${config.apiUrl}/api/Table/GetTablesList?schema=${schema}`,
+            `${config.apiUrl}/API/${schema}/GetTablesList`,
             requestOptions
         )
             .then(handleResponse, handleError)
@@ -26,7 +26,7 @@ class TablesApiProvider {
         };
 
         return fetch(
-            `${config.apiUrl}/api/Table/GetTableColumns?schema=${schema}&table=${table}`,
+            `${config.apiUrl}/API/${schema}/${table}/Columns`,
             requestOptions
         )
             .then(handleResponse, handleError)
@@ -42,7 +42,7 @@ class TablesApiProvider {
         };
 
         return fetch(
-            `${config.apiUrl}/api/Table/GetPredefinedColumns`,
+            `${config.apiUrl}/api/GetPredefinedColumns`,
             requestOptions
         )
             .then(handleResponse, handleError)
@@ -60,9 +60,7 @@ class TablesApiProvider {
 
         // Example of search query
         // const url = `${config.apiUrl}/api/${table}?limit=5&offset=5&orderBy=Id&groupBy=Id`;
-        const url = `${config.apiUrl}/${
-            schema === Schemas.Administration ? "API/Administration" : "api"
-        }/${table}`;
+        const url = `${config.apiUrl}/API/${schema}/${table}`;
 
         return fetch(url, requestOptions)
             .then(handleResponse, handleError)
@@ -82,9 +80,7 @@ class TablesApiProvider {
         };
 
         return fetch(
-            `${config.apiUrl}/${
-                schema === Schemas.Administration ? "API/Administration" : "api"
-            }/${table}`,
+            `${config.apiUrl}/API/${schema}/${table}`,
             requestOptions
         ).then(handleResponse);
     }
@@ -102,9 +98,7 @@ class TablesApiProvider {
         };
 
         return fetch(
-            `${config.apiUrl}/${
-                schema === Schemas.Administration ? "API/Administration" : "api"
-            }/${table}/${row.Id}`,
+            `${config.apiUrl}/API/${schema}/${table}/${row.Id}`,
             requestOptions
         ).then(handleResponse);
     }
@@ -121,14 +115,12 @@ class TablesApiProvider {
         };
 
         return fetch(
-            `${config.apiUrl}/${
-                schema === Schemas.Administration ? "API/Administration" : "api"
-            }/${table}/${id}`,
+            `${config.apiUrl}/API/${schema}/${table}/${id}`,
             requestOptions
         ).then(handleResponse);
     }
 
-    static async createTable(table, ColumnsInfo) {
+    static async createTable(schema, table, ColumnsInfo) {
         let headers = authHeader();
         headers["Content-Type"] = "application/json";
 
@@ -139,11 +131,11 @@ class TablesApiProvider {
         };
 
         return fetch(
-            `${config.apiUrl}/api/Table/CreateTable?table=${table}`,
+            `${config.apiUrl}/API/${schema}/CreateTable?table=${table}`,
             requestOptions
         ).then(handleResponse);
     }
-    static async addColumn(table, ColumnsInfo) {
+    static async addColumn(schema, table, ColumnsInfo) {
         let headers = authHeader();
         headers["Content-Type"] = "application/json";
 
@@ -154,11 +146,11 @@ class TablesApiProvider {
         };
 
         return fetch(
-            `${config.apiUrl}/api/Table/AddColumn?table=${table}`,
+            `${config.apiUrl}/API/${schema}/${table}/Column`,
             requestOptions
         ).then(handleResponse);
     }
-    static async deleteColumn(table, column) {
+    static async deleteColumn(schema, table, column) {
         let headers = authHeader();
         headers["Content-Type"] = "application/json";
 
@@ -168,7 +160,7 @@ class TablesApiProvider {
         };
 
         return fetch(
-            `${config.apiUrl}/api/Table/DeleteColumn?table=${table}&column=${column}`,
+            `${config.apiUrl}/API/${schema}/${table}/Column/${column}`,
             requestOptions
         ).then(handleResponse);
     }

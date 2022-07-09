@@ -401,11 +401,11 @@ function acknowledgeCreateTable() {
     }
 }
 
-function deleteColumn(table, Column) {
+function deleteColumn(schema, table, Column) {
     return (dispatch) => {
         dispatch(request(Column));
 
-        tablesService.deleteColumn(table, Column).then(
+        tablesService.deleteColumn(schema, table, Column).then(
             (result) => {
                 if (result.Success) {
                     dispatch(success());
@@ -447,11 +447,11 @@ function acknowledgeDeleteColumn() {
     }
 }
 
-function addColumn(table, ColumnsInfo) {
+function addColumn(schema, table, ColumnsInfo) {
     return (dispatch) => {
         dispatch(request(ColumnsInfo));
 
-        tablesService.addColumn(table, ColumnsInfo).then(
+        tablesService.addColumn(schema, table, ColumnsInfo).then(
             (result) => {
                 if (result.Success) {
                     console.log(ColumnsInfo);

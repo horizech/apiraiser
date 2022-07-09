@@ -14,6 +14,7 @@ import { tablesService } from "../services";
 import { Schemas } from "../constants";
 
 const AddTableColumn = ({
+    schema,
     table,
     loggedIn,
     loadingCurrentTable,
@@ -161,7 +162,7 @@ const AddTableColumn = ({
             event.preventDefault();
         }
 
-        dispatch(tablesActions.addColumn(table, columnInfo));
+        dispatch(tablesActions.addColumn(schema, table, columnInfo));
     };
 
     const handleValidate = (values) => {

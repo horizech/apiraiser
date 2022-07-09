@@ -18,18 +18,20 @@ namespace Apiraiser.Filters
 {
     public class SystemPermissionAttribute : TypeFilterAttribute
     {
-        public SystemPermissionAttribute(string permission = "") : base(typeof(SystemPermissionFilter))
+        public SystemPermissionAttribute(string schema = "", string permission = "") : base(typeof(SystemPermissionFilter))
         {
-            Arguments = new object[] { permission };
+            Arguments = new object[] { schema, permission };
         }
     }
 
     public class SystemPermissionFilter : IAsyncActionFilter
     {
+        string schema;
         string permission;
 
-        public SystemPermissionFilter(string permission = "")
+        public SystemPermissionFilter(string schema = "", string permission = "")
         {
+            this.schema = schema;
             this.permission = permission;
         }
 
@@ -41,6 +43,22 @@ namespace Apiraiser.Filters
                 context.Result = new ForbidResult(); return;
             }
 
+            if (string.IsNullOrEmpty(schema))
+            {
+                object schemaArgument = context.ActionArguments.ContainsKey("Schema") ?
+                    context.ActionArguments["Schema"] :
+                    context.ActionArguments.ContainsKey("schema") ?
+                    context.ActionArguments["schema"] : null;
+
+                if (schemaArgument == null)
+                {
+                    context.Result = new ForbidResult(); return;
+                }
+                else
+                {
+                    schema = (string)schemaArgument;
+                }
+            }
 
             string roleIdsString = context.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
             if (string.IsNullOrEmpty(roleIdsString))
@@ -52,7 +70,7 @@ namespace Apiraiser.Filters
             APIResult allSystemPermissions = await ServiceManager.Instance.GetService<TableService>().GetRows(Schemas.Administration, TableNames.SystemPermissions.ToString());
 
             List<Dictionary<string, object>> systemPermissions = ((List<Dictionary<string, object>>)allSystemPermissions.Data)
-                .Where(x => roleIds.Contains((int)x["Role"]))
+                .Where(x => (schema == x["Schema"] as string) && roleIds.Contains((int)x["Role"]))
                 .ToList();
 
             if (systemPermissions.Count == 0)
