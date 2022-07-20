@@ -314,7 +314,7 @@ namespace Apiraiser.Databases.Postgresql
             string query = String.Format(
                 "ALTER TABLE \"{0}\".\"{1}\"\n" +
                 "\tADD \"" + column.Name + "\" " + DataType.GetDataTypeString(column.Datatype) + (column.IsUnique ? " UNIQUE" : "") + (column.IsRequired ? " NOT NULL" : " NULL") +
-                (column.DefaultValue != null ? " DEFAULT " + (ServiceManager
+                (!string.IsNullOrEmpty(column.DefaultValue?.ToString() ?? "") ? " DEFAULT " + (ServiceManager
                         .Instance
                         .GetService<DatabaseService>()
                         .GetDatabaseDriver()
