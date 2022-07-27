@@ -8,6 +8,8 @@
 
 ### Changed:
 
+-   Set Postgresql SSLMode to Disable
+
 ### Deprecated:
 
 ### Removed:

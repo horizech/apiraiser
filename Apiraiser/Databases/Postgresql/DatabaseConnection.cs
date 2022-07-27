@@ -85,7 +85,7 @@ namespace Apiraiser.Databases.Postgresql
         {
             return
                 String.Format(
-                    "Server={0};Username={1};Database={2};Port={3};Password={4};SSLMode=Prefer",
+                    "Server={0};Username={1};Database={2};Port={3};Password={4};SSLMode=Disable",
                     Host,
                     User,
                     Database,
