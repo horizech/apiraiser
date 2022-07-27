@@ -40,6 +40,20 @@ namespace Apiraiser.Controllers
             };
         }
 
+        [HttpGet("GetSchemasList")]
+        public APIResult GetSchemasList()
+        {
+            string[] schemas = { "Administration", "Data" };
+
+            return new APIResult()
+            {
+                Success = true,
+                Data = schemas,
+                Message = null,
+                ErrorCode = null
+            };
+        }
+
         [Authorize]
         [SystemPermission("", "CanCreateTables")]
         [HttpPost("{schema}/CreateTable")]
@@ -338,12 +352,21 @@ namespace Apiraiser.Controllers
         [Authorize]
         [TablePermission("", "", "CanRead", "parameters.CreatedBy")]
         [HttpPost("{schema}/{table}/GetRowsByConditions")]
-        public async Task<APIResult> GetRowsByConditions(string schema, string table, List<QuerySearchItem> parameters)
+        public async Task<APIResult> GetRowsByConditions(string schema, string table, [FromBody] List<QuerySearchItem> parameters, [FromQuery] string orderBy, [FromQuery] string orderDescendingBy, [FromQuery] string groupBy, [FromQuery] int limit = -1, [FromQuery] int offset = -1)
         {
             if (table == null || table.Count() == 0)
             {
                 return APIResult.GetSimpleFailureResult("Table is not valid!");
             }
+
+            SelectSettings selectSettings = new SelectSettings
+            {
+                Limit = limit,
+                Offset = offset,
+                OrderBy = orderBy,
+                OrderDescendingBy = orderDescendingBy,
+                GroupBy = groupBy
+            };
 
             // If user only data access
             // bool doesUserParamExist = false;
@@ -374,7 +397,7 @@ namespace Apiraiser.Controllers
             // }
             // return await ServiceManager.Instance.GetService<TableService>().GetRowsByConditions(schema, table, parameters);
 
-            return await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(schema, table, parameters);
+            return await ServiceManager.Instance.GetService<APIService>().GetRowsByConditions(schema, table, parameters, selectSettings);
             //return await ServiceManager.Instance.GetService<TableService>().GetRowsByConditions(schema, table, parameters);
         }
 

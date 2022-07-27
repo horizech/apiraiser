@@ -4,6 +4,8 @@
 
 ### Added:
 
+-   Added GetSchemasList API
+
 ### Changed:
 
 ### Deprecated:
