@@ -12,6 +12,8 @@
 
 ### Removed:
 
+-   Removed Administration and Table API Controllers
+
 ### Fixed:
 
 -   Fixed OrderBy if already exist
