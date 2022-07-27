@@ -361,7 +361,10 @@ namespace Apiraiser.Helpers
                     return parameter;
                 }).ToList();
 
-                OrderBy("Id");
+                if (string.IsNullOrEmpty(query.OrderBy))
+                {
+                    OrderBy("Id");
+                }
                 // .OrderDescendingBy("TableName")
                 // .Limit(5)
                 // .Offset(5);

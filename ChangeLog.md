@@ -12,6 +12,8 @@
 
 ### Fixed:
 
+-   Fixed OrderBy if already exist
+
 ### Security:
 
 ## [v0.4.1] - 2022-07-06
