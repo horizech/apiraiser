@@ -1,25 +1,20 @@
-import "bootstrap/dist/css/bootstrap.css";
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
-import registerServiceWorker from "./registerServiceWorker";
-import "./themes/apiraiser.scss";
+// Internet Explorer 11 requires polyfills and partially supported by this project.
+// import 'react-app-polyfill/ie11';
+// import 'react-app-polyfill/stable';
+import './i18n';
+import './styles/app-base.css';
+import './styles/app-components.css';
+import './styles/app-utilities.css';
+import ReactDOM from 'react-dom';
+import App from 'app/App';
+import * as serviceWorker from './serviceWorker';
+import reportWebVitals from './reportWebVitals';
 
-import { App } from "./App";
+ReactDOM.render(<App />, document.getElementById('root'));
 
-import { render } from "react-dom";
-import { Provider } from "react-redux";
+reportWebVitals();
 
-import { store } from "./helpers";
-
-const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
-const rootElement = document.getElementById("root");
-
-ReactDOM.render(
-  <Provider store={store} basename={baseUrl}>
-    <App />
-  </Provider>,
-  rootElement
-);
-
-registerServiceWorker();
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: http://bit.ly/CRA-PWA
+serviceWorker.unregister();

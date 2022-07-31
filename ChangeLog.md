@@ -14,6 +14,31 @@
 
 ### Security:
 
+## [v0.5.0] - 2022-07-31
+
+## Unreleased
+
+### Added:
+
+-   Added GetSchemasList API
+
+### Changed:
+
+-   Set Postgresql SSLMode to Disable
+-   Use Fuse React for UI
+
+### Deprecated:
+
+### Removed:
+
+-   Removed Administration and Table API Controllers
+
+### Fixed:
+
+-   Fixed OrderBy if already exist
+
+### Security:
+
 ## [v0.4.1] - 2022-07-06
 
 ### Added:

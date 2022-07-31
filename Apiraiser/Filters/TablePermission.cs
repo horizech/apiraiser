@@ -45,13 +45,30 @@ namespace Apiraiser.Filters
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-
-            if (string.IsNullOrEmpty(schema) || string.IsNullOrEmpty(permission))
+            if (string.IsNullOrEmpty(permission))
             {
                 context.Result = new ForbidResult(); return;
             }
 
+            if (string.IsNullOrEmpty(schema))
+            {
+                object schemaArgument = context.ActionArguments.ContainsKey("Schema") ?
+                    context.ActionArguments["Schema"] :
+                    context.ActionArguments.ContainsKey("schema") ?
+                    context.ActionArguments["schema"] : null;
+
+                if (schemaArgument == null)
+                {
+                    context.Result = new ForbidResult(); return;
+                }
+                else
+                {
+                    schema = (string)schemaArgument;
+                }
+            }
+
             if (string.IsNullOrEmpty(table))
+
             {
                 object tableArgument = context.ActionArguments.ContainsKey("Table") ?
                     context.ActionArguments["Table"] :
