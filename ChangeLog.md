@@ -4,6 +4,22 @@
 
 ### Added:
 
+### Changed:
+
+### Deprecated:
+
+### Removed:
+
+### Fixed:
+
+### Security:
+
+## [v0.5.0] - 2022-07-31
+
+## Unreleased
+
+### Added:
+
 -   Added GetSchemasList API
 
 ### Changed:
