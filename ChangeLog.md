@@ -9,6 +9,7 @@
 ### Changed:
 
 -   Set Postgresql SSLMode to Disable
+-   Return true if no rows found
 
 ### Deprecated:
 

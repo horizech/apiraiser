@@ -72,7 +72,7 @@ namespace Apiraiser.Services
             {
                 return new APIResult()
                 {
-                    Success = false,
+                    Success = true,
                     Message = "Nothing found!",
                     Data = result
                 };
@@ -100,7 +100,7 @@ namespace Apiraiser.Services
             {
                 return new APIResult()
                 {
-                    Success = false,
+                    Success = true,
                     Message = "Nothing found!",
                     Data = result
                 };
