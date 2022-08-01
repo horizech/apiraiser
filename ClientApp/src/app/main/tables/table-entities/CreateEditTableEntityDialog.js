@@ -72,31 +72,7 @@ export const CreateEditTableEntityDialog = ({
 
     const [columnInfo, setColumnInfo] = React.useState(null);
 
-    React.useEffect(() => {
-        if (data) {
-            reset(data);
-        }
-    }, [data]);
-
-    React.useEffect(() => {
-        if (createState === "loading") {
-            setCreating(true);
-        } else if (createState === "success" && isCreating) {
-            onClose();
-            dispatch(tableSlice.thunks.getEntities());
-        }
-    }, [createState]);
-
-    React.useEffect(() => {
-        if (editState === "loading") {
-            setEditing(true);
-        } else if (editState === "success" && isEditing) {
-            onClose();
-            dispatch(tableSlice.thunks.getEntities());
-        }
-    }, [editState]);
-
-    React.useEffect(() => {
+    const loadForeignSelectOptions = () => {
         let newSelectOptions = {};
 
         Object.assign(newSelectOptions, selectOptions);
@@ -127,6 +103,34 @@ export const CreateEditTableEntityDialog = ({
         }
 
         setSelectOptions(newSelectOptions);
+    };
+
+    React.useEffect(() => {
+        if (data) {
+            reset(data);
+        }
+    }, [data]);
+
+    React.useEffect(() => {
+        if (createState === "loading") {
+            setCreating(true);
+        } else if (createState === "success" && isCreating) {
+            onClose();
+            dispatch(tableSlice.thunks.getEntities());
+        }
+    }, [createState]);
+
+    React.useEffect(() => {
+        if (editState === "loading") {
+            setEditing(true);
+        } else if (editState === "success" && isEditing) {
+            onClose();
+            dispatch(tableSlice.thunks.getEntities());
+        }
+    }, [editState]);
+
+    React.useEffect(() => {
+        loadForeignSelectOptions();
     }, [dataState]);
 
     React.useEffect(() => {
@@ -140,13 +144,23 @@ export const CreateEditTableEntityDialog = ({
                         !foreignState.entities ||
                         !foreignState.entities.length
                     ) {
-                        dispatch(
-                            store
-                                .getState()
-                                .apiraiser.slices[
-                                    foreignStatePath
-                                ].thunks.getEntities()
-                        );
+                        if (
+                            !store.getState()[foreignStatePath].entitiesState ||
+                            store.getState()[foreignStatePath].entitiesState ==
+                                "error" ||
+                            store.getState()[foreignStatePath].entitiesState ==
+                                "waiting"
+                        ) {
+                            dispatch(
+                                store
+                                    .getState()
+                                    .apiraiser.slices[
+                                        foreignStatePath
+                                    ].thunks.getEntities()
+                            );
+                        } else {
+                            loadForeignSelectOptions();
+                        }
                     }
                 }
             });
