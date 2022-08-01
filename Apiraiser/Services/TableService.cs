@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 
-using Apiraiser.Databases;
+using Apiraiser.Enums;
 using Apiraiser.Models;
 using Apiraiser.Helpers;
 using Apiraiser.Constants;
@@ -19,14 +19,64 @@ namespace Apiraiser.Services
         {
         }
 
-        public async Task<APIResult> CreateTable(string schema, string table, List<ColumnInfo> columns)
+        public async Task<APIResult> CreateTable(string schema, string table, int userId, List<ColumnInfo> columns)
         {
 
-            await ServiceManager
+            bool createTableResult = await ServiceManager
                 .Instance
                 .GetService<DatabaseService>()
                 .GetDatabaseDriver()
                 .CreateTable(schema, table, columns);
+
+            List<Dictionary<string, object>> tablePermissions = new List<Dictionary<string, object>>();
+
+            tablePermissions.AddRange(new List<Dictionary<string, object>>
+                {
+                    new Dictionary<string, object>{
+                        { "Schema", schema },
+                        { "Table", table },
+                        { "Role", 1 },
+                        { "UserAccessLevel", 1 },
+                        { "CanRead", true },
+                        { "CanWrite", true },
+                        { "CanUpdate", true },
+                        { "CanDelete", true },
+                        { "CreatedOn", DateTime.UtcNow},
+                        { "CreatedBy", userId}
+                    },
+                    new Dictionary<string, object>{
+                        { "Schema", schema },
+                        { "Table", table },
+                        { "Role", 2 },
+                        { "UserAccessLevel", 1 },
+                        { "CanRead", true },
+                        { "CanWrite", true },
+                        { "CanUpdate", true },
+                        { "CanDelete", true },
+                        { "CreatedOn", DateTime.UtcNow},
+                        { "CreatedBy", userId}
+                    },
+                    new Dictionary<string, object>{
+                        { "Schema", schema },
+                        { "Table", table },
+                        { "Role", 3 },
+                        { "UserAccessLevel", 2 },
+                        { "CanRead", true },
+                        { "CanWrite", schema == Schemas.Data },
+                        { "CanUpdate", schema == Schemas.Data },
+                        { "CanDelete", schema == Schemas.Data },
+                        { "CreatedOn", DateTime.UtcNow},
+                        { "CreatedBy", userId}
+                    }
+                }
+            );
+
+            await ServiceManager
+                            .Instance
+                            .GetService<DatabaseService>()
+                            .GetDatabaseDriver()
+                            .InsertRows(Schemas.Administration, TableNames.TablePermissions.ToString(), tablePermissions);
+
 
             return new APIResult()
             {

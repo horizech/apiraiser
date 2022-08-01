@@ -162,43 +162,42 @@ namespace Apiraiser.Services
 
                         tablePermissions.AddRange(new List<Dictionary<string, object>>{
                             new Dictionary<string, object>{
-                            { "Schema", table.Schema },
-                            { "Table", table.Name },
-                            { "Role", 1 },
-                            { "UserAccessLevel", 1 },
-                            { "CanRead", true },
-                            { "CanWrite", true },
-                            { "CanUpdate", true },
-                            { "CanDelete", true },
-                            { "CreatedOn", DateTime.UtcNow},
-                            { "CreatedBy", 1}
-                        },
-                        new Dictionary<string, object>{
-                            { "Schema", table.Schema },
-                            { "Table", table.Name },
-                            { "Role", 2 },
-                            { "UserAccessLevel", 1 },
-                            { "CanRead", true },
-                            { "CanWrite", true },
-                            { "CanUpdate", true },
-                            { "CanDelete", true },
-                            { "CreatedOn", DateTime.UtcNow},
-                            { "CreatedBy", 1}
-                        },
-                        new Dictionary<string, object>{
-                            { "Schema", table.Schema },
-                            { "Table", table.Name },
-                            { "Role", 3 },
-                            { "UserAccessLevel", 2 },
-                            { "CanRead", true },
-                            { "CanWrite", table.Schema == Schemas.Data },
-                            { "CanUpdate", table.Schema == Schemas.Data },
-                            { "CanDelete", table.Schema == Schemas.Data },
-                            { "CreatedOn", DateTime.UtcNow},
-                            { "CreatedBy", 1}
-                        }
-                        }
-                        );
+                                { "Schema", table.Schema },
+                                { "Table", table.Name },
+                                { "Role", 1 },
+                                { "UserAccessLevel", 1 },
+                                { "CanRead", true },
+                                { "CanWrite", true },
+                                { "CanUpdate", true },
+                                { "CanDelete", true },
+                                { "CreatedOn", DateTime.UtcNow},
+                                { "CreatedBy", 1}
+                            },
+                            new Dictionary<string, object>{
+                                { "Schema", table.Schema },
+                                { "Table", table.Name },
+                                { "Role", 2 },
+                                { "UserAccessLevel", 1 },
+                                { "CanRead", true },
+                                { "CanWrite", true },
+                                { "CanUpdate", true },
+                                { "CanDelete", true },
+                                { "CreatedOn", DateTime.UtcNow},
+                                { "CreatedBy", 1}
+                            },
+                            new Dictionary<string, object>{
+                                { "Schema", table.Schema },
+                                { "Table", table.Name },
+                                { "Role", 3 },
+                                { "UserAccessLevel", table.Name == TableNames.TablePermissions.ToString()?  1: 2 },
+                                { "CanRead", true },
+                                { "CanWrite", table.Schema == Schemas.Data },
+                                { "CanUpdate", table.Schema == Schemas.Data },
+                                { "CanDelete", table.Schema == Schemas.Data },
+                                { "CreatedOn", DateTime.UtcNow},
+                                { "CreatedBy", 1}
+                            }
+                        });
                     };
 
                     await ServiceManager

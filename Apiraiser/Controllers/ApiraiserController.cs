@@ -83,7 +83,7 @@ namespace Apiraiser.Controllers
                 Success = true,
                 Data = new Dictionary<string, object>
                 {
-                    {"Apiraiser Version", "0.5.0"},
+                    {"Apiraiser Version", "0.5.1"},
                     {".Net Version", "net5"}
                 }
             };

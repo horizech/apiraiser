@@ -114,7 +114,11 @@ export const CreateEditTableEntityDialog = ({
                         foreignTable.entities
                     ).map((x) => {
                         return {
-                            label: x["Name"],
+                            label:
+                                x["Name"] ||
+                                x["Fullname"] ||
+                                x["Username"] ||
+                                x["Label"],
                             value: x[column.ForeignName],
                         };
                     });

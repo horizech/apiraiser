@@ -14,6 +14,32 @@
 
 ### Security:
 
+## [v0.5.1] - 2022-08-01
+
+## Unreleased
+
+### Added:
+
+-   Added notification in table slice actions errors
+-   Update TablePermissions on CreateTable success
+
+### Changed:
+
+-   Updated LongText Dynamic element
+-   Updated Short and Long Dynamic row elements
+-   Changed TablePermissions UserAccessLevel for User
+
+### Deprecated:
+
+### Removed:
+
+### Fixed:
+
+-   Fixed DefaultValue Datatype in CreateEditColumn
+-   Search in more label columns for Select Labels
+
+### Security:
+
 ## [v0.5.0] - 2022-07-31
 
 ## Unreleased

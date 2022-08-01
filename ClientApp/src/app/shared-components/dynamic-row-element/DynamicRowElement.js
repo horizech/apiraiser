@@ -10,77 +10,92 @@ import { Controller } from "react-hook-form";
 import "./DynamicRowElement.css";
 
 export const DynamicRowElement = ({ column, value, users }) => {
-  const getElement = () => {
-    switch (column.Datatype) {
-      case "Integer": {
-        if (
-          (column.Name === "CreatedBy" || column.Name === "LastUpdatedBy") &&
-          users &&
-          Object.keys(users) &&
-          Object.keys(users).length &&
-          users["" + value]
-        ) {
-          return (
-            <span>
-              {users["" + value]["Fullname"] ||
-                users["" + value]["Username"] ||
-                value}
-            </span>
-          );
-        } else {
-          return <span>{value}</span>;
-        }
-      }
-      case "Decimal":
-      case "Float":
-        return <span>{value}</span>;
-      case "IntegerArray":
-        return <span>{`[${value ? value.join(", ") : ""}]`}</span>;
-      default:
-      case "LongText":
-      case "ShortText":
-        return <span>{value}</span>;
-      case "DateTime":
-        return <span>{value ? moment(value).toLocaleString() : ""}</span>;
-      case "Boolean":
-        return <span>{value + ""}</span>;
-      case "Image":
-        var b64encoded = null;
-        if (value) {
-          var b64encoded = window.btoa(
-            new Uint8Array(value).reduce(function (data, byte) {
-              return data + String.fromCharCode(byte);
-            }, "")
-          );
+    const getElement = () => {
+        switch (column.Datatype) {
+            case "Integer": {
+                if (
+                    (column.Name === "CreatedBy" ||
+                        column.Name === "LastUpdatedBy") &&
+                    users &&
+                    Object.keys(users) &&
+                    Object.keys(users).length &&
+                    users["" + value]
+                ) {
+                    return (
+                        <span>
+                            {users["" + value]["Fullname"] ||
+                                users["" + value]["Username"] ||
+                                value}
+                        </span>
+                    );
+                } else {
+                    return <span>{value}</span>;
+                }
+            }
+            case "Decimal":
+            case "Float":
+                return <span>{value}</span>;
+            case "IntegerArray":
+                return <span>{`[${value ? value.join(", ") : ""}]`}</span>;
+            default:
+            case "ShortText":
+            case "LongText":
+                return (
+                    <p
+                        style={{
+                            width: "200px",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap",
+                            textOverflow: "ellipsis",
+                            wordWrap: "break-word",
+                        }}
+                    >
+                        {value}
+                    </p>
+                );
+            case "DateTime":
+                return (
+                    <span>{value ? moment(value).toLocaleString() : ""}</span>
+                );
+            case "Boolean":
+                return <span>{value + ""}</span>;
+            case "Image":
+                var b64encoded = null;
+                if (value) {
+                    var b64encoded = window.btoa(
+                        new Uint8Array(value).reduce(function (data, byte) {
+                            return data + String.fromCharCode(byte);
+                        }, "")
+                    );
 
-          return (
-            <img
-              src={"data:image/jpg;base64," + b64encoded}
-              style={{ maxWidth: "32px", maxHeight: "32px" }}
-            />
-          );
-        } else {
-          return <></>;
-        }
-      // var u8 = new Uint8Array(value);
-      // var b64encoded = btoa(String.fromCharCode.apply(null, u8));
+                    return (
+                        <img
+                            src={"data:image/jpg;base64," + b64encoded}
+                            style={{ maxWidth: "32px", maxHeight: "32px" }}
+                        />
+                    );
+                } else {
+                    return <></>;
+                }
+            // var u8 = new Uint8Array(value);
+            // var b64encoded = btoa(String.fromCharCode.apply(null, u8));
 
-      // var decoder = new TextDecoder("utf8");
-      // console.log("decoder", decoder);
-      // var b64encoded = btoa(decoder.decode(unescape(encodeURIComponent(u8))));
-      // console.log("b64encoded", b64encoded);
+            // var decoder = new TextDecoder("utf8");
+            // console.log("decoder", decoder);
+            // var b64encoded = btoa(decoder.decode(unescape(encodeURIComponent(u8))));
+            // console.log("b64encoded", b64encoded);
+        }
+    };
+
+    if (column) {
+        return getElement();
+    } else {
+        return (
+            <p>
+                <em>Loading...</em>
+            </p>
+        );
     }
-  };
-
-  if (column) {
-    return getElement();
-  } else {
-    return (
-      <p>
-        <em>Loading...</em>
-      </p>
-    );
-  }
 };
 // class DynamicRowElement extends Component {
 //   static displayName = DynamicRowElement.name;

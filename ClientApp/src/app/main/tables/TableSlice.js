@@ -52,22 +52,6 @@ export const createTableSlice = (schema, table) => {
             } catch (e) {
                 return [];
             }
-
-            // .then((response) => {
-            //     if (response.data.Success) {
-            //         return thunkAPI.dispatch(
-            //             tablesActions.setColumns({
-            //                 schema,
-            //                 table,
-            //                 data: response.data.Data,
-            //             })
-            //         );
-            //     } else {
-            //         return thunkAPI.dispatch(
-            //             tablesActions.setError([response.data.ErrorCode])
-            //         );
-            //     }
-            // });
         }
     );
 
@@ -80,27 +64,6 @@ export const createTableSlice = (schema, table) => {
             } catch (e) {
                 return [];
             }
-
-            // .then((response) => {
-            //     if (
-            //         response.data.Success ||
-            //         response.data.Message === "Nothing found!"
-            //     ) {
-            //         return dispatch(
-            //             tablesActions.setEntities({
-            //                 schema,
-            //                 table,
-            //                 data: response.data.Data,
-            //             })
-            //         );
-            //     } else {
-            //         return dispatch(
-            //             tablesActions.setError([
-            //                 response.data.Message || response.data.ErrorCode,
-            //             ])
-            //         );
-            //     }
-            // });
         }
     );
 
@@ -122,10 +85,15 @@ export const createTableSlice = (schema, table) => {
                 );
                 return response.data.Success;
             } else {
-                dispatch(
-                    tablesActions.setError([
-                        response.data.Message || response.data.ErrorCode,
-                    ])
+                thunkAPI.dispatch(
+                    addNotification(
+                        NotificationModel({
+                            message:
+                                response.data.Message ||
+                                response.data.ErrorCode,
+                            options: { variant: "error" },
+                        })
+                    )
                 );
                 return response.data.Success;
             }
@@ -152,9 +120,14 @@ export const createTableSlice = (schema, table) => {
                 return response.data.Success;
             } else {
                 thunkAPI.dispatch(
-                    tablesActions.setError([
-                        response.data.Message || response.data.ErrorCode,
-                    ])
+                    addNotification(
+                        NotificationModel({
+                            message:
+                                response.data.Message ||
+                                response.data.ErrorCode,
+                            options: { variant: "error" },
+                        })
+                    )
                 );
                 return response.data.Success;
             }
@@ -177,10 +150,15 @@ export const createTableSlice = (schema, table) => {
                 );
                 return response.data.Success;
             } else {
-                dispatch(
-                    tablesActions.setError([
-                        response.data.Message || response.data.ErrorCode,
-                    ])
+                thunkAPI.dispatch(
+                    addNotification(
+                        NotificationModel({
+                            message:
+                                response.data.Message ||
+                                response.data.ErrorCode,
+                            options: { variant: "error" },
+                        })
+                    )
                 );
                 return response.data.Success;
             }
@@ -205,10 +183,15 @@ export const createTableSlice = (schema, table) => {
                 );
                 return response.data.Success;
             } else {
-                dispatch(
-                    tablesActions.setError([
-                        response.data.Message || response.data.ErrorCode,
-                    ])
+                thunkAPI.dispatch(
+                    addNotification(
+                        NotificationModel({
+                            message:
+                                response.data.Message ||
+                                response.data.ErrorCode,
+                            options: { variant: "error" },
+                        })
+                    )
                 );
                 return response.data.Success;
             }
@@ -232,10 +215,15 @@ export const createTableSlice = (schema, table) => {
                 );
                 return response.data.Success;
             } else {
-                dispatch(
-                    tablesActions.setError([
-                        response.data.Message || response.data.ErrorCode,
-                    ])
+                thunkAPI.dispatch(
+                    addNotification(
+                        NotificationModel({
+                            message:
+                                response.data.Message ||
+                                response.data.ErrorCode,
+                            options: { variant: "error" },
+                        })
+                    )
                 );
                 return response.data.Success;
             }

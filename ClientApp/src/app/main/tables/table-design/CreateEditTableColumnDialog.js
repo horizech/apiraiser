@@ -13,7 +13,6 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector, useStore } from "react-redux";
 import * as yup from "yup";
-import { TableService } from "../TableService";
 
 export const CreateEditTableColumnDialog = ({
     schema,
@@ -181,6 +180,10 @@ export const CreateEditTableColumnDialog = ({
     }, [addColumnState]);
 
     const onSubmit = (model) => {
+        columns.filter((x) => x.Name === "DefaultValue")[0].Datatype =
+            DataUtils.DataTypesOptions.filter(
+                (x) => x.value === parseInt("" + model["Datatype"])
+            )[0].label;
         const postData = DataUtils.EncodeData(model, columns);
         dispatch(tableSlice.thunks.addColumn(postData));
     };
