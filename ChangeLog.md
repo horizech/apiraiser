@@ -4,6 +4,22 @@
 
 ### Added:
 
+### Changed:
+
+### Deprecated:
+
+### Removed:
+
+### Fixed:
+
+### Security:
+
+## [v0.5.1] - 2022-08-01
+
+## Unreleased
+
+### Added:
+
 -   Added notification in table slice actions errors
 -   Update TablePermissions on CreateTable success
 
