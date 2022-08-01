@@ -85,7 +85,7 @@ namespace Apiraiser.Controllers
                 }
             }
 
-            return await ServiceManager.Instance.GetService<TableService>().CreateTable(schema, table, columns);
+            return await ServiceManager.Instance.GetService<TableService>().CreateTable(schema, table, Users.GetUserId(User), columns);
         }
 
         [Authorize]

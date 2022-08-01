@@ -5,6 +5,7 @@
 ### Added:
 
 -   Added notification in table slice actions errors
+-   Update TablePermissions on CreateTable success
 
 ### Changed:
 
