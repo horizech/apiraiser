@@ -14,6 +14,8 @@
 
 ### Fixed:
 
+-   Fixed loading entities in CreateEdit Table Entity
+
 ### Security:
 
 ## [v0.5.1] - 2022-08-01

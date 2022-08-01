@@ -71,7 +71,11 @@ export const DynamicElement = ({
                                     onChange={(e, v) => {
                                         e.preventDefault();
                                         field.onChange(e);
-                                        if (onChange) {
+                                        if (
+                                            onChange &&
+                                            v.props &&
+                                            v.props.value
+                                        ) {
                                             onChange({
                                                 name: column.Name,
                                                 value: v.props.value,
