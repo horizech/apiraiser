@@ -4,6 +4,8 @@
 
 ### Added:
 
+-   Added notification in table slice actions errors
+
 ### Changed:
 
 ### Deprecated:
@@ -12,7 +14,7 @@
 
 ### Fixed:
 
--   Added notification in table slice actions errors
+-   Fixed DefaultValue Datatype in CreateEditColumn
 
 ### Security:
 
