@@ -6,6 +6,8 @@
 
 ### Changed:
 
+-   Set Name to ShortText in CreateEditTableColumn
+
 ### Deprecated:
 
 ### Removed:
