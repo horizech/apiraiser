@@ -1,6 +1,6 @@
 {
     "name": "apiraiser",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "private": true,
     "dependencies": {
         "@date-io/date-fns-jalali": "2.13.1",

@@ -6,6 +6,22 @@
 
 ### Changed:
 
+### Deprecated:
+
+### Removed:
+
+### Fixed:
+
+### Security:
+
+## [v0.5.2] - 2022-08-01
+
+## Unreleased
+
+### Added:
+
+### Changed:
+
 -   Set Name to ShortText in CreateEditTableColumn
 
 ### Deprecated:
