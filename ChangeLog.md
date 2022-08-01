@@ -8,6 +8,8 @@
 
 ### Changed:
 
+-   Updated LongText Dynamic element
+
 ### Deprecated:
 
 ### Removed:

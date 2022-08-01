@@ -1,12 +1,12 @@
 // import { ReactSelectAdapter } from "../adapters";
 import {
-  Autocomplete,
-  Button,
-  Checkbox,
-  Chip,
-  InputLabel,
-  MenuItem,
-  Select,
+    Autocomplete,
+    Button,
+    Checkbox,
+    Chip,
+    InputLabel,
+    MenuItem,
+    Select,
 } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { DataUtils } from "app/utils/data";
@@ -19,77 +19,81 @@ import "./DynamicElement.css";
 import { DynamicImageElement } from "./DynamicImageElement";
 
 export const DynamicElement = ({
-  input,
-  column,
-  control,
-  disabled,
-  errors,
-  isWorking,
-  onChange,
-  onFocus,
-  onBlur,
-  label,
-  isSelect,
-  selectOptions,
+    input,
+    column,
+    control,
+    disabled,
+    errors,
+    isWorking,
+    onChange,
+    onFocus,
+    onBlur,
+    label,
+    isSelect,
+    selectOptions,
 }) => {
-  const { register, watch, setValue } = useForm({
-    mode: "onChange",
-    defaultValues: "",
-  });
-  const [fieldValue, setFieldValue] = useState([]);
+    const { register, watch, setValue } = useForm({
+        mode: "onChange",
+        defaultValues: "",
+    });
+    const [fieldValue, setFieldValue] = useState([]);
 
-  //   const updateInterArray(field, value) {
-  //     field.onChange(value ? value.map((x) => `${x}`).join(",") : "";
+    //   const updateInterArray(field, value) {
+    //     field.onChange(value ? value.map((x) => `${x}`).join(",") : "";
 
-  //     result[key] = data[key].split(",").map((x) => parseInt("" + x.trim()));
+    //     result[key] = data[key].split(",").map((x) => parseInt("" + x.trim()));
 
-  //   }
+    //   }
 
-  const getElement = () => {
-    if (isSelect) {
-      return (
-        <div className={DataUtils.GetInputWidth(column)}>
-          <Controller
-            name={column.Name}
-            control={control}
-            render={({ field }) => (
-              <>
-                <InputLabel id={column.Name}>{column.Name}</InputLabel>
-                <Select
-                  {...field}
-                  className="mb-16"
-                  autoFocus
-                  fullWidth
-                  type="number"
-                  error={!!errors[column.Name]}
-                  helperText={errors[column.Name]?.message}
-                  variant="outlined"
-                  required={column.IsRequired}
-                  disabled={disabled}
-                  onChange={(e, v) => {
-                    e.preventDefault();
-                    field.onChange(e);
-                    if (onChange) {
-                      onChange({
-                        name: column.Name,
-                        value: v.props.value,
-                      });
-                    }
-                  }}
-                >
-                  {selectOptions &&
-                    selectOptions.length &&
-                    selectOptions.map((option) => (
-                      <MenuItem value={option.value}>{option.label}</MenuItem>
-                    ))}
-                </Select>
-              </>
-            )}
-          />
-        </div>
-      );
+    const getElement = () => {
+        if (isSelect) {
+            return (
+                <div className={DataUtils.GetInputWidth(column)}>
+                    <Controller
+                        name={column.Name}
+                        control={control}
+                        render={({ field }) => (
+                            <>
+                                <InputLabel id={column.Name}>
+                                    {column.Name}
+                                </InputLabel>
+                                <Select
+                                    {...field}
+                                    className="mb-16"
+                                    autoFocus
+                                    fullWidth
+                                    type="number"
+                                    error={!!errors[column.Name]}
+                                    helperText={errors[column.Name]?.message}
+                                    variant="outlined"
+                                    required={column.IsRequired}
+                                    disabled={disabled}
+                                    onChange={(e, v) => {
+                                        e.preventDefault();
+                                        field.onChange(e);
+                                        if (onChange) {
+                                            onChange({
+                                                name: column.Name,
+                                                value: v.props.value,
+                                            });
+                                        }
+                                    }}
+                                >
+                                    {selectOptions &&
+                                        selectOptions.length &&
+                                        selectOptions.map((option) => (
+                                            <MenuItem value={option.value}>
+                                                {option.label}
+                                            </MenuItem>
+                                        ))}
+                                </Select>
+                            </>
+                        )}
+                    />
+                </div>
+            );
 
-      /*
+            /*
       return (
         <div className={DataUtils.GetInputWidth(column)}>
           <label htmlFor={column.Name}>{(label || column.Name) + (column.IsRequired ? ' *' : '')}</label>
@@ -97,127 +101,166 @@ export const DynamicElement = ({
         </div>
       )
       */
-    } else {
-      switch (column.Datatype) {
-        case "Integer":
-          return (
-            <div className={DataUtils.GetInputWidth(column)}>
-              <Controller
-                name={column.Name}
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    className="mb-16"
-                    label={column.Name}
-                    autoFocus
-                    type="number"
-                    error={!!errors[column.Name]}
-                    helperText={errors[column.Name]?.message}
-                    variant="outlined"
-                    required={column.IsRequired}
-                    fullWidth
-                    disabled={disabled}
-                  />
-                )}
-              />
-            </div>
-          );
-        default:
-        case "LongText":
-        case "ShortText":
-          return (
-            <div className={DataUtils.GetInputWidth(column)}>
-              <Controller
-                name={column.Name}
-                control={control}
-                render={({ field }) => {
-                  return (
-                    <TextField
-                      {...field}
-                      className="mb-16"
-                      label={column.Name}
-                      autoFocus
-                      type="text"
-                      error={!!errors[column.Name]}
-                      helperText={errors[column.Name]?.message}
-                      variant="outlined"
-                      required={column.IsRequired}
-                      fullWidth
-                      disabled={disabled}
-                    />
-                  );
-                }}
-              />
-            </div>
-          );
-        //   value={field.value.split(",").map((id) => id)}
-        //   onChange={(event, newValue) => {
-        //     setValue(
-        //       "idLabels",
-        //       newValue.map((item) => item.id)
-        //     );
-        //   }}
-        case "IntegerArray":
-          return (
-            <div className={DataUtils.GetInputWidth(column)}>
-              <Controller
-                name={column.Name}
-                control={control}
-                render={({ field }) => {
-                  let defaultValues = field.value ? field.value.split(",") : [];
-                  return (
-                    <Autocomplete
-                      className="mt-8 mb-16"
-                      multiple
-                      freeSolo
-                      options={defaultValues}
-                      getOptionLabel={(label) => {
-                        return label;
-                      }}
-                      value={defaultValues}
-                      onChange={(e, v) => {
-                        e.preventDefault();
-                        field.onChange(v.join(","));
-
-                        let value = v.join(",");
-                        if (onChange) {
-                          onChange({
-                            name: column.Name,
-                            value: value,
-                          });
-                        }
-                      }}
-                      renderTags={(value, getTagProps) =>
-                        value.map((option, index) => {
-                          return (
-                            <Chip
-                              label={option}
-                              {...getTagProps({ index })}
-                              className={clsx("m-3")}
+        } else {
+            switch (column.Datatype) {
+                case "Integer":
+                    return (
+                        <div className={DataUtils.GetInputWidth(column)}>
+                            <Controller
+                                name={column.Name}
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        className="mb-16"
+                                        label={column.Name}
+                                        autoFocus
+                                        type="number"
+                                        error={!!errors[column.Name]}
+                                        helperText={
+                                            errors[column.Name]?.message
+                                        }
+                                        variant="outlined"
+                                        required={column.IsRequired}
+                                        fullWidth
+                                        disabled={disabled}
+                                    />
+                                )}
                             />
-                          );
-                        })
-                      }
-                      renderInput={(params) => {
-                        return (
-                          <TextField
-                            {...params}
-                            placeholder="Select multiple Labels"
-                            label="Labels"
-                            variant="outlined"
-                            type="number"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                          />
-                        );
-                      }}
-                    />
-                  );
-                }}
-              />
-              {/* <Controller
+                        </div>
+                    );
+                default:
+                case "LongText":
+                    return (
+                        <div className={DataUtils.GetInputWidth(column)}>
+                            <Controller
+                                name={column.Name}
+                                control={control}
+                                render={({ field }) => {
+                                    return (
+                                        <TextField
+                                            {...field}
+                                            className="mb-16"
+                                            label={column.Name}
+                                            autoFocus
+                                            type="text"
+                                            error={!!errors[column.Name]}
+                                            helperText={
+                                                errors[column.Name]?.message
+                                            }
+                                            variant="outlined"
+                                            required={column.IsRequired}
+                                            fullWidth
+                                            disabled={disabled}
+                                            multiline={true}
+                                            rows={5}
+                                        />
+                                    );
+                                }}
+                            />
+                        </div>
+                    );
+                case "ShortText":
+                    return (
+                        <div className={DataUtils.GetInputWidth(column)}>
+                            <Controller
+                                name={column.Name}
+                                control={control}
+                                render={({ field }) => {
+                                    return (
+                                        <TextField
+                                            {...field}
+                                            className="mb-16"
+                                            label={column.Name}
+                                            autoFocus
+                                            type="text"
+                                            error={!!errors[column.Name]}
+                                            helperText={
+                                                errors[column.Name]?.message
+                                            }
+                                            variant="outlined"
+                                            required={column.IsRequired}
+                                            fullWidth
+                                            disabled={disabled}
+                                        />
+                                    );
+                                }}
+                            />
+                        </div>
+                    );
+                //   value={field.value.split(",").map((id) => id)}
+                //   onChange={(event, newValue) => {
+                //     setValue(
+                //       "idLabels",
+                //       newValue.map((item) => item.id)
+                //     );
+                //   }}
+                case "IntegerArray":
+                    return (
+                        <div className={DataUtils.GetInputWidth(column)}>
+                            <Controller
+                                name={column.Name}
+                                control={control}
+                                render={({ field }) => {
+                                    let defaultValues = field.value
+                                        ? field.value.split(",")
+                                        : [];
+                                    return (
+                                        <Autocomplete
+                                            className="mt-8 mb-16"
+                                            multiple
+                                            freeSolo
+                                            options={defaultValues}
+                                            getOptionLabel={(label) => {
+                                                return label;
+                                            }}
+                                            value={defaultValues}
+                                            onChange={(e, v) => {
+                                                e.preventDefault();
+                                                field.onChange(v.join(","));
+
+                                                let value = v.join(",");
+                                                if (onChange) {
+                                                    onChange({
+                                                        name: column.Name,
+                                                        value: value,
+                                                    });
+                                                }
+                                            }}
+                                            renderTags={(value, getTagProps) =>
+                                                value.map((option, index) => {
+                                                    return (
+                                                        <Chip
+                                                            label={option}
+                                                            {...getTagProps({
+                                                                index,
+                                                            })}
+                                                            className={clsx(
+                                                                "m-3"
+                                                            )}
+                                                        />
+                                                    );
+                                                })
+                                            }
+                                            renderInput={(params) => {
+                                                return (
+                                                    <TextField
+                                                        {...params}
+                                                        placeholder="Select multiple Labels"
+                                                        label="Labels"
+                                                        variant="outlined"
+                                                        type="number"
+                                                        InputLabelProps={{
+                                                            shrink: true,
+                                                        }}
+                                                    />
+                                                );
+                                            }}
+                                        />
+                                    );
+                                }}
+                            />
+                            {/* <Controller
                 name={column.Name}
                 control={control}
                 render={({ field }) => {
@@ -263,57 +306,63 @@ export const DynamicElement = ({
                   );
                 }}
               /> */}
-            </div>
-          );
+                        </div>
+                    );
 
-        case "DateTime":
-          return (
-            <div className={DataUtils.GetInputWidth(column)}>
-              <Controller
-                name={column.Name}
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    className="mb-16"
-                    label={column.Name}
-                    autoFocus
-                    type="datetime-local"
-                    error={!!errors[column.Name]}
-                    helperText={errors[column.Name]?.message}
-                    variant="outlined"
-                    fullWidth
-                    disabled={disabled}
-                  />
-                )}
-              />
-            </div>
-          );
-        case "Boolean":
-          return (
-            <div className={DataUtils.GetInputWidth(column)}>
-              <Controller
-                name={column.Name}
-                control={control}
-                render={({ field }) => (
-                  <div style={{ display: "flex" }}>
-                    <Checkbox
-                      className="mb-16"
-                      {...field}
-                      autoFocus
-                      error={!!errors[column.Name]}
-                      helperText={errors[column.Name]?.message}
-                      variant="outlined"
-                      required={column.IsRequired}
-                      fullWidth
-                      checked={column.ischecked}
-                      disabled={disabled}
-                    />
-                    <span style={{ marginTop: "12px" }}>{column.Name}</span>
-                  </div>
-                )}
-              />
-              {/* <div className="element-boolean">
+                case "DateTime":
+                    return (
+                        <div className={DataUtils.GetInputWidth(column)}>
+                            <Controller
+                                name={column.Name}
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        className="mb-16"
+                                        label={column.Name}
+                                        autoFocus
+                                        type="datetime-local"
+                                        error={!!errors[column.Name]}
+                                        helperText={
+                                            errors[column.Name]?.message
+                                        }
+                                        variant="outlined"
+                                        fullWidth
+                                        disabled={disabled}
+                                    />
+                                )}
+                            />
+                        </div>
+                    );
+                case "Boolean":
+                    return (
+                        <div className={DataUtils.GetInputWidth(column)}>
+                            <Controller
+                                name={column.Name}
+                                control={control}
+                                render={({ field }) => (
+                                    <div style={{ display: "flex" }}>
+                                        <Checkbox
+                                            className="mb-16"
+                                            {...field}
+                                            autoFocus
+                                            error={!!errors[column.Name]}
+                                            helperText={
+                                                errors[column.Name]?.message
+                                            }
+                                            variant="outlined"
+                                            required={column.IsRequired}
+                                            fullWidth
+                                            checked={column.ischecked}
+                                            disabled={disabled}
+                                        />
+                                        <span style={{ marginTop: "12px" }}>
+                                            {column.Name}
+                                        </span>
+                                    </div>
+                                )}
+                            />
+                            {/* <div className="element-boolean">
                 <label htmlFor={column.Name}>
                   <input
                     {...input}
@@ -334,30 +383,30 @@ export const DynamicElement = ({
                   {(label || column.Name) + (column.IsRequired ? " *" : "")}
                 </label>
               </div> */}
-            </div>
-          );
-        case "Image":
-          return (
-            <DynamicImageElement
-              control={control}
-              column={column}
-              disabled={disabled}
-              errors={errors}
-            ></DynamicImageElement>
-          );
-      }
-    }
-  };
+                        </div>
+                    );
+                case "Image":
+                    return (
+                        <DynamicImageElement
+                            control={control}
+                            column={column}
+                            disabled={disabled}
+                            errors={errors}
+                        ></DynamicImageElement>
+                    );
+            }
+        }
+    };
 
-  if (column) {
-    return getElement();
-  } else {
-    return (
-      <p>
-        <em>Loading...</em>
-      </p>
-    );
-  }
+    if (column) {
+        return getElement();
+    } else {
+        return (
+            <p>
+                <em>Loading...</em>
+            </p>
+        );
+    }
 };
 // class DynamicElement extends Component {
 //   static displayName = DynamicElement.name;
