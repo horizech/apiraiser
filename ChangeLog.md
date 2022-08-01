@@ -12,6 +12,8 @@
 
 ### Fixed:
 
+-   Added notification in table slice actions errors
+
 ### Security:
 
 ## [v0.5.0] - 2022-07-31
