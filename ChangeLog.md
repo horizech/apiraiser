@@ -9,6 +9,7 @@
 ### Changed:
 
 -   Updated LongText Dynamic element
+-   Updated Short and Long Dynamic row elements
 
 ### Deprecated:
 
