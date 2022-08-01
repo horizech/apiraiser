@@ -15,6 +15,7 @@
 ### Fixed:
 
 -   Fixed DefaultValue Datatype in CreateEditColumn
+-   Search in more label columns for Select Labels
 
 ### Security:
 
