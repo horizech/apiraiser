@@ -16,8 +16,6 @@
 
 ## [v0.5.3] - 2022-08-02
 
-## Unreleased
-
 ### Added:
 
 -   Added Money type in EncodeData
@@ -38,8 +36,6 @@
 
 ## [v0.5.2] - 2022-08-01
 
-## Unreleased
-
 ### Added:
 
 ### Changed:
@@ -57,8 +53,6 @@
 ### Security:
 
 ## [v0.5.1] - 2022-08-01
-
-## Unreleased
 
 ### Added:
 
@@ -83,8 +77,6 @@
 ### Security:
 
 ## [v0.5.0] - 2022-07-31
-
-## Unreleased
 
 ### Added:
 
