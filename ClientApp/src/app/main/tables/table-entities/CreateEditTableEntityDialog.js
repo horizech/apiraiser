@@ -1,5 +1,5 @@
 import FuseLoading from "@fuse/core/FuseLoading";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Icon, IconButton } from "@mui/material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -205,7 +205,20 @@ export const CreateEditTableEntityDialog = ({
             {...other}
         >
             <DialogTitle>
-                {data != null ? t("Update " + table) : t("Add " + table)}
+                <div style={{ display: "flex" }}>
+                    {data != null ? t("Update " + table) : t("Add " + table)}
+                    <div style={{ flex: "1 1 auto" }}></div>
+                    <IconButton
+                        className="min-w-auto"
+                        size="small"
+                        color="primary"
+                        onClick={() => {
+                            onClose();
+                        }}
+                    >
+                        <Icon>cancel</Icon>
+                    </IconButton>
+                </div>
             </DialogTitle>
             <DialogContent
                 dividers

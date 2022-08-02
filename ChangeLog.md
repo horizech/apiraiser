@@ -5,6 +5,7 @@
 ### Added:
 
 -   Added Money type in EncodeData
+-   Added close buttons in CreateEdit table dialog and entity
 
 ### Changed:
 
