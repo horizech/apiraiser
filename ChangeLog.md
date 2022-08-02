@@ -14,9 +14,27 @@
 
 ### Security:
 
-## [v0.5.2] - 2022-08-01
+## [v0.5.3] - 2022-08-02
 
-## Unreleased
+### Added:
+
+-   Added Money type in EncodeData
+-   Added close buttons in CreateEdit table dialog and entity
+-   Started work on ViewTableEntityDialog
+
+### Changed:
+
+-   Use ShortText for default in Dynamic Element
+
+### Deprecated:
+
+### Removed:
+
+### Fixed:
+
+### Security:
+
+## [v0.5.2] - 2022-08-01
 
 ### Added:
 
@@ -35,8 +53,6 @@
 ### Security:
 
 ## [v0.5.1] - 2022-08-01
-
-## Unreleased
 
 ### Added:
 
@@ -61,8 +77,6 @@
 ### Security:
 
 ## [v0.5.0] - 2022-07-31
-
-## Unreleased
 
 ### Added:
 

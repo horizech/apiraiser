@@ -133,7 +133,6 @@ export const DynamicElement = ({
                             />
                         </div>
                     );
-                default:
                 case "LongText":
                     return (
                         <div className={DataUtils.GetInputWidth(column)}>
@@ -164,6 +163,7 @@ export const DynamicElement = ({
                             />
                         </div>
                     );
+                default:
                 case "ShortText":
                     return (
                         <div className={DataUtils.GetInputWidth(column)}>

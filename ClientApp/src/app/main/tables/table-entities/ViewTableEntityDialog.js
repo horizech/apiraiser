@@ -13,19 +13,22 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector, useStore } from "react-redux";
 import * as yup from "yup";
+import { TableService } from "../TableService";
 
-export const CreateEditTableColumnDialog = ({
+export const ViewTableEntityDialog = ({
     schema,
     table,
     onClose,
+    data,
     open,
     ...other
 }) => {
     //const { onClose, value: valueProp, open, ...other } = props;
 
     const dispatch = useDispatch();
-
+    const store = useStore();
     const statePath = `${schema}_${table}`;
+
     const tableSlice = useSelector(
         ({ apiraiser }) => apiraiser.slices[statePath]
     );
@@ -33,20 +36,8 @@ export const CreateEditTableColumnDialog = ({
     const { t } = useTranslation("apiraiserTranslations");
     const [isCreating, setCreating] = React.useState(false);
     const [isEditing, setEditing] = React.useState(false);
-    const schemaContext = { loaded: false };
-
-    const defaultValues = {
-        Name: "",
-        Datatype: -1,
-        IsRequired: false,
-        IsUnique: false,
-        IsForeignKey: false,
-        ForeignSchema: "",
-        ForeignTable: "",
-        ForeignName: "",
-        DefaultValue: "",
-    };
-
+    const [formSchema, setFormSchema] = React.useState();
+    const [schemaContext, setSchemaContext] = React.useState({ loaded: false });
     const {
         register,
         control,
@@ -58,7 +49,7 @@ export const CreateEditTableColumnDialog = ({
         setError,
     } = useForm({
         mode: "onChange",
-        defaultValues: defaultValues,
+        // defaultValues: {},
         context: schemaContext,
         //  resolver: yupResolver(schema), // use this method if you have a static schema
         resolver: async (data, context) => {
@@ -68,124 +59,135 @@ export const CreateEditTableColumnDialog = ({
 
     const { isValid, dirtyFields, errors } = formState;
 
-    const addColumnState = useSelector(
-        (state) => state[statePath].addColumnState
-    );
+    const [selectableElements, setSelectableElements] = React.useState([]);
+    const [selectOptions, setSelectOptions] = React.useState({});
 
-    const store = useStore();
+    const createState = useSelector((state) => state[statePath].createState);
 
-    const columns = DataUtils.GetDesignColumns();
-    const formSchema = yup.object().shape(DataUtils.GenerateSchema(columns));
-    const selectableElements = [
-        "Datatype",
-        "ForeignSchema",
-        "ForeignTable",
-        "ForeignName",
-    ];
-    const [selectOptions, setSelectOptions] = React.useState({
-        Datatype: DataUtils.DataTypesOptions,
-        ForeignSchema: DataUtils.SchemaOptions,
-        ForeignTable: [],
-        ForeignName: [],
-    });
+    const editState = useSelector((state) => state[statePath].editState);
 
-    const [foreignSchema, setForeignSchema] = React.useState(null);
-    const [foreignTable, setForeignTable] = React.useState(null);
-    const [foreignStatePath, setForeignStatePath] = React.useState(null);
+    const columns = useSelector((state) => state[statePath].columns);
 
-    const foreignTablesColumns = useSelector((state) =>
-        foreignSchema && foreignTable
-            ? state[`${foreignSchema}_${foreignTable}`].columns
-            : []
-    );
-    const foreignTablesColumnsState = useSelector((state) =>
-        foreignSchema && foreignTable
-            ? state[`${foreignSchema}_${foreignTable}`].columnsState
-            : "waiting"
-    );
+    const dataState = useSelector((state) => state);
 
-    const accessibleTables = useSelector(
-        ({ apiraiser }) => apiraiser.accessibleTables
-    );
+    const [columnInfo, setColumnInfo] = React.useState(null);
 
-    React.useEffect(() => {
-        if (foreignSchema) {
-            let newSelectOptions = {};
-            Object.assign(newSelectOptions, selectOptions);
-            newSelectOptions["ForeignTable"] = accessibleTables[
-                foreignSchema
-            ].map((x) => {
-                return {
-                    label: x,
-                    value: x,
-                };
+    const loadForeignSelectOptions = () => {
+        let newSelectOptions = {};
+
+        Object.assign(newSelectOptions, selectOptions);
+
+        if (columnInfo != null) {
+            columnInfo.map((column) => {
+                let foreignStatePath = `${column.ForeignSchema}_${column.ForeignTable}`;
+                let foreignTable = dataState[foreignStatePath];
+                if (
+                    column != null &&
+                    foreignTable != null &&
+                    foreignTable.entitiesState === "success"
+                ) {
+                    newSelectOptions[column.Name] = Object.values(
+                        foreignTable.entities
+                    ).map((x) => {
+                        return {
+                            label:
+                                x["Name"] ||
+                                x["Fullname"] ||
+                                x["Username"] ||
+                                x["Label"],
+                            value: x[column.ForeignName],
+                        };
+                    });
+                }
             });
-            setSelectOptions(newSelectOptions);
-        } else {
-            setSelectOptions(selectOptions);
         }
-    }, [foreignSchema]);
+
+        setSelectOptions(newSelectOptions);
+    };
 
     React.useEffect(() => {
-        if (foreignSchema && foreignTable) {
-            setForeignStatePath(`${foreignSchema}_${foreignTable}`);
-        } else {
-            setForeignStatePath(null);
+        if (data) {
+            reset(data);
         }
-    }, [foreignTable]);
+    }, [data]);
 
     React.useEffect(() => {
-        if (foreignStatePath) {
-            let foreignState = store.getState()[foreignStatePath];
-            if (
-                !foreignState ||
-                !foreignState.columns ||
-                !foreignState.columns.length
-            ) {
-                dispatch(
-                    store
-                        .getState()
-                        .apiraiser.slices[foreignStatePath].thunks.getColumns()
-                );
-            }
-        }
-    }, [foreignStatePath]);
-
-    React.useEffect(() => {
-        if (
-            foreignSchema &&
-            foreignTable &&
-            foreignTablesColumns &&
-            foreignTablesColumns.length
-        ) {
-            let newSelectOptions = {};
-            Object.assign(newSelectOptions, selectOptions);
-            newSelectOptions["ForeignName"] = foreignTablesColumns.map((x) => {
-                return {
-                    label: x.Name,
-                    value: x.Name,
-                };
-            });
-            setSelectOptions(newSelectOptions);
-        }
-    }, [foreignSchema, foreignTable, foreignTablesColumns]);
-
-    React.useEffect(() => {
-        if (addColumnState === "loading") {
+        if (createState === "loading") {
             setCreating(true);
-        } else if (addColumnState === "success" && isCreating) {
+        } else if (createState === "success" && isCreating) {
             onClose();
-            dispatch(tableSlice.thunks.getColumns());
+            dispatch(tableSlice.thunks.getEntities());
         }
-    }, [addColumnState]);
+    }, [createState]);
+
+    React.useEffect(() => {
+        if (editState === "loading") {
+            setEditing(true);
+        } else if (editState === "success" && isEditing) {
+            onClose();
+            dispatch(tableSlice.thunks.getEntities());
+        }
+    }, [editState]);
+
+    React.useEffect(() => {
+        loadForeignSelectOptions();
+    }, [dataState]);
+
+    React.useEffect(() => {
+        if (columnInfo != null) {
+            columnInfo.map((column) => {
+                let foreignStatePath = `${column.ForeignSchema}_${column.ForeignTable}`;
+                if (foreignStatePath) {
+                    let foreignState = store.getState()[foreignStatePath];
+                    if (
+                        !foreignState ||
+                        !foreignState.entities ||
+                        !foreignState.entities.length
+                    ) {
+                        if (
+                            !store.getState()[foreignStatePath].entitiesState ||
+                            store.getState()[foreignStatePath].entitiesState ==
+                                "error" ||
+                            store.getState()[foreignStatePath].entitiesState ==
+                                "waiting"
+                        ) {
+                            dispatch(
+                                store
+                                    .getState()
+                                    .apiraiser.slices[
+                                        foreignStatePath
+                                    ].thunks.getEntities()
+                            );
+                        } else {
+                            loadForeignSelectOptions();
+                        }
+                    }
+                }
+            });
+        }
+    }, [columnInfo]);
+
+    React.useEffect(() => {
+        if (columns && columns.length) {
+            setFormSchema(
+                yup.object().shape(DataUtils.GenerateSchema(columns))
+            );
+
+            let foreignColumns = columns
+                .filter((x) => x.IsForeignKey)
+                .map((x) => x.Name);
+            setColumnInfo(columns.filter((x) => x.IsForeignKey).map((x) => x));
+            setSelectableElements(foreignColumns);
+        }
+    }, columns);
 
     const onSubmit = (model) => {
-        columns.filter((x) => x.Name === "DefaultValue")[0].Datatype =
-            DataUtils.DataTypesOptions.filter(
-                (x) => x.value === parseInt("" + model["Datatype"])
-            )[0].label;
         const postData = DataUtils.EncodeData(model, columns);
-        dispatch(tableSlice.thunks.addColumn(postData));
+        if (data && data.Id) {
+            dispatch(tableSlice.thunks.editEntity({ id: data.Id, postData }));
+        } else {
+            dispatch(tableSlice.thunks.createEntity(postData));
+        }
     };
 
     const handleCancel = () => {
@@ -196,16 +198,6 @@ export const CreateEditTableColumnDialog = ({
         setValue(event.target.value);
     };
 
-    const onChange = (v) => {
-        if (v.name == "ForeignSchema") {
-            setForeignSchema(v.value);
-        }
-
-        if (v.name == "ForeignTable") {
-            setForeignTable(v.value);
-        }
-    };
-
     return (
         <Dialog
             sx={{ "& .MuiDialog-paper": { width: "60%", maxHeight: 420 } }}
@@ -214,9 +206,7 @@ export const CreateEditTableColumnDialog = ({
         >
             <DialogTitle>
                 <div style={{ display: "flex" }}>
-                    {defaultValues != null
-                        ? t("Update " + table)
-                        : t("Add " + table)}
+                    {t(table)}
                     <div style={{ flex: "1 1 auto" }}></div>
                     <IconButton
                         className="min-w-auto"
@@ -237,7 +227,7 @@ export const CreateEditTableColumnDialog = ({
                 {(!columns || !columns.length) && <FuseLoading />}
                 {columns && columns.length && (
                     <form
-                        name={`createEdit${table}Form`}
+                        name={`View${table}Form`}
                         noValidate
                         className="flex flex-col justify-center w-full"
                         onSubmit={handleSubmit(onSubmit)}
@@ -262,7 +252,6 @@ export const CreateEditTableColumnDialog = ({
                                             selectOptions={
                                                 selectOptions[column.Name]
                                             }
-                                            onChange={onChange}
                                         ></DynamicElement>
                                     );
                                 })}
@@ -299,7 +288,7 @@ export const CreateEditTableColumnDialog = ({
     );
 };
 
-CreateEditTableColumnDialog.propTypes = {
+ViewTableEntityDialog.propTypes = {
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
 };

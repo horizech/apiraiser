@@ -23,6 +23,7 @@ import { DataUtils } from "app/utils/data";
 import { TableService } from "../TableService";
 import { selectAll } from "../TableSlice";
 import { Link } from "react-router-dom";
+import { ViewTableEntityDialog } from "./ViewTableEntityDialog";
 
 const _TableEntitiesTable = (props) => {
     const dispatch = useDispatch();
@@ -69,7 +70,9 @@ const _TableEntitiesTable = (props) => {
     });
 
     const [isCreateEditDialogOpen, setCreateEditDialogOpen] = useState(false);
+    const [isViewDialogOpen, setViewDialogOpen] = useState(false);
     const [curEditRow, setCurEditRow] = useState(null);
+    const [curViewRow, setCurViewRow] = useState(null);
     const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [curDeleteId, setCurDeleteId] = useState(null);
 
@@ -81,8 +84,17 @@ const _TableEntitiesTable = (props) => {
         setCurEditRow(DataUtils.DecodeData(row, columns));
         setCreateEditDialogOpen(true);
     };
+    const showViewDialog = (row) => {
+        setCurViewRow(DataUtils.DecodeData(row, columns));
+        setViewDialogOpen(true);
+    };
+
     const handleCreateEditDialogClose = () => {
         setCreateEditDialogOpen(false);
+    };
+
+    const handleViewDialogClose = () => {
+        setViewDialogOpen(false);
     };
 
     const showDeleteDialog = (id) => {
@@ -358,6 +370,10 @@ const _TableEntitiesTable = (props) => {
                                                 tabIndex={-1}
                                                 key={n.Id}
                                                 selected={isSelected}
+                                                onClick={(event) => {
+                                                    event.stopPropagation();
+                                                    showViewDialog(n);
+                                                }}
                                             >
                                                 <TableCell
                                                     className="w-40 md:w-64 text-center"
@@ -454,6 +470,15 @@ const _TableEntitiesTable = (props) => {
                     data={curEditRow}
                     open={isCreateEditDialogOpen}
                     onClose={handleCreateEditDialogClose}
+                />
+            )}
+            {isViewDialogOpen && (
+                <ViewTableEntityDialog
+                    schema={schema}
+                    table={table}
+                    data={curViewRow}
+                    open={isViewDialogOpen}
+                    onClose={handleViewDialogClose}
                 />
             )}
             {isDeleteDialogOpen && (
