@@ -9,6 +9,8 @@
 
 ### Changed:
 
+-   Use ShortText for default in Dynamic Element
+
 ### Deprecated:
 
 ### Removed:
