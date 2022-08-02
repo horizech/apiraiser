@@ -4,6 +4,22 @@
 
 ### Added:
 
+### Changed:
+
+### Deprecated:
+
+### Removed:
+
+### Fixed:
+
+### Security:
+
+## [v0.5.3] - 2022-08-02
+
+## Unreleased
+
+### Added:
+
 -   Added Money type in EncodeData
 -   Added close buttons in CreateEdit table dialog and entity
 -   Started work on ViewTableEntityDialog
