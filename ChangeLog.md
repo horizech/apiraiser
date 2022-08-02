@@ -4,6 +4,8 @@
 
 ### Added:
 
+-   Added Money type in EncodeData
+
 ### Changed:
 
 ### Deprecated:

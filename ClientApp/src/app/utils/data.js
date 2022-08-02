@@ -21,7 +21,8 @@ const EncodeData = (data, columnsArr) => {
                 break;
             }
             case "Decimal":
-            case "Float": {
+            case "Float":
+            case "Money": {
                 result[key] = parseFloat("" + data[key]);
                 break;
             }
@@ -30,6 +31,14 @@ const EncodeData = (data, columnsArr) => {
                     !data[key] || data[key].toLowerCase() === "false"
                         ? false
                         : true;
+                break;
+            }
+            case "BooleanArray": {
+                result[key] = data[key]
+                    .split(",")
+                    .map((x) =>
+                        !x || x.toLowerCase() === "false" ? false : true
+                    );
                 break;
             }
             case "Image": {
